@@ -1,0 +1,283 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------------
+#
+# Skrypt htb
+# /etc/rc.d/rc.htb
+#
+# ----------------------------------------------------------------------------
+
+echo "** Startuje HTB..."
+
+################################ ALIASY #####################################
+
+# Interfejs sieciowy, na ktorym chodzi siec lokalna.
+DEV_LOC="eth1"
+DEV_LOC2="eth0"
+
+# Interfejs sieciowy, przez ktory jestes podlaczony do Internetu.
+# W przypadku SDI bedzie to np. ppp0, w przypadku InternetDSL np. eth1.
+DEV_INET="ppp0"
+
+# Maksymalna przepustowosc wejsciowa. W przykladowym skrypcie, przetestowanym
+# na laczu InternetDSL, przyjalem, ze jest to nieco ponizej fizycznej
+# wydajnosci, czyli 500 Kbit. W przypadku ustawienia na maksymalna
+# przepustowosc zaobserwowalem problemy, ale najlepiej przetestuj
+# samodzielnie, jaka wartosc jest OK - byc moze "wyciagniesz" wiecej.
+DCAP_NUM=620
+
+# Maksymalna przepustowosc wyjsciowa. Uwagi jak powyzej [do przepustowosci
+# wyjsciowej. Przy laczach asymetrycznych, takich jak InternetDSL, przypchanie
+# przepustowosci wyjsciowej powoduje potezny spadek przepustowosci wejsciowej,
+# a wiec uwaga na ta wartosc - nie za wysoko.
+UCAP_NUM=100
+
+# Maksymalna przepustowosc wejsciowa dla userow w sieci. W przykladowym skrypcie
+# zalozylem nieco nizsza od maksymalnej dla calej sieci. Sprawdza sie dobrze,
+# ale byc moze mozna ja nieco zwiekszyc. Roznica miedzy przepustowoscia
+# dla sieci a dla userow jest wykorzystywana pozniej na priorytetowa klase
+# dla "waznych" pakietow.
+DCEIL_NUM=590
+
+# Maksymalna przepustowosc wyjsciowa dla userow w sieci. Uwagi jak powyzej.
+UCEIL_NUM=80
+
+# Liczba userow w Twojej sieci, jest potem wykorzystywana do sprawiedliwego
+# podzialu pasma.
+NUM_USERS=4
+NUM_AUSERS=$NUM_USERS+1
+
+# Skroty ulatwiajace pozniejsze wpisywanie regul. Uwaga - jesli program tc
+# [z iproute2] nie znajduje sie w Twojej sciezce, dopisz tu pelna sciezke.
+TCC_LOC="tc class add dev $DEV_LOC"
+TCC_LOC2="tc class add dev $DEV_LOC2"
+TCC_INET="tc class add dev $DEV_INET"
+TCQ_LOC="tc qdisc add dev $DEV_LOC"
+TCQ_LOC2="tc qdisc add dev $DEV_LOC2"
+TCQ_INET="tc qdisc add dev $DEV_INET"
+TCF_LOC="tc filter add dev $DEV_LOC"
+TCF_LOC2="tc filter add dev $DEV_LOC2"
+TCF_INET="tc filter add dev $DEV_INET"
+
+# Tego nie ruszac.
+DCEIL=$[$DCEIL_NUM]Kbit
+UCEIL=$[$UCEIL_NUM]Kbit
+DCAP=$[$DCAP_NUM]Kbit
+UCAP=$[$UCAP_NUM]Kbit
+
+# Standardowy burst w HTB. Sprawdza sie w praktyce dobrze, ale mozna
+# z jego wartoscia poeksperymentowac. Burst to ilosc danych, ktore sa
+# przepuszczanie priorytetowo, niezaleznie od ograniczen klasy - dobre
+# do protokolow, ktore dzialaja na zasadzie krotkich "wystrzalow", np.
+# ogladanie stron WWW.
+BURST="15k"
+
+############################## PRZYGOTOWANIE ################################
+
+# usuwanie
+tc qdisc del root dev eth0
+tc qdisc del root dev eth1
+tc qdisc del root dev ppp0
+
+# stworzenie nowych korzeni dla sieci lokalnych
+
+$TCQ_LOC root handle 1 htb default 90
+$TCQ_LOC2 root handle 2 htb default 90
+
+# stworzenie nowego korzenia dla wyjscia na swiat
+
+$TCQ_INET root handle 3 htb default 90
+
+# utworzenie glownej klasy dla sieci lokalnej - przepustowosc 10 MBit
+# mozna oczywiscie zmienic, jesli masz siec lokalna 100 MBit.
+
+$TCC_LOC parent 1: classid 1:2 htb rate 100Mbit burst $BURST
+$TCC_LOC2 parent 2: classid 2:2 htb rate 10Mbit burst $BURST
+
+# utworzenie glownej klasy dla wyjscia na swiat - przepustowosc UCAP
+
+$TCC_INET parent 3: classid 3:2 htb rate $UCAP burst $BURST
+
+################################ RUCH LOKALNY ################################
+
+# klasa 1:8 dla sieci lokalnej - 10 MBit bez ograniczen,
+# wewnatrz rozklad wg esfq, ostatni priorytet, by ruch lokalny
+# nie przytkal ruchu w Internecie.
+# Mozna oczywiscie zmienic na 100 Mbit. Pamietaj by zmienic tez
+# rate z 9Mbit na 99Mbit na przyklad.
+# Rate 9Mbit jest nieco nizsza niz konieczna, wiec mozna podniesc.
+# Ale w praktyce nie potrzeba.
+
+$TCC_LOC parent 1:2 classid 1:8 htb rate 98Mbit ceil 100Mbit burst $BURST prio 9
+$TCQ_LOC parent 1:8 esfq perturb 10 hash dst
+$TCF_LOC parent 1:0 protocol ip prio 1 u32 match ip src 192.168.1.0/24 classid 1:8
+
+$TCC_LOC2 parent 2:2 classid 2:8 htb rate 8Mbit ceil 10Mbit burst $BURST prio 9
+$TCQ_LOC2 parent 2:8 esfq perturb 10 hash dst
+$TCF_LOC2 parent 2:0 protocol ip prio 1 u32 match ip src 10.1.1.0/24 classid 2:8
+
+############################### SCIAGANIE Z NETU #############################
+
+# obliczenie pasma dla pakietow priorytetowych:
+# roznica miedzy DCAP i DCEIL.
+
+PRIO_RATE=$[(${DCAP_NUM}-${DCEIL_NUM})/3]Kbit
+PRIO_RATE2=$[((${DCAP_NUM}-${DCEIL_NUM})/3)*2]Kbit
+# pakiety priorytetowe - ssh, tos minimum delay, icmp.
+# Tworzymy dla nich oddzielna klase z gwarantowanym pasmem, bez
+# mozliwosci pozyczania od innych klas [bo i po co?].
+
+$TCC_LOC parent 1:2 classid 1:9 htb rate $PRIO_RATE2 ceil $PRIO_RATE2 burst $BURST prio 1
+$TCC_LOC2 parent 2:2 classid 2:9 htb rate $PRIO_RATE ceil $PRIO_RATE burst $BURST prio 1
+
+# UWAGA: dodatkowo dolozone jest wewnatrz klasy esfq, ale w praktyce
+# nie wydaje sie to konieczne.
+# WAZNE: esfq trzeba dolozyc do kernela [patch]! Jest z tym troche roboty
+# a tak naprawde esfq nie jest w ogole w tym skrypcie konieczne.
+# Mozna rownie dobrze uzyc sfq, ktore jest w nowszych kernelach bez
+# patchowania.
+# Jesli wiec nie chcesz bawic sie z kernelem i nie potrzebne Ci esfq, po prostu
+# pozamieniaj w calym skrypcie na sfq [oczywiscie z nieco inna skladnia], lub
+# tez pousuwaj calkowicie wpisy takie, jak ponizszy. Nie sa konieczne, ale ulatwiaja
+# zycie userom - nie przypchaja sobie wlasnego pasma uzywajac np. jakichs p2p.
+$TCQ_LOC parent 1:9 esfq perturb 10 hash dst
+$TCQ_LOC2 parent 2:9 esfq perturb 10 hash dst
+
+# Filtry dodaja do priorytetowej klasy po kolei: SSH, TOS Minimum Delay oraz ICMP.
+# ICMP nie jest tu konieczne, ale wtedy pingi ladnie wygladaja 8].
+# Jesli nie laczysz sie z zewnetrznymi serwerami przez SSH, to SSH nie jest Ci tu potrzebne.
+$TCF_LOC parent 1:0 protocol ip prio 1 u32 match ip sport 22 0xffff classid 1:9
+$TCF_LOC parent 1:0 protocol ip prio 1 u32 match ip tos 0x10 0xff classid 1:9
+$TCF_LOC parent 1:0 protocol ip prio 1 u32 match ip protocol 1 0xff flowid 1:9
+$TCF_LOC2 parent 2:0 protocol ip prio 1 u32 match ip sport 22 0xffff classid 2:9
+$TCF_LOC2 parent 2:0 protocol ip prio 1 u32 match ip tos 0x10 0xff classid 2:9
+$TCF_LOC2 parent 2:0 protocol ip prio 1 u32 match ip protocol 1 0xff flowid 2:9
+
+# obliczenie pasma dla userow.
+#DIV_RATE=$[${DCEIL_NUM}/${NUM_AUSERS}]Kbit
+
+# user1 - leszek + peep
+
+$TCC_LOC parent 1:2 classid 1:20 htb rate 330Kbit ceil 490Kbit burst $BURST prio 2
+$TCQ_LOC parent 1:20 esfq perturb 10 hash dst
+$TCF_LOC parent 1:0 protocol ip prio 2 u32 match ip dst 192.168.1.2 classid 1:20
+$TCF_LOC parent 1:0 protocol ip prio 2 u32 match ip dst 192.168.1.3 classid 1:20
+
+## - peep
+#
+#$TCC_LOC parent 1:2 classid 1:30 htb rate 70Kbit ceil 100Kbit burst $BURST prio 2
+#$TCQ_LOC parent 1:30 esfq perturb 10 hash dst
+#$TCF_LOC parent 1:0 protocol ip prio 2 u32 match ip dst 192.168.1.3 classid 1:30
+
+# user2 - siwy
+
+$TCC_LOC parent 1:2 classid 1:40 htb rate 80Kbit ceil 100Kbit burst $BURST prio 2
+$TCQ_LOC parent 1:40 esfq perturb 10 hash dst
+$TCF_LOC parent 1:0 protocol ip prio 2 u32 match ip dst 192.168.1.4 classid 1:40
+
+# user3 - hektor
+
+$TCC_LOC parent 1:2 classid 1:50 htb rate 80Kbit ceil 100Kbit burst $BURST prio 2
+$TCQ_LOC parent 1:50 esfq perturb 10 hash dst
+$TCF_LOC parent 1:0 protocol ip prio 2 u32 match ip dst 192.168.1.5 classid 1:50
+
+# user4 - gruby + henek
+# 2 komputery
+
+$TCC_LOC2 parent 2:2 classid 2:50 htb rate 100Kbit ceil 100Kbit burst $BURST prio 2
+$TCQ_LOC2 parent 2:50 esfq perturb 10 hash dst
+$TCF_LOC2 parent 2:0 protocol ip prio 2 u32 match ip dst 10.1.1.2 classid 1:50
+$TCF_LOC2 parent 2:0 protocol ip prio 2 u32 match ip dst 10.1.1.3 classid 1:50
+
+############################## WYSYLANIE DO NETU #############################
+
+# UWAGA: pakiety sa przypisywane do ponizszych klas na podstawie mangle
+# w iptables - patrz /etc/rc.d/rc.firewall.
+# Bez stosowania odpowiednich wpisow w iptables, nie bedzie dzialalo!
+
+# obliczenie pasma dla userow.
+UDIV_RATE=$[((${UCEIL_NUM}/3)*2)/${NUM_USERS}]Kbit
+
+# obliczenie pasma dla serwera.
+# UWAGA: w tym przykladzie serwer, procz funkcji routera, ma rowniez funkcje
+# serwera pocztowego, serwera WWW i FTP. Dlatego dostaje o wiele wieksze pasmo
+# upload, niz uzytkownicy, po to, by np. osoby ogladajace nasze strony, nie
+# czekaly w nieskonczonosc. Jesli nikt stron nie oglada, oczywiscie wolne pasmo
+# dostaja userzy.
+SDIV_RATE=$[${UCEIL_NUM}/3]Kbit
+
+# obliczenie pasma dla pakietow priorytetowych.
+PRIO_RATE=$[${UCAP_NUM}-${UCEIL_NUM}]Kbit
+
+# pakiety priorytetowe - ACK, TOS Minimum Delay, SSH, ICMP
+# Klasa podobnie jak w przypadku downloadu dostaje swoje wlasne gwarantowane
+# pasmo priorytetowe, nie pozycza go od innych, bo i po co.
+$TCC_INET parent 3:2 classid 3:09 htb rate $PRIO_RATE ceil $PRIO_RATE prio 1
+$TCQ_INET parent 3:09 esfq perturb 10 hash dst
+
+# przypisujemy do klasy priorytetowej pakiety ACK.
+# W przypadku korzystania z lacz asymetrycznych DSL jest to KONIECZNE!
+# Bez tego elementu mialem powazne problemy z laczem. Non-stop sie zapychalo.
+# UWAGA: filtr dla pakietow ACK zbudowalem na podstawie WonderShapera.
+$TCF_INET parent 3:0 protocol ip prio 1 u32 \
+          match ip protocol 6 0xff \
+	  match u8 0x05 0x0f at 0 \
+	  match u16 0x0000 0xffc0 at 2 \
+	  match u8 0x10 0xff at 33 \
+	  classid 3:09
+
+# przypisujemy do klasy priorytetowej pakiety o TOS Minimum Delay, a takze SSH i ICMP
+# patrz komentarz dot. klasy priorytetowej w sekcji sciagania z netu.
+$TCF_INET parent 3:0 protocol ip prio 1 u32 match ip tos 0x10 0xff classid 3:09
+$TCF_INET parent 3:0 protocol ip prio 1 u32 match ip dport 22 0xffff classid 3:09
+$TCF_INET parent 3:0 protocol ip prio 1 u32 match ip protocol 1 0xff classid 3:09
+
+# serwer
+# oddzielna klasa dla serwera, gwarantujaca, ze userzy z zewnatrz nie beda
+# czekac w nieskonczonosc ogladajac strony na nim wystawione, czy tez odbierajac maile.
+# Jesli Twoj serwer to tylko router lub te funkcje nie sa dla Ciebie az tak wazne,
+# mozesz oczywiscie zmniejszyc gwarantowane pasmo dla serwera - patrz wyzej.
+
+$TCC_INET parent 3:2 classid 3:10 htb rate $SDIV_RATE ceil $UCEIL prio 2
+$TCQ_INET parent 3:10 esfq perturb 10 hash dst
+$TCF_INET parent 3:0 protocol ip prio 2 handle 1 fw classid 3:10
+
+# user1 - leszek + peep
+# jak widac, znakowanie w iptables jest zrobione tak, ze nadawany mark
+# jest analogiczny do numeru klasy. Poniewaz w skrypcie rc.firewall
+# znakowane sa pakiety dla wszystkich IP nalezacych do danego usera,
+# nie trzeba tu juz brac pod uwage, ile user ma komputerow.
+
+$TCC_INET parent 3:2 classid 3:20 htb rate $UDIV_RATE ceil $UCEIL prio 3
+$TCQ_INET parent 3:20 esfq perturb 10 hash dst
+$TCF_INET parent 3:0 protocol ip prio 2 handle 2 fw classid 3:20
+
+
+## - peep
+#
+#$TCC_INET parent 3:2 classid 3:30 htb rate $UDIV_RATE ceil 50 prio 3
+#$TCQ_INET parent 3:30 esfq perturb 10 hash dst
+#$TCF_INET parent 3:0 protocol ip prio 2 handle 3 fw classid 3:30
+
+# user2 - siwy
+
+$TCC_INET parent 3:2 classid 3:40 htb rate $UDIV_RATE ceil 40 prio 3
+$TCQ_INET parent 3:40 esfq perturb 10 hash dst
+$TCF_INET parent 3:0 protocol ip prio 2 handle 4 fw classid 3:40
+
+# user3 - hektor
+
+$TCC_INET parent 3:2 classid 3:50 htb rate $UDIV_RATE ceil 40 prio 3
+$TCQ_INET parent 3:50 esfq perturb 10 hash dst
+$TCF_INET parent 3:0 protocol ip prio 2 handle 5 fw classid 3:50
+
+# user4 - gruby + henek
+
+$TCC_INET parent 3:2 classid 3:60 htb rate $UDIV_RATE ceil 25 prio 3
+$TCQ_INET parent 3:60 esfq perturb 10 hash dst
+$TCF_INET parent 3:0 protocol ip prio 2 handle 6 fw classid 3:60
+
+# pakiety nie oznaczone sa traktowane jako serwerowe i przypisywane do klasy
+# wyznaczonej dla serwera.
+
+$TCF_INET parent 3:0 protocol ip prio 10 u32 match ip dst 0/0 classid 3:10

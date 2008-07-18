@@ -1,0 +1,400 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------------
+#
+# Skrypt htb
+# /etc/rc.d/rc.htb
+#
+# Opracowano na podstawie skryptu znalezionego w Sieci pod adresem:
+# http://iptables-tutorial.frozentux.net/scripts/rc.firewall.txt
+# ----------------------------------------------------------------------------
+
+# Nie komentowalem tego skryptu tak szczegolowo, jak pozostalych, bo nie tyczy sie
+# on QoS i dzielenia pasma. Jesli Cie interesuja bardziej szczegolowe komentarze,
+# patrz oryginalny skrypt. Do oryginalu dodalem pare potrzebnych mi mozliwosci,
+# np. blokade wybranych adresow IP czy forwardowanie portow.
+
+if [ $# -lt 1 ] 
+    then
+    echo "ERROR: skrypt skonfigurowany dla lacza ze zmiennym ip"
+    echo "       podaj aktualny zewnetrzny adres ip jako parametr"
+    exit 1
+fi
+
+############################## KONFIGURACJA ###########################
+
+# Dane wyjscia na swiat
+
+# WAZNE!: Tu wpisz swoj zewnetrzny adres IP!
+INET_IP=$1
+
+# WAZNE!: Tu wpisz interfejs, przez ktory jestes polaczony do netu.
+INET_IFACE="ppp0"
+
+# WAZNE!: Tu wpisz swoj adres broadcast.
+# Adres ten jest wykorzystywany w kilku malo znaczacych regulach,
+# wiec jesli go nie znasz, mozesz ten fragment usunac, ale pamietaj
+# by usunac wtedy takze te reguly.
+
+#INET_BROADCAST="999.999.999.999"
+
+# Dane sieci wewnetrznej
+
+# UWAGA: Zalozylem, ze Twoja siec wewnetrzna jest oparta o klase adresowa
+# 192.168. - jesli jest inna, dostosuj skrypt do swoich potrzeb.
+LAN_IP="192.168.1.1"
+LAN2_IP="10.1.1.1"
+
+# WAZNE!: To sa adresy IP wykorzystywane w niektorych regulach do forwardowania
+# portow. Jesli chcesz by Tobie lub jakiemus userowi lepiej dzialaly aplikacje takie
+# jak na przyklad eMule, bedzie to konieczne. Jesli nie - mozesz to olac.
+LAN_ADMIN_IP="192.168.1.2"
+
+# Zakres adresow Twojej sieci lokalnej, adres broadcast.
+LAN_IP_RANGE="192.168.1.1/24"
+LAN_BROADCAST_ADDRESS="192.168.1.255"
+LAN2_IP_RANGE="10.1.1.1/24"
+LAN2_BROADCAST_ADDRESS="10.1.1.255"
+
+# interfejs na ktorym chodzi LAN.
+LAN_IFACE="eth1"
+LAN2_IFACE="eth0"
+
+# Dane localhosta
+
+LO_IFACE="lo"
+LO_IP="127.0.0.1"
+
+# Gdzie jest program iptables?
+
+IPTABLES="/sbin/iptables"
+
+#####################################################################
+# czyszczenie tablic
+
+$IPTABLES -t filter -F
+$IPTABLES -t filter -X
+$IPTABLES -t nat -F
+$IPTABLES -t nat -X
+$IPTABLES -t mangle -F
+$IPTABLES -t mangle -X
+
+
+################################# MODULY ############################
+
+# Moduly do zaladowania.
+# U mnie nic nie trzeba ladowac bo wsio wkompilowalem w kernel.
+# Odkomentuj w zaleznosci od swoich potrzeb.
+
+# /sbin/depmod -a
+
+ /sbin/modprobe ip_tables
+ /sbin/modprobe ip_conntrack
+ /sbin/modprobe iptable_filter
+ /sbin/modprobe iptable_mangle
+ /sbin/modprobe iptable_nat
+# /sbin/modprobe ipt_LOG
+ /sbin/modprobe ipt_limit
+ /sbin/modprobe ipt_state
+ /sbin/modprobe ipt_owner
+ /sbin/modprobe ipt_REJECT
+ /sbin/modprobe ipt_MASQUERADE
+ /sbin/modprobe ip_conntrack_ftp
+ /sbin/modprobe ip_conntrack_irc
+ /sbin/modprobe ip_nat_ftp
+ /sbin/modprobe ip_nat_irc
+
+# Uruchomienie przesylania pakietow
+
+echo "1" > /proc/sys/net/ipv4/ip_forward
+
+############################# LANCUCHY ###########################
+
+# Podstawowe zasady dla lancuchow
+
+$IPTABLES -P INPUT DROP
+$IPTABLES -P OUTPUT DROP
+$IPTABLES -P FORWARD DROP
+
+# Tworzymy lancuch dla zlych pakietow TCP
+
+$IPTABLES -N bad_tcp_packets
+
+# Tworzymy lancuch dla zablokowanych hostow
+
+$IPTABLES -N blocked_ips
+
+# Tworzymy oddzielne lancuchy dla ICMP, TCP i UDP
+
+$IPTABLES -N allowed
+$IPTABLES -N tcp_packets
+$IPTABLES -N udp_packets
+$IPTABLES -N icmp_packets
+
+######################### blocked_ips ########################
+
+# Lancuch zablokowanych hostow
+# Tu dodaj [powielajac istniejace] adresy IP, z ktorych
+# nie chcesz, by cokolwiek do Ciebie przychodzilo.
+# Wrogow, lamerow, chakierow itp itd.
+# UWAGA: przykladowy adres, to adres providera, ktory
+# bardzo mi sie narazil. Patrz http://elektron.tonid.net 
+# tam napisalem czemu ja go blokuje.
+# Blokada tego IP jest wylacznie Twoja decyzja, choc zrobilbys mi
+# nia przyjemnosc 8>.
+
+#$IPTABLES -A blocked_ips -s 195.117.6.10 -j DROP
+
+######################### bad_tcp_packets #####################
+
+# Lancuch zlych pakietow TCP
+
+# $IPTABLES -A bad_tcp_packets -p tcp ! --syn -m state --state NEW -j LOG --log-prefix "New not syn:"
+$IPTABLES -A bad_tcp_packets -p tcp ! --syn -m state --state NEW -j DROP
+
+############################## allowed #############################
+
+# Dozwolone pakiety TCP
+
+$IPTABLES -A allowed -p TCP --syn -j ACCEPT
+$IPTABLES -A allowed -p TCP -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A allowed -p TCP -j DROP
+
+############################ tcp_packets ########################
+
+# Ograniczenie liczby polaczen z jednego IP z zewnatrz do 2 jednoczesnie
+# dla WWW i FTP.
+# WAZNE!: aby to dzialalo, musisz spatchowac i zrekompilowac kernel tak, aby
+# dzialal iplimit. Jest z tym troche roboty, ale warto, bo dzieki temu mozesz
+# ograniczyc liczbe polaczen, co ochroni Twoja siec przed przypchaniem przez
+# niektore p2p, takie jak KaZaA [tam, gdzie nie mozna ograniczyc liczby polaczen].
+# Ponizsze ograniczenie jest po to, by jakis lamer mi nie zapychal lacza sciagajac
+# np. dwudziestoma watkami plikow z mojego serwera WWW czy FTP.
+
+#$IPTABLES -A tcp_packets -p TCP -i $INET_IFACE -s 0/0 --dport 21 --syn -m iplimit --iplimit-above 2 -j DROP
+#$IPTABLES -A tcp_packets -p TCP -i $INET_IFACE -s 0/0 --dport 80 --syn -m iplimit --iplimit-above 2 -j DROP
+
+# Ograniczenie liczby polaczen z jednego IP z zewnatrz do 5 jednoczesnie
+# dla innych uslug. Nie jest konieczne, ale bezpieczniej.
+
+#$IPTABLES -A tcp_packets -p TCP -i $INET_IFACE -s 0/0 --syn -m iplimit --iplimit-above 5 -j DROP
+
+# Otwarte porty TCP.
+# Nie komentuje ktory port jest do czego, wybierz porty wedle wlasnego widzimisie i
+# Twoich potrzeb. Np. 411-412 sa dla Direct Connect, 4661 i 4662 dla eMule/eDonkey.
+
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 21 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 22 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 25 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 53 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 80 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 110 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 113 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 411 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 412 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 443 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 4661 -j allowed
+$IPTABLES -A tcp_packets -p TCP -s 0/0 --dport 4662 -j allowed
+
+# Tu mozesz otworzyc okreslony port TCP dla okreslonego adresu IP
+# jesli masz takie potrzeby - odkomentuj i zmien dane.
+# $IPTABLES -A tcp_packets -p TCP -s 999.999.999.999/32 --dport 99999 -j allowed
+
+############################# udp_packets ###########################
+
+# Otwarte porty UDP
+# Patrz komentarz przy portach TCP.
+
+$IPTABLES -A udp_packets -p UDP -s 0/0 --destination-port 53 -j ACCEPT
+$IPTABLES -A udp_packets -p UDP -s 0/0 --destination-port 411 -j ACCEPT
+$IPTABLES -A udp_packets -p UDP -s 0/0 --destination-port 412 -j ACCEPT
+$IPTABLES -A udp_packets -p UDP -s 0/0 --destination-port 4665 -j ACCEPT
+$IPTABLES -A udp_packets -p UDP -s 0/0 --destination-port 4672 -j ACCEPT
+# $IPTABLES -A udp_packets -p UDP -s 999.999.999.999/32 --destination-port 99999 -j ACCEPT
+
+# Wywalamy broadcasty MS. Jesli potrzebujesz - odkomentuj.
+# $IPTABLES -A udp_packets -p UDP -i $INET_IFACE -d $INET_BROADCAST --destination-port 135:139 -j DROP
+
+# Wywalamy requesty DHCP ze swiata.
+$IPTABLES -A udp_packets -p UDP -i $INET_IFACE -d 255.255.255.255 --destination-port 67:68 -j DROP
+
+############################## icmp_packets ###########################
+
+# Otwarte ICMP
+# Te dwa typy powinny wystarczyc.
+
+$IPTABLES -A icmp_packets -p ICMP -s 0/0 --icmp-type 8 -j DROP
+$IPTABLES -A icmp_packets -p ICMP -s 0/0 --icmp-type 11 -j ACCEPT
+
+######################## INPUT CHAIN #########################
+
+# Zablokowane IP-ki
+
+$IPTABLES -A INPUT -j blocked_ips
+
+# Zle pakiety TCP
+
+$IPTABLES -A INPUT -p TCP -j bad_tcp_packets
+
+# Siec wewnetrzna.
+# Zakladam, ze siec wewn. jest bezpieczna [ze masz uczciwych userow]
+# wiec dla nich wszystko jest pootwierane. Jesli masz inna sytuacje, musisz
+# pozmieniac zasady iptables i zamknac przed nimi porty.
+
+$IPTABLES -A INPUT -p ALL -i $LAN_IFACE -s $LAN_IP_RANGE -j ACCEPT
+$IPTABLES -A INPUT -p ALL -i $LAN2_IFACE -s $LAN2_IP_RANGE -j ACCEPT
+$IPTABLES -A INPUT -p ALL -i $LO_IFACE -s $LO_IP -j ACCEPT
+$IPTABLES -A INPUT -p ALL -i $LO_IFACE -s $LAN_IP -j ACCEPT
+$IPTABLES -A INPUT -p ALL -i $LO_IFACE -s $LAN2_IP -j ACCEPT
+$IPTABLES -A INPUT -p ALL -i $LO_IFACE -s $INET_IP -j ACCEPT
+$IPTABLES -A INPUT -p ALL -i $LAN_IFACE -d $LAN_BROADCAST_ADDRESS -j ACCEPT
+$IPTABLES -A INPUT -p ALL -i $LAN2_IFACE -d $LAN2_BROADCAST_ADDRESS -j ACCEPT
+
+# Requesty DHCP z wewnatrz LANU
+
+$IPTABLES -A INPUT -p UDP -i $LAN_IFACE --dport 67 --sport 68 -j ACCEPT
+$IPTABLES -A INPUT -p UDP -i $LAN2_IFACE --dport 67 --sport 68 -j ACCEPT
+
+# Pakiety przychodzace z netu
+
+$IPTABLES -A INPUT -p ALL -d $INET_IP -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A INPUT -p TCP -i $INET_IFACE -j tcp_packets
+$IPTABLES -A INPUT -p UDP -i $INET_IFACE -j udp_packets
+$IPTABLES -A INPUT -p ICMP -i $INET_IFACE -j icmp_packets
+
+# Wywalamy multicasty.
+
+$IPTABLES -A INPUT -i $INET_IFACE -d 224.0.0.0/8 -j DROP
+
+# Logowac dziwne pakiety. Jesli chcesz logowac - odkomentuj.
+
+# $IPTABLES -A INPUT -m limit --limit 3/minute --limit-burst 3 -j LOG --log-level DEBUG --log-prefix "IPT INPUT packet died: "
+
+######################### FORWARD CHAIN ######################
+
+# Zle pakiety TCP
+
+$IPTABLES -A FORWARD -p TCP -j bad_tcp_packets
+
+# Pakiety do port-forwardowania (patrz: prerouting)
+# Jesli nie wiesz co to port-forwarding, to lepiej nie uzywaj
+# tego skryptu 8].
+# W ponizszym przykladzie forwardujemy porty Direct Connect do kompa
+# o adresie LAN_ADMIN_IP2 [zdefiniowanym na poczatku skryptu], a
+# pakiety eMule - LAN_ADMIN_IP.
+# UWAGA!: Jesli adres portu otwartego na zewnatrz i adres portu w sieci lokalnej sa inne,
+# to tutaj podajesz adres w sieci lokalnej! Jesli wiec np. chcesz aby ktos laczac sie
+# z portem 8880 Twojego serwera, laczyl sie faktycznie z komputerem w sieci lokalnej
+# na porcie 80, to tu podaj port 80, a nie 8880!
+$IPTABLES -A FORWARD -p TCP -i $INET_IFACE -o $LAN_IFACE -d $LAN_ADMIN_IP --dport 4682 -j allowed
+$IPTABLES -A FORWARD -p UDP -i $INET_IFACE -o $LAN_IFACE -d $LAN_ADMIN_IP --dport 4692 -j ACCEPT
+
+$IPTABLES -A FORWARD -p TCP -i $INET_IFACE -o $LAN_IFACE -d $LAN_ADMIN_IP --dport 27960 -j allowed
+$IPTABLES -A FORWARD -p UDP -i $INET_IFACE -o $LAN_IFACE -d $LAN_ADMIN_IP --dport 27960 -j ACCEPT
+
+# Ograniczenie liczby polaczen z sieci lokalnej do netu do 200.
+# Moze byc przydatne, by lacza jakas KaAzA nie zapchala.
+
+#$IPTABLES -A FORWARD -p TCP -i $LAN_IFACE --syn -m iplimit --iplimit-above 200 -j DROP
+#$IPTABLES -A FORWARD -p TCP -i $LAN2_IFACE --syn -m iplimit --iplimit-above 200 -j DROP
+
+# Pakiety do forwardowania z LAN-u do netu
+
+$IPTABLES -A FORWARD -i $LAN_IFACE -j ACCEPT
+$IPTABLES -A FORWARD -i $LAN2_IFACE -j ACCEPT
+$IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Logowac dziwne pakiety. Odkomentuj jesli tego potrzebujesz.
+
+# $IPTABLES -A FORWARD -m limit --limit 3/minute --limit-burst 3 -j LOG --log-level DEBUG --log-prefix "IPT FORWARD packet died: "
+
+####################### OUTPUT CHAIN #######################
+
+# Zle pakiety TCP
+
+$IPTABLES -A OUTPUT -p TCP -j bad_tcp_packets
+
+# Pakiety ktore wypuszczamy
+
+$IPTABLES -A OUTPUT -p ALL -s $LO_IP -j ACCEPT
+$IPTABLES -A OUTPUT -p ALL -s $LAN_IP -j ACCEPT
+$IPTABLES -A OUTPUT -p ALL -s $LAN2_IP -j ACCEPT
+$IPTABLES -A OUTPUT -p ALL -s $INET_IP -j ACCEPT
+
+# ZNAKOWANIE pakietow do HTB
+# (znakowanie pakietow wychodzacych z serwera)
+
+$IPTABLES -t mangle -A OUTPUT -j MARK --set-mark 0x1
+$IPTABLES -t mangle -A OUTPUT -j RETURN
+
+# Logowac dziwne pakiety. Odkomentuj jesli tego potrzebujesz.
+
+# $IPTABLES -A OUTPUT -m limit --limit 3/minute --limit-burst 3 -j LOG --log-level DEBUG --log-prefix "IPT OUTPUT packet died: "
+
+########################### PREROUTING ########################
+
+# port forwarding znowu [ufff ile tego].
+# Patrz komentarze w sekcji FORWARD!
+# UWAGA!: Tu z kolei podajesz adres portu zewnetrznego, nie wewnetrznego,
+# wiec wg przykladu w sekcji FORWARD, tu musisz podac port 8880, a nie 80!
+
+$IPTABLES -t nat -A PREROUTING -p TCP -i $INET_IFACE -d $INET_IP --dport 4682 -j DNAT --to-destination $LAN_ADMIN_IP
+$IPTABLES -t nat -A PREROUTING -p UDP -i $INET_IFACE -d $INET_IP --dport 4692 -j DNAT --to-destination $LAN_ADMIN_IP
+
+$IPTABLES -t nat -A PREROUTING -p TCP -i $INET_IFACE -d $INET_IP --dport 27960 -j DNAT --to-destination $LAN_ADMIN_IP
+$IPTABLES -t nat -A PREROUTING -p UDP -i $INET_IFACE -d $INET_IP --dport 27960 -j DNAT --to-destination $LAN_ADMIN_IP
+
+# ZNAKOWANIE pakietow do HTB
+# PATRZ: rc.htb - inaczej nie zrozumiesz po co to komu.
+
+		########## 192.168.1.0 ##########
+# user1 - leszek + peep
+
+#leszek
+$IPTABLES -t mangle -A PREROUTING -s 192.168.1.2 -j MARK --set-mark 0x2
+$IPTABLES -t mangle -A PREROUTING -s 192.168.1.2 -j RETURN
+
+#peep
+$IPTABLES -t mangle -A PREROUTING -s 192.168.1.3 -j MARK --set-mark 0x2
+$IPTABLES -t mangle -A PREROUTING -s 192.168.1.3 -j RETURN
+
+
+# user2 - siwy
+
+$IPTABLES -t mangle -A PREROUTING -s 192.168.1.4 -j MARK --set-mark 0x4
+$IPTABLES -t mangle -A PREROUTING -s 192.168.1.4 -j RETURN
+
+# user3 - hektor
+$IPTABLES -t mangle -A PREROUTING -s 192.168.1.5 -j MARK --set-mark 0x5
+$IPTABLES -t mangle -A PREROUTING -s 192.168.1.5 -j RETURN
+
+		########## 10.1.1.0 ##########
+		
+# user4 - gruby + henek
+# 2 komputery
+
+#gruby
+$IPTABLES -t mangle -A PREROUTING -s 10.1.1.2 -j MARK --set-mark 0x6
+$IPTABLES -t mangle -A PREROUTING -s 10.1.1.2 -j RETURN
+
+#henek
+$IPTABLES -t mangle -A PREROUTING -s 10.1.1.3 -j MARK --set-mark 0x6
+$IPTABLES -t mangle -A PREROUTING -s 10.1.1.3 -j RETURN
+		
+		
+		
+
+########################## POSTROUTING ########################
+# maskarada.
+
+#$IPTABLES -t nat -A POSTROUTING -o $INET_IFACE -j SNAT --to-source $INET_IP
+
+$IPTABLES -t nat -A POSTROUTING -s 192.168.1.2 -d 0/0 -j MASQUERADE
+$IPTABLES -t nat -A POSTROUTING -s 192.168.1.3 -d 0/0 -j MASQUERADE
+$IPTABLES -t nat -A POSTROUTING -s 192.168.1.4 -d 0/0 -j MASQUERADE
+$IPTABLES -t nat -A POSTROUTING -s 192.168.1.5 -d 0/0 -j MASQUERADE
+
+$IPTABLES -t nat -A POSTROUTING -s 10.1.1.2 -d 0/0 -j MASQUERADE
+#$IPTABLES -t nat -A POSTROUTING -s 10.1.1.3 -d 0/0 -j MASQUERADE
+
+#end

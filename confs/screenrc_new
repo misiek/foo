@@ -1,0 +1,3 @@
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{= KW}%`$USER%`@%H: %-Lw%{= WK}%50>%n%f* %t%{= KW}%+Lw%< %{= KW}%-= %d %M %Y %c:%s%{-}"

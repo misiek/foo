@@ -1,0 +1,42 @@
+#!/bin/sh
+
+echo "1" > /proc/sys/net/ipv4/ip_forward
+
+/sbin/iptables -F -t nat
+/sbin/iptables -X -t nat
+/sbin/iptables -F -t filter
+/sbin/iptables -X -t filter
+
+/sbin/iptables -t filter -P FORWARD DROP
+
+/sbin/iptables -t filter -A FORWARD -s 10.1.1.0/255.255.255.0 -d 0/0 -j ACCEPT
+/sbin/iptables -t filter -A FORWARD -s 0/0 -d 10.1.1.0/255.255.255.0 -j ACCEPT
+
+/sbin/iptables -t filter -A FORWARD -s 192.168.1.0/255.255.255.0 -d 0/0 -j ACCEPT
+/sbin/iptables -t filter -A FORWARD -s 0/0 -d 192.168.1.0/255.255.255.0 -j ACCEPT
+
+
+
+
+/sbin/iptables -t nat -A POSTROUTING -s 192.168.1.2 -d 0/0 -j MASQUERADE
+/sbin/iptables -t nat -A POSTROUTING -s 192.168.1.3 -d 0/0 -j MASQUERADE
+/sbin/iptables -t nat -A POSTROUTING -s 192.168.1.4 -d 0/0 -j MASQUERADE
+/sbin/iptables -t nat -A POSTROUTING -s 192.168.1.5 -d 0/0 -j MASQUERADE
+
+/sbin/iptables -t nat -A POSTROUTING -s 10.1.1.2 -d 0/0 -j MASQUERADE
+/sbin/iptables -t nat -A POSTROUTING -s 10.1.1.3 -d 0/0 -j MASQUERADE
+
+iptables -I FORWARD -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+
+/sbin/modprobe ip_nat_ftp
+/sbin/modprobe ip_nat_irc
+
+#hektor ma neta od 21.08.2005 do 21.09.2005 niezaplacil
+#damian ma neta od 20.08.2005 do 20.09.2005 zaplacil
+#Rafka   ma neta od 10.08.2005 do 10.09.2005 niezaplacil
+
+#redir
+/sbin/iptables -t nat -A PREROUTING -i ppp0 -p TCP --dport 4682 -j DNAT --to 192.168.1.2:4682
+/sbin/iptables -t nat -A PREROUTING -i ppp0 -p UDP --dport 4692 -j DNAT --to 192.168.1.2:4692
+/sbin/iptables -t nat -A PREROUTING -i ppp0 -p TCP --dport 27960 -j DNAT --to 192.168.1.2:27960
+/sbin/iptables -t nat -A PREROUTING -i ppp0 -p UDP --dport 27960 -j DNAT --to 192.168.1.2:27960

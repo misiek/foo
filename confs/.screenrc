@@ -1,0 +1,4 @@
+hardstatus on
+hardstatus alwayslastline
+hardstatus string '%{= KW}%-Lw%{= WK}%50>%n%f* %t%{= KW}%+Lw%< %{= KW}%-= %d %M %Y %c:%s%{-}'
+

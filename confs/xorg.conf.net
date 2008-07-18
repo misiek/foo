@@ -1,0 +1,214 @@
+Section "ServerLayout"
+
+#   Screen         "screen1"
+   Identifier     "Layout[all]"
+   Screen         "screen0" 0 0
+   InputDevice    "Keyboard[0]" "CoreKeyboard"
+   InputDevice    "Mouse[1]" "CorePointer"
+   InputDevice    "Mouse[3]" "SendCoreEvents"
+   InputDevice    "Mouse[2]" "SendCoreEvents"
+   Option       "Clone" "off"
+   Option       "Xinerama" "off"
+EndSection
+
+Section "Files"
+   InputDevices   "/dev/gpmdata"
+   InputDevices   "/dev/input/mice"
+   FontPath     "/usr/share/fonts/misc"
+   FontPath     "/usr/share/fonts/TTF"
+   FontPath     "/usr/share/fonts/Type1"
+   FontPath     "/usr/share/fonts/75dpi"
+   FontPath     "/usr/share/fonts/100dpi"
+   FontPath     "/usr/share/fonts/local"
+   FontPath     "/usr/local/share/fonts"
+   FontPath     "/usr/share/fonts"
+   FontPath     "/usr/share/fonts"
+EndSection
+
+Section "Module"
+   Load  "dbe"
+   Load  "type1"
+   Load  "freetype"
+   #Load  "extmod"
+   Load  "glx"
+   Load  "dri"
+EndSection
+
+Section "ServerFlags"
+   Option       "AllowMouseOpenFail" "on"
+EndSection
+
+Section "InputDevice"
+   Identifier  "Keyboard[0]"
+   Driver      "kbd"
+   Option       "XkbLayout" "de"
+   Option       "XkbModel" "pc102"
+   Option       "AutoRepeat" "500 30"
+   Option       "XkbVariant" "nodeadkeys,"
+EndSection
+
+Section "InputDevice"
+   Identifier  "Mouse[1]"
+   Driver      "mouse"
+   Option       "Buttons" "5"
+   Option       "Device" "/dev/input/mice"
+   Option       "Name" "USB Mouse"
+   Option       "Protocol" "explorerps/2"
+   Option       "Vendor" "Sysp"
+   Option       "ZAxisMapping" "4 5"
+EndSection
+
+Section "InputDevice"
+   Identifier  "Mouse[2]"
+   Driver      "mouse"
+   Option       "Protocol" "PS/2"
+   Option       "Device" "/dev/psaux"
+   Option       "EmulateWheel" "on"
+   Option       "SendCoreEvents"
+   Option       "EmulateWheelButton" "2"
+EndSection
+
+Section "InputDevice"
+   Identifier  "Mouse[3]"
+   Driver      "synaptics"
+   Option       "Device" "/dev/input/mice"
+   Option       "Emulate3Buttons" "on"
+   Option       "Name" "Touchpad"
+   Option       "SHMConfig" "on"
+   Option       "Vendor" "Synaptics"
+   Option       "ZAxisMapping" "4 5"
+EndSection
+
+Section "Modes"
+   Identifier     "Modes[0]"
+   Modeline "1280x1024" 105.15 1280 1360 1496 1712 1024 1025 1028 1059
+     Modeline "1280x1024" 125.14 1280 1368 1504 1728 1024 1025 1028 1065
+    Modeline "800x600" 36.88 800 832 912 1024 600 601 604 621
+     Modeline "800x600" 44.13 800 840 920 1040 600 601 604 624
+     Modeline "1400x1050" 118.42 1400 1488 1640 1880 1050 1051 1054 1086
+   Modeline "1400x1050" 95.71 1400 1480 1624 1848 1050 1051 1054 1079
+EndSection
+
+Section "Monitor"
+   Identifier   "Monitor[0]"
+   VendorName   "IBM"
+   ModelName    "THINKPAD 1400X1050 LCD PANEL"
+   DisplaySize  474  356
+   HorizSync    30.0 - 81.0
+   VertRefresh  43.0 - 75.0
+   Option       "CalcAlgorithm" "XServerPool"
+   Option       "DPMS"
+   UseModes "Modes[0]"
+EndSection
+
+Section "Monitor"
+   Identifier   "Monitor[1]"
+   VendorName   "SAM"
+   ModelName    "SyncMaster 930 BF"
+   DisplaySize  474   356
+   HorizSync    30.0 - 81.0
+   VertRefresh  43.0 - 75.0
+   Option       "CalcAlgorithm" "XServerPool"
+   Option       "DPMS"
+   UseModes "Modes[0]"
+EndSection
+
+Section "Device"
+   Identifier  "Device[0]"
+   Driver      "fglrx"
+   VendorName  "ATI"
+   BoardName   "FireGL Mobility T2"
+   Option       "UseInternalAGPGART" "no"
+   Option       "FSAADisableGamma" "no"
+   Option       "CapabilitiesEx" "0x00000000"
+   Option       "ScreenOverlap" "0"
+   Option       "FSAAMSPosY0" "0.000000"
+   Option       "FSAAMSPosY1" "0.000000"
+   Option       "mtrr" "off"
+   Option       "FSAAMSPosX4" "0.000000"
+   Option       "ForceGenericCPU" "no"
+   Option       "FSAAMSPosX5" "0.000000"
+   Option       "FSAAMSPosY2" "0.000000"
+   Option       "FSAAScale" "1"
+   Option       "FSAAMSPosY3" "0.000000"
+   Option       "Capabilities" "0x00000000"
+   Option       "GammaCorrectionI" "0x00000000"
+   Option       "no_accel" "no"
+   Option       "FSAAMSPosY4" "0.000000"
+   Option       "UseFastTLS" "0"
+   Option       "FSAAMSPosY5" "0.000000"
+   Option       "FSAACustomizeMSPos" "no"
+   Option       "FSAAEnable" "no"
+   Option       "BlockSignalsOnLock" "on"
+   Option       "GammaCorrectionII" "0x00000000"
+   Option       "KernelModuleParm" "agplock=0"
+   Option       "FSAAMSPosX0" "0.000000"
+   Option       "no_dri" "no"
+   Option       "VideoOverlay" "on"
+   Option       "PseudoColorVisuals" "off"
+   Option       "StereoSyncEnable" "1"
+   Option       "usevnc" "no"
+   Option       "FSAAMSPosX1" "0.000000"
+   Option       "OpenGLOverlay" "off"
+   Option       "FSAAMSPosX2" "0.000000"
+   Option       "Stereo" "off"
+   Option       "FSAAMSPosX3" "0.000000"
+   Option       "CenterMode" "off"
+   Option       "DesktopSetup" "clone"
+   Option       "Mode2" "1280x1024,1024x768"
+#   Option       "VRefresh2" "60.0"
+#   Option       "Hsync2" "40"
+   Option       "ForceMonitors" "AUTO,AUTO"
+   BusID       "1:0:0"
+EndSection
+
+Section "Screen"
+   Identifier "screen0"
+   Device     "Device[0]"
+   Monitor    "Monitor[0]"
+   DefaultDepth     24
+   SubSection "Display"
+      Depth     15
+      #Modes    "1400x1050" "1280x1024" "1024x768" "800x600" "640x480"
+   EndSubSection
+   SubSection "Display"
+      Depth     16
+      #Modes    "1400x1050" "1280x1024" "1024x768" "800x600" "768x576" "640x480"
+   EndSubSection
+   SubSection "Display"
+      Depth     24
+      #Modes    "1400x1050" "1280x1024" "1280x960" "1024x768" "800x600" "640x480"
+   EndSubSection
+   SubSection "Display"
+      Depth     8
+      #Modes    "1400x1050" "1280x1024" "1024x768" "800x600" "640x480"
+   EndSubSection
+EndSection
+
+Section "Screen"
+   Identifier "screen1"
+   Device     "Device[0]"
+   Monitor    "Monitor[1]"
+   DefaultDepth     24
+   SubSection "Display"
+      Depth     15
+      Modes    "1280x1024" "1024x768" "800x600" "640x480"
+   EndSubSection
+   SubSection "Display"
+      Depth     16
+      Modes    "1280x1024" "1024x768" "800x600" "768x576" "640x480"
+   EndSubSection
+   SubSection "Display"
+      Depth     24
+      Modes    "1280x1024" "1280x960" "1024x768" "800x600" "640x480"
+   EndSubSection
+   SubSection "Display"
+      Depth     8
+      Modes    "1280x1024" "1024x768" "800x600" "640x480"
+   EndSubSection
+EndSection
+
+Section "DRI"
+   Group        "video"
+   Mode         0660
+EndSection
