@@ -1,0 +1,7 @@
+C:\workspace\GpsConsole\GpsConsole\obj\Debug\ResolveAssemblyReference.cache
+C:\workspace\GpsConsole\GpsConsole\bin\Debug\GpsConsole.exe
+C:\workspace\GpsConsole\GpsConsole\bin\Debug\GpsConsole.pdb
+C:\workspace\GpsConsole\GpsConsole\obj\Debug\GpsConsole.exe
+C:\workspace\GpsConsole\GpsConsole\obj\Debug\GpsConsole.pdb
+C:\workspace\GpsConsole\GpsConsole\obj\Debug\GpsConsole.Properties.Resources.resources
+C:\workspace\GpsConsole\GpsConsole\obj\Debug\GpsConsole.csproj.GenerateResource.Cache
