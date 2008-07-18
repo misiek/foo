@@ -60,8 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyGPS.cs" />
+    <Compile Include="GpsDevice.cs" />
     <Compile Include="NmeaInterpreter.cs" />
+    <Compile Include="NmeaParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

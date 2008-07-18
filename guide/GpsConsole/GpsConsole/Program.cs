@@ -11,17 +11,8 @@ namespace GpsConsole
         static void Main(string[] args)
         {
 
-            MyGPS gps = new MyGPS();
+            GpsDevice gps = new GpsDevice();
             gps.Open();
-            gps.read();
-
-            //while(true)
-            //{
-
-                
-                
-            //}
-
 
         }
     }
