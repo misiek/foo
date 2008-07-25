@@ -23,8 +23,8 @@ namespace GpsConsole
         //public GpsDevice(IntPtr stateChange, IntPtr locationChange)
         public GpsDevice()
         {
-            this.stateChange = stateChange;
-            this.locationChange = locationChange;
+            //this.stateChange = stateChange;
+            //this.locationChange = locationChange;
         }
 
         public void Open()
@@ -101,7 +101,13 @@ namespace GpsConsole
                     {
                         System.Threading.Thread.Sleep(100);
                     }
-                    
+                    catch (InvalidOperationException ex)
+                    {
+                        Debug.WriteLine(gpsPort.PortName + ": device disconnected?", this.ToString());
+                        // TODO
+                        // this.Close();
+                        // this.Open(); ?
+                    }
                 }
             }
         } 
