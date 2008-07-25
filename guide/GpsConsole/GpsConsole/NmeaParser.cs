@@ -13,9 +13,10 @@ namespace GpsConsole
         public DateTime SateliteTime;
         public string LatitudeString;
         public string LongitudeString;
-        public double SpeedMPH;
+        public double Speed;
         public double Course;
         public string Status;
+        public int SatellitesUsed;
 
     }
 
@@ -81,6 +82,10 @@ namespace GpsConsole
                 string msg_type = rxGps.Replace(words[0], "");
                 switch (msg_type)
                 {
+                    case "GGA":
+                        GGA(words);
+                        status = LOCATION;
+                        break;
                     case "RMC":
                         // RMC – Recommended minimum data for gps
                         RMC(words);
@@ -110,20 +115,42 @@ namespace GpsConsole
             return status;
         }
 
-        private void RMC(string[] words)
+        private void GGA(string[] words)
         {
-            sateliteTime(words[1]);
-
-            RecivedData.Status = status(words[2]);
+            updateSatelliteTime(words[1]);
 
             // Extract latitude and longitude
-            RecivedData.LatitudeString = coordinateString(words[3], words[4]);
-            RecivedData.LongitudeString = coordinateString(words[5], words[6]);
+            updateLatitude(words[2], words[3]);
+            updateLongitude(words[4], words[5]);
 
-            RecivedData.SpeedMPH = speed(words[7], MPHPerKnot);
+            updateSatellitesUsed(words[7]);
+
+            DumpGpsData();
+        }
+
+        private void updateSatellitesUsed(string wordSatelites)
+        {
+            if (wordSatelites != "")
+            {
+                int satellitesCount = int.Parse(wordSatelites, NmeaCultureInfo);
+                RecivedData.SatellitesUsed = satellitesCount;
+            }
+        }
+
+        private void RMC(string[] words)
+        {
+            updateSatelliteTime(words[1]);
+
+            updateStatus(words[2]);
+
+            // Extract latitude and longitude
+            updateLatitude(words[3], words[4]);
+            updateLongitude(words[5], words[6]);
+
+            updateSpeed(words[7], MPHPerKnot);
 
             // extract bearing
-            RecivedData.Course = course(words[8]);
+            updateCourse(words[8]);
 
             DumpGpsData();
         }
@@ -133,68 +160,91 @@ namespace GpsConsole
             Console.WriteLine("gpsMessage: " + GpsSentence);
             Console.WriteLine("RecivedData.SateliteTime: " + RecivedData.SateliteTime);
             Console.WriteLine("RecivedData.Status: " + RecivedData.Status);
-            Console.WriteLine("RecivedData.SpeedMPH: " + RecivedData.SpeedMPH);
+            Console.WriteLine("RecivedData.Speed: " + RecivedData.Speed);
             Console.WriteLine("RecivedData.LatitudeString: " + RecivedData.LatitudeString);
             Console.WriteLine("RecivedData.LongitudeString: " + RecivedData.LongitudeString);
+            Console.WriteLine("RecivedData.SatellitesUsed: " + RecivedData.SatellitesUsed);
         }
 
-        private string status(string wordStatus)
+        private void updateStatus(string wordStatus)
         {
-            string status = "";
             if (wordStatus != "")
             {
                 switch (wordStatus)
                 {
                     case "A":
                         //  FixObtained();
-                        status = "A";
+                        RecivedData.Status = "A";
                         break;
                     case "V":
                         //  FixLost();
-                        status = "V";
+                        RecivedData.Status = "V";
                         break;
                 }
             }
-            return status;
         }
 
-        private double course(string wordCourse)
+        private void updateCourse(string wordCourse)
         {
-            double course = 0;
             if (wordCourse != "")
             {
-                course = double.Parse(wordCourse, NmeaCultureInfo);
+                RecivedData.Course = double.Parse(wordCourse, NmeaCultureInfo);
             }
-            return course;
         }
 
-        private double speed(string wordSpeed, double scaler)
+        private void updateSpeed(string wordSpeed, double scaler)
         {
-            double speed = 0;
             if (wordSpeed != "")
             {
-                // Yes.  Parse the speed and convert it to MPH
-                speed = double.Parse(wordSpeed, NmeaCultureInfo) * scaler;
+                // Parse the speed and convert it
+                RecivedData.Speed = double.Parse(wordSpeed, NmeaCultureInfo) * scaler;
             }
-            return speed;
         }
 
-        private string coordinateString(string wordCoordinate, string wordIndicator) 
+        private void updateLatitude(string wordLatitude, string wordIndicator)
         {
-            string coordinate = "";
-            if (wordCoordinate != "" && wordIndicator != "")
+            if (wordLatitude != "" && wordIndicator != "")
             {
                 // Append hours
-                coordinate = wordCoordinate.Substring(0, 2) + "°";
+                string latitude = wordLatitude.Substring(0, 2) + "°";
                 // Append minutes
-                coordinate = coordinate + wordCoordinate.Substring(2) + "\"";
+                latitude = latitude + wordLatitude.Substring(2) + "\"";
                 // Append the hemisphere
-                coordinate = coordinate + wordIndicator; 
+                latitude = latitude + wordIndicator;
+                RecivedData.LatitudeString = latitude;
             }
-            return coordinate;
         }
 
-        private void sateliteTime(string timeWord)
+        private void updateLongitude(string wordLongitude, string wordIndicator)
+        {
+            if (wordLongitude != "" && wordIndicator != "")
+            {
+                // Append hours
+                string longitude = wordLongitude.Substring(0, 2) + "°";
+                // Append minutes
+                longitude = longitude + wordLongitude.Substring(2) + "\"";
+                // Append the hemisphere
+                longitude = longitude + wordIndicator;
+                RecivedData.LongitudeString = longitude;
+            }
+        }
+
+        //private string coordinateString(string wordCoordinate, string wordIndicator) 
+        //{
+        //    string coordinate = "";
+        //    if (wordCoordinate != "" && wordIndicator != "")
+        //    {
+        //        // Append hours
+        //        coordinate = wordCoordinate.Substring(0, 2) + "°";
+        //        // Append minutes
+        //        coordinate = coordinate + wordCoordinate.Substring(2) + "\"";
+        //        // Append the hemisphere
+        //        coordinate = coordinate + wordIndicator; 
+        //    }
+        //    return coordinate;
+        //}
+
+        private void updateSatelliteTime(string timeWord)
         {
             if (timeWord != "")
             {
