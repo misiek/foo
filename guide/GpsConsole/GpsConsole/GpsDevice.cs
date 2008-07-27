@@ -57,7 +57,7 @@ namespace GpsConsole
                         }
                         catch (TimeoutException ex)
                         {
-                            Debug.WriteLine(gpsPort.PortName + ": " + ex.Message, this.ToString());
+                            //Debug.WriteLine(gpsPort.PortName + ": " + ex.Message, this.ToString());
                         }
                     }
                 }

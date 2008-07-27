@@ -50,6 +50,7 @@ namespace GpsConsole
         public const short UNRECOGNIZED = 0;
         public const short LOCATION = 1;
         public const short SATELITE = 2;
+        public const short CHECKSUM_INVALID = 3;
 
 
         // Represents the EN-US culture, used for numers in NMEA sentences
@@ -78,54 +79,103 @@ namespace GpsConsole
             Regex rxChecksum = new Regex("[*].+?$");
             Regex rxGps = new Regex("^[$]GP");
 
-            GpsSentence = gpsMessage;
             gpsMessage = gpsMessage.Trim();
-            //gpsMessage = rxChecksum.Replace(gpsMessage, "");
-            string[] msg = gpsMessage.Split('*');
-            //Console.WriteLine("gpsMessage checksum: " + msg[1]);
-            //Console.WriteLine("gpsMessage: " + msg[0]);
-            Console.WriteLine("gpsMessage: " + GpsSentence);
-            string[] words = msg[0].Split(',');
-            if (rxGps.IsMatch(words[0]))
+
+            if (isChecksumValid(gpsMessage))
             {
-                string msg_type = rxGps.Replace(words[0], "");
-                switch (msg_type)
+                GpsSentence = gpsMessage;
+                Debug.WriteLine("");
+                Debug.WriteLine("gpsMessage: " + GpsSentence, this.ToString());
+
+                string[] msg = gpsMessage.Split('*');
+                string[] words = msg[0].Split(',');
+                if (rxGps.IsMatch(words[0]))
                 {
-                    case "GGA":
-                        GGA(words);
-                        status = LOCATION;
-                        break;
-                    case "RMC":
-                        // RMC – Recommended minimum data for gps
-                        RMC(words);
-                        status = LOCATION;
-                        break;
-                    case "GLL":
-                        GLL(words);
-                        status = LOCATION;
-                        break;
-                    case "GSV":
-                        // GSV – Detailed Satellite data
-                        GSV(words);
-                        status = SATELITE;
-                        break;
-                    case "GSA":
-                        // GSA – Overall Satellite data
-                        GSA(words);
-                        status = SATELITE;
-                        break;
-                    default:
-                        Debug.WriteLine("unrecognized message type: " + words[0], this.ToString());
-                        status = UNRECOGNIZED;
-                        break;
+                    string msg_type = rxGps.Replace(words[0], "");
+                    switch (msg_type)
+                    {
+                        case "GGA":
+                            GGA(words);
+                            status = LOCATION;
+                            break;
+                        case "RMC":
+                            // RMC – Recommended minimum data for gps
+                            RMC(words);
+                            status = LOCATION;
+                            break;
+                        case "GLL":
+                            GLL(words);
+                            status = LOCATION;
+                            break;
+                        case "GSV":
+                            // GSV – Detailed Satellite data
+                            GSV(words);
+                            status = SATELITE;
+                            break;
+                        case "GSA":
+                            // GSA – Overall Satellite data
+                            GSA(words);
+                            status = SATELITE;
+                            break;
+                        default:
+                            Debug.WriteLine("unrecognized message type: " + words[0], this.ToString());
+                            status = UNRECOGNIZED;
+                            break;
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("not gps sentence: " + words[0], this.ToString());
+                    status = UNRECOGNIZED;
                 }
             }
-            else
+            else // checksum invalid
             {
-                Debug.WriteLine("not gps sentence: " + words[0], this.ToString());
-                status = UNRECOGNIZED;
+                Debug.WriteLine("checksum error for: " + gpsMessage, this.ToString());
+                status = CHECKSUM_INVALID;
             }
             return status;
+        }
+
+        // Returns True if a sentence's checksum matches the
+        // calculated checksum
+        public bool isChecksumValid(string gpsMessage)
+        {
+            string checksum_counted = getChecksum(gpsMessage);
+            string checksum_got = gpsMessage.Substring(gpsMessage.IndexOf("*") + 1);
+            return checksum_counted == checksum_got;
+        }
+
+        public string getChecksum(string gpsMessage)
+        {
+            // Loop through all chars to get a checksum
+            int checksum = 0;
+            foreach (char c in gpsMessage)
+            {
+                if (c == '$')
+                {
+                    // Ignore the dollar sign
+                    continue;
+                }
+                else if (c == '*')
+                {
+                    // Stop processing before the asterisk
+                    break;
+                }
+                // Is this the first value for the checksum?
+                if (checksum == 0)
+                {
+                    // Set the checksum to the value
+                    checksum = Convert.ToByte(c);
+                }
+                else
+                {
+                    // XOR the checksum with this character's value
+                    checksum = checksum ^ Convert.ToByte(c);
+                }
+            }
+            // return two character hex
+            return checksum.ToString("X2");
         }
 
         private void GGA(string[] words)
@@ -244,33 +294,33 @@ namespace GpsConsole
 
         private void DumpGpsData()
         {
-            Console.WriteLine("Position:");
-            Console.WriteLine("RecivedData.SateliteTime: " + RecivedData.SateliteTime);
-            Console.WriteLine("RecivedData.Status: " + RecivedData.Status);
-            Console.WriteLine("RecivedData.Speed: " + RecivedData.Speed);
-            Console.WriteLine("RecivedData.Course: " + RecivedData.Course);
-            Console.WriteLine("RecivedData.LatitudeString: " + RecivedData.LatitudeString);
-            Console.WriteLine("RecivedData.LongitudeString: " + RecivedData.LongitudeString);
-            Console.WriteLine("RecivedData.SatellitesUsed: " + RecivedData.SatellitesUsed);
-            Console.WriteLine("Satellites:");
-            Console.WriteLine("RecivedData.SatellitesInView: " + RecivedData.SatellitesInView);
+            Debug.WriteLine("Position:", this.ToString());
+            Debug.WriteLine("RecivedData.SateliteTime: " + RecivedData.SateliteTime, this.ToString());
+            Debug.WriteLine("RecivedData.Status: " + RecivedData.Status, this.ToString());
+            Debug.WriteLine("RecivedData.Speed: " + RecivedData.Speed, this.ToString());
+            Debug.WriteLine("RecivedData.Course: " + RecivedData.Course, this.ToString());
+            Debug.WriteLine("RecivedData.LatitudeString: " + RecivedData.LatitudeString, this.ToString());
+            Debug.WriteLine("RecivedData.LongitudeString: " + RecivedData.LongitudeString, this.ToString());
+            Debug.WriteLine("RecivedData.SatellitesUsed: " + RecivedData.SatellitesUsed, this.ToString());
+            Debug.WriteLine("Satellites:", this.ToString());
+            Debug.WriteLine("RecivedData.SatellitesInView: " + RecivedData.SatellitesInView, this.ToString());
             string keys = "";
             foreach (int sid in RecivedData.SatellitesDetails.Keys)
             {
                 keys += sid + " ";
                 //Satellite s = (Satellite) RecivedData.SatellitesDetails[sid];
-                //Console.WriteLine("s.SatelliteID: " + s.SatelliteID);
-                //Console.WriteLine("s.Elevation: " + s.Elevation);
-                //Console.WriteLine("s.Azimuth: " + s.Azimuth);
-                //Console.WriteLine("s.SignalToNoiseRatio: " + s.SignalToNoiseRatio);
+                //Debug.WriteLine("s.SatelliteID: " + s.SatelliteID);
+                //Debug.WriteLine("s.Elevation: " + s.Elevation);
+                //Debug.WriteLine("s.Azimuth: " + s.Azimuth);
+                //Debug.WriteLine("s.SignalToNoiseRatio: " + s.SignalToNoiseRatio);
             }
-            Console.WriteLine("RecivedData.SatellitesDetails.Keys: " + keys);
+            Debug.WriteLine("RecivedData.SatellitesDetails.Keys: " + keys, this.ToString());
             string channels = "";
             foreach (int sid in RecivedData.SatellitesChannels)
             {
                 channels += sid + " ";
             }
-            Console.WriteLine("RecivedData.SatellitesChannels: " + channels);
+            Debug.WriteLine("RecivedData.SatellitesChannels: " + channels, this.ToString());
         }
 
         private void updateSatellitesUsed(string wordSatelites)

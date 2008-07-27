@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GpsDevice.cs" />
-    <Compile Include="NmeaInterpreter.cs" />
     <Compile Include="NmeaParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
