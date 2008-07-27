@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 
 using System.Diagnostics;
 using System.Globalization;
+using System.Collections;
+
 namespace GpsConsole
 {
     struct RecivedGpsData
@@ -18,6 +20,29 @@ namespace GpsConsole
         public string Status;
         public int SatellitesUsed;
 
+        // Satellites
+        public double PDOP;
+        public double HDOP;
+        public double VDOP;
+        public int SatellitesInView;
+        public Hashtable SatellitesDetails;
+        public int[] SatellitesChannels;
+    }
+
+    struct Satellite
+    {
+        public int SatelliteID;
+        public int Elevation;
+        public int Azimuth;
+        public int SignalToNoiseRatio;
+
+        public Satellite(int SatelliteID, int Elevation, int Azimuth, int SignalToNoiseRatio)
+        {
+            this.SatelliteID = SatelliteID;
+            this.Elevation = Elevation;
+            this.Azimuth = Azimuth;
+            this.SignalToNoiseRatio = SignalToNoiseRatio;
+        }
     }
 
     class NmeaParser
@@ -34,35 +59,19 @@ namespace GpsConsole
       
 
         private RecivedGpsData RecivedData = new RecivedGpsData();
+        
+
         private string GpsSentence = "";
 
-        /*
-         * Message types:
-            · AAM – Waypoint Arrival Alarm,
-            · ALM – Almanac data,
-            · APA – Auto Pilot A sentence,
-            · APB – Auto Pilot B sentence,
-            · BOD – Bearing Origin to Destination,
-            · BWC – Bearing using Great Circle route,
-            · DTM – Datum being used,
-            · GGA – Fix information,
-            · GLL – Lat/Lon data,
-            · GSA – Overall Satellite data,
-            · GSV – Detailed Satellite data,
-            · MSK – Send control for a beacon receiver,
-            · MSS – Beacon receiver status information,
-            · RMA – Recommended Loran data,
-            · RMB – Recommended navigation data for gps,
-            · RMC – Recommended minimum data for gps,
-            · RTE – Route message,
-            · VTG – Vector track an Speed over the Ground,
-            · WCV – Waypoint closure velocity (Velocity Made Good),
-            · WPL – Waypoint information,
-            · XTC – Cross track error,
-            · XTE – Measured cross track error,
-            · ZTG – Zulu (UTC) time and time to go (to destination),
-            · ZDA – Date and Time.
-         * */
+
+        public NmeaParser()
+        {
+
+            RecivedData.SatellitesDetails = new Hashtable();
+
+        }
+
+
         public short Parse(string gpsMessage)
         {
             short status;
@@ -75,7 +84,7 @@ namespace GpsConsole
             string[] msg = gpsMessage.Split('*');
             //Console.WriteLine("gpsMessage checksum: " + msg[1]);
             //Console.WriteLine("gpsMessage: " + msg[0]);
-
+            Console.WriteLine("gpsMessage: " + GpsSentence);
             string[] words = msg[0].Split(',');
             if (rxGps.IsMatch(words[0]))
             {
@@ -89,6 +98,10 @@ namespace GpsConsole
                     case "RMC":
                         // RMC – Recommended minimum data for gps
                         RMC(words);
+                        status = LOCATION;
+                        break;
+                    case "GLL":
+                        GLL(words);
                         status = LOCATION;
                         break;
                     case "GSV":
@@ -128,15 +141,6 @@ namespace GpsConsole
             DumpGpsData();
         }
 
-        private void updateSatellitesUsed(string wordSatelites)
-        {
-            if (wordSatelites != "")
-            {
-                int satellitesCount = int.Parse(wordSatelites, NmeaCultureInfo);
-                RecivedData.SatellitesUsed = satellitesCount;
-            }
-        }
-
         private void RMC(string[] words)
         {
             updateSatelliteTime(words[1]);
@@ -155,15 +159,127 @@ namespace GpsConsole
             DumpGpsData();
         }
 
+        private void GLL(string[] words)
+        {
+            updateLatitude(words[1], words[2]);
+            updateLongitude(words[3], words[4]);
+            updateSatelliteTime(words[5]);
+            updateStatus(words[6]);
+
+            DumpGpsData();
+        }
+
+        private void GSV(string[] words)
+        {
+            updateSatellitesInView(words[3]);
+
+            // update satelites details
+            int NumberOfMessages = Convert.ToInt32(words[1]);
+            //int MessageNumber = Convert.ToInt32(words[2]);
+            for (int i = 1; i <= NumberOfMessages; i++)
+            {
+                int index = i * 4;
+                updateSatellitesDetails(words[index], words[index + 1], words[index + 2], words[index + 3]);
+            }
+
+            DumpGpsData();
+        }
+
+        private void GSA(string[] words)
+        {
+            RecivedData.SatellitesChannels = new int[11];
+            for (int i = 0; i < 11; i++) // TODO consider putting it to RecivedData.SatellitesDetails
+            {
+                if (words[i+3] != "")
+                    RecivedData.SatellitesChannels[i+3] = System.Convert.ToInt32(words[i+3]);
+            }
+            if (words[15] != "")
+                RecivedData.PDOP = double.Parse(words[15], NmeaCultureInfo);
+            if (words[16] != "")
+                RecivedData.HDOP = double.Parse(words[16], NmeaCultureInfo);
+            if (words[17] != "")
+                RecivedData.VDOP = double.Parse(words[17], NmeaCultureInfo);
+            
+            DumpGpsData();
+        }
+
+        private void updateSatellitesDetails(string wordSatelliteID, string wordElevation, 
+            string wordAzimuth, string wordSignalToNoiseRatio)
+        {
+            if (wordSatelliteID != "")
+            {
+                int SatelliteID = System.Convert.ToInt32(wordSatelliteID);
+                int Elevation = -1;
+                int Azimuth = -1;
+                int SignalToNoiseRatio = -1;
+
+                if (wordElevation != "")
+                    Elevation = Convert.ToInt32(wordElevation);
+                if (wordAzimuth != "")
+                    Azimuth = Convert.ToInt32(wordAzimuth);
+                if (wordSignalToNoiseRatio != "")
+                    SignalToNoiseRatio = Convert.ToInt32(wordSignalToNoiseRatio);
+
+                if (RecivedData.SatellitesDetails.ContainsKey(SatelliteID) ) {
+                    Satellite s = (Satellite) RecivedData.SatellitesDetails[SatelliteID];
+                    if (Elevation != -1)
+                        s.Elevation = Elevation;
+                    if (Azimuth != -1)
+                        s.Azimuth = Azimuth;
+                    if (SignalToNoiseRatio != -1)
+                        s.SignalToNoiseRatio = SignalToNoiseRatio;
+                } else {
+                    RecivedData.SatellitesDetails[SatelliteID] = new Satellite(SatelliteID, Elevation, Azimuth, SignalToNoiseRatio);
+                }
+            }
+        }
+
+        private void updateSatellitesInView(string wordSatelitesInView) 
+        {
+            if (wordSatelitesInView != "")
+            {
+                RecivedData.SatellitesInView = int.Parse(wordSatelitesInView, NmeaCultureInfo);
+            }
+        }
+
         private void DumpGpsData()
         {
-            Console.WriteLine("gpsMessage: " + GpsSentence);
+            Console.WriteLine("Position:");
             Console.WriteLine("RecivedData.SateliteTime: " + RecivedData.SateliteTime);
             Console.WriteLine("RecivedData.Status: " + RecivedData.Status);
             Console.WriteLine("RecivedData.Speed: " + RecivedData.Speed);
+            Console.WriteLine("RecivedData.Course: " + RecivedData.Course);
             Console.WriteLine("RecivedData.LatitudeString: " + RecivedData.LatitudeString);
             Console.WriteLine("RecivedData.LongitudeString: " + RecivedData.LongitudeString);
             Console.WriteLine("RecivedData.SatellitesUsed: " + RecivedData.SatellitesUsed);
+            Console.WriteLine("Satellites:");
+            Console.WriteLine("RecivedData.SatellitesInView: " + RecivedData.SatellitesInView);
+            string keys = "";
+            foreach (int sid in RecivedData.SatellitesDetails.Keys)
+            {
+                keys += sid + " ";
+                //Satellite s = (Satellite) RecivedData.SatellitesDetails[sid];
+                //Console.WriteLine("s.SatelliteID: " + s.SatelliteID);
+                //Console.WriteLine("s.Elevation: " + s.Elevation);
+                //Console.WriteLine("s.Azimuth: " + s.Azimuth);
+                //Console.WriteLine("s.SignalToNoiseRatio: " + s.SignalToNoiseRatio);
+            }
+            Console.WriteLine("RecivedData.SatellitesDetails.Keys: " + keys);
+            string channels = "";
+            foreach (int sid in RecivedData.SatellitesChannels)
+            {
+                channels += sid + " ";
+            }
+            Console.WriteLine("RecivedData.SatellitesChannels: " + channels);
+        }
+
+        private void updateSatellitesUsed(string wordSatelites)
+        {
+            if (wordSatelites != "")
+            {
+                int satellitesCount = int.Parse(wordSatelites, NmeaCultureInfo);
+                RecivedData.SatellitesUsed = satellitesCount;
+            }
         }
 
         private void updateStatus(string wordStatus)
@@ -229,21 +345,6 @@ namespace GpsConsole
             }
         }
 
-        //private string coordinateString(string wordCoordinate, string wordIndicator) 
-        //{
-        //    string coordinate = "";
-        //    if (wordCoordinate != "" && wordIndicator != "")
-        //    {
-        //        // Append hours
-        //        coordinate = wordCoordinate.Substring(0, 2) + "°";
-        //        // Append minutes
-        //        coordinate = coordinate + wordCoordinate.Substring(2) + "\"";
-        //        // Append the hemisphere
-        //        coordinate = coordinate + wordIndicator; 
-        //    }
-        //    return coordinate;
-        //}
-
         private void updateSatelliteTime(string timeWord)
         {
             if (timeWord != "")
@@ -265,16 +366,6 @@ namespace GpsConsole
                   UtcMilliseconds);
                 RecivedData.SateliteTime = SatelliteTime.ToLocalTime();
             }
-        }
-
-        private void GSV(string[] words)
-        {
-
-        }
-
-        private void GSA(string[] words)
-        {
-
         }
 
     }
