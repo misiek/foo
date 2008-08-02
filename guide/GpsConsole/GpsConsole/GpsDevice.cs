@@ -5,26 +5,61 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 using System.IO.Ports;
-
+using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 namespace GpsConsole
 {
     class GpsDevice
     {
+
+
         private SerialPort gpsPort = new SerialPort();
         private System.Threading.Thread gpsListenerThread = null;
 
-        private IntPtr stateChange;
+        //public delegate void LocationChangedEventHandler(object sender, LocationChangedEventArgs args);
+        //public delegate void SatellitesChangedEventHandler(object sender, SatellitesChangedEventArgs args);
+        //event LocationChangedEventHandler locationChanged;
+        //public event LocationChangedEventHandler LocationChanged
+        //{
+        //    add
+        //    {
+        //        locationChanged += value;
+        //    }
+        //    remove
+        //    {
+        //        locationChanged -= value;
+        //    }
+        //}
+        //event SatellitesChangedEventHandler satellitesChanged;
+        //public event SatellitesChangedEventHandler DeviceStateChanged
+        //{
+        //    add
+        //    {
+        //        satellitesChange += value;
+        //    }
+        //    remove
+        //    {
+        //        satellitesChanged -= value;
+        //    }
+        //}
+
+
         private IntPtr locationChange;
+        private IntPtr satelliteChange;
 
         private NmeaParser nmea = new NmeaParser();
 
-        //public GpsDevice(IntPtr stateChange, IntPtr locationChange)
+        public GpsDevice(IntPtr satelliteChange, IntPtr locationChange)
+        {
+            this.locationChange = locationChange;
+            this.satelliteChange = satelliteChange;
+        }
+
         public GpsDevice()
         {
-            //this.stateChange = stateChange;
-            //this.locationChange = locationChange;
+            this.locationChange = new IntPtr(0);
+            this.satelliteChange = new IntPtr(0);
         }
 
         public void Open()
@@ -95,7 +130,23 @@ namespace GpsConsole
                     try
                     {
                         gpsMessage = gpsPort.ReadLine();
-                        nmea.Parse(gpsMessage);
+                        short status = nmea.Parse(gpsMessage);
+                        switch (status)
+                        {
+                            case NmeaParser.LOCATION:
+                                //int a = Marshal.ReadIntPtr(locationChange);
+                                //Marshal.WriteIntPtr(locationChange, 
+                                //locationChange;
+                                //Marshal.WriteIntPtr(locationChange, new IntPtr(locationChange.ToInt32() + 1));
+                                break;
+                            case NmeaParser.SATELLITE:
+                                //satelliteChange;
+                                break;
+                            case NmeaParser.UNRECOGNIZED:
+                                break;
+                            case NmeaParser.CHECKSUM_INVALID:
+                                break;
+                        }
                     }
                     catch (TimeoutException ex)
                     {

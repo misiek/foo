@@ -12,7 +12,7 @@ namespace GpsConsole
 {
     struct RecivedGpsData
     {
-        public DateTime SateliteTime;
+        public DateTime SatelliteTime;
         public string LatitudeString;
         public string LongitudeString;
         public double Speed;
@@ -35,6 +35,7 @@ namespace GpsConsole
         public int Elevation;
         public int Azimuth;
         public int SignalToNoiseRatio;
+        public int Channel;
 
         public Satellite(int SatelliteID, int Elevation, int Azimuth, int SignalToNoiseRatio)
         {
@@ -42,6 +43,7 @@ namespace GpsConsole
             this.Elevation = Elevation;
             this.Azimuth = Azimuth;
             this.SignalToNoiseRatio = SignalToNoiseRatio;
+            this.Channel = 0;
         }
     }
 
@@ -49,7 +51,7 @@ namespace GpsConsole
     {
         public const short UNRECOGNIZED = 0;
         public const short LOCATION = 1;
-        public const short SATELITE = 2;
+        public const short SATELLITE = 2;
         public const short CHECKSUM_INVALID = 3;
 
 
@@ -59,7 +61,7 @@ namespace GpsConsole
         private static double MPHPerKnot = double.Parse("1.150779", NmeaCultureInfo);
       
 
-        private RecivedGpsData RecivedData = new RecivedGpsData();
+        private RecivedGpsData RecivedData;
         
 
         private string GpsSentence = "";
@@ -68,7 +70,9 @@ namespace GpsConsole
         public NmeaParser()
         {
 
+            RecivedData = new RecivedGpsData();
             RecivedData.SatellitesDetails = new Hashtable();
+            RecivedData.SatellitesChannels = new int[11];
 
         }
 
@@ -110,12 +114,12 @@ namespace GpsConsole
                         case "GSV":
                             // GSV – Detailed Satellite data
                             GSV(words);
-                            status = SATELITE;
+                            status = SATELLITE;
                             break;
                         case "GSA":
                             // GSA – Overall Satellite data
                             GSA(words);
-                            status = SATELITE;
+                            status = SATELLITE;
                             break;
                         default:
                             Debug.WriteLine("unrecognized message type: " + words[0], this.ToString());
@@ -229,6 +233,8 @@ namespace GpsConsole
             for (int i = 1; i <= NumberOfMessages; i++)
             {
                 int index = i * 4;
+                if (words.Length < index+3)
+                    break;
                 updateSatellitesDetails(words[index], words[index + 1], words[index + 2], words[index + 3]);
             }
 
@@ -238,10 +244,18 @@ namespace GpsConsole
         private void GSA(string[] words)
         {
             RecivedData.SatellitesChannels = new int[11];
-            for (int i = 0; i < 11; i++) // TODO consider putting it to RecivedData.SatellitesDetails
+            for (int i = 0; i < 11; i++)
             {
-                if (words[i+3] != "")
-                    RecivedData.SatellitesChannels[i+3] = System.Convert.ToInt32(words[i+3]);
+                if (words[i + 3] != "")
+                {
+                    int satelliteID = System.Convert.ToInt32(words[i + 3]);
+                    if (RecivedData.SatellitesDetails.ContainsKey(satelliteID))
+                    {
+                        Satellite s = (Satellite) RecivedData.SatellitesDetails[satelliteID];
+                        s.Channel = i + 1;
+                    }
+                    RecivedData.SatellitesChannels[i] = satelliteID;
+                }
             }
             if (words[15] != "")
                 RecivedData.PDOP = double.Parse(words[15], NmeaCultureInfo);
@@ -295,7 +309,7 @@ namespace GpsConsole
         private void DumpGpsData()
         {
             Debug.WriteLine("Position:", this.ToString());
-            Debug.WriteLine("RecivedData.SateliteTime: " + RecivedData.SateliteTime, this.ToString());
+            Debug.WriteLine("RecivedData.SateliteTime: " + RecivedData.SatelliteTime, this.ToString());
             Debug.WriteLine("RecivedData.Status: " + RecivedData.Status, this.ToString());
             Debug.WriteLine("RecivedData.Speed: " + RecivedData.Speed, this.ToString());
             Debug.WriteLine("RecivedData.Course: " + RecivedData.Course, this.ToString());
@@ -304,6 +318,9 @@ namespace GpsConsole
             Debug.WriteLine("RecivedData.SatellitesUsed: " + RecivedData.SatellitesUsed, this.ToString());
             Debug.WriteLine("Satellites:", this.ToString());
             Debug.WriteLine("RecivedData.SatellitesInView: " + RecivedData.SatellitesInView, this.ToString());
+            Debug.WriteLine("RecivedData.PDOP: " + RecivedData.PDOP);
+            Debug.WriteLine("RecivedData.HDOP: " + RecivedData.HDOP);
+            Debug.WriteLine("RecivedData.VDOP: " + RecivedData.VDOP);
             string keys = "";
             foreach (int sid in RecivedData.SatellitesDetails.Keys)
             {
@@ -313,6 +330,7 @@ namespace GpsConsole
                 //Debug.WriteLine("s.Elevation: " + s.Elevation);
                 //Debug.WriteLine("s.Azimuth: " + s.Azimuth);
                 //Debug.WriteLine("s.SignalToNoiseRatio: " + s.SignalToNoiseRatio);
+                //Debug.WriteLine("s.Channel: " + s.Channel);
             }
             Debug.WriteLine("RecivedData.SatellitesDetails.Keys: " + keys, this.ToString());
             string channels = "";
@@ -414,7 +432,7 @@ namespace GpsConsole
                 System.DateTime SatelliteTime = new System.DateTime(Today.Year,
                   Today.Month, Today.Day, UtcHours, UtcMinutes, UtcSeconds,
                   UtcMilliseconds);
-                RecivedData.SateliteTime = SatelliteTime.ToLocalTime();
+                RecivedData.SatelliteTime = SatelliteTime.ToLocalTime();
             }
         }
 
