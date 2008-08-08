@@ -15,11 +15,37 @@ namespace GpsConsole
             //GpsDevice gps = new GpsDevice(satellite, location);
             GpsDevice gps = new GpsDevice();
             gps.Open();
-            //while (true)
-            //{
-            //    Console.WriteLine("location ptr: " + location.ToInt32());
-            //
-            //}
+
+
+            Listener l = new Listener();
+            l.SubscribeLocation(gps);
+            l.SubscribeSatellites(gps);
+        }
+
+    }
+
+
+    public class Listener
+    {
+        public void SubscribeLocation(GpsDevice gps)
+        {
+            gps.locationChanged += new GpsDevice.LocationChangedEventHandler(location);
+        }
+
+        public void SubscribeSatellites(GpsDevice gps)
+        {
+            gps.satellitesChanged += new GpsDevice.SatellitesChangedEventHandler(satellite);
+        }
+
+        private void location(GpsDevice gps)
+        {
+            System.Console.WriteLine("LOCATION");
+        }
+
+        private void satellite(GpsDevice gps)
+        {
+            System.Console.WriteLine("SATELLITE");
         }
     }
+
 }
