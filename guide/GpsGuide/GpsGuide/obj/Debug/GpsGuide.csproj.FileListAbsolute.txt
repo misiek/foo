@@ -1,0 +1,8 @@
+F:\workspace\GpsGuide\GpsGuide\obj\Debug\ResolveAssemblyReference.cache
+F:\workspace\GpsGuide\GpsGuide\obj\Debug\GpsGuide.Form1.resources
+F:\workspace\GpsGuide\GpsGuide\obj\Debug\GpsGuide.Properties.Resources.resources
+F:\workspace\GpsGuide\GpsGuide\obj\Debug\GpsGuide.csproj.GenerateResource.Cache
+F:\workspace\GpsGuide\GpsGuide\bin\Debug\GpsGuide.exe
+F:\workspace\GpsGuide\GpsGuide\bin\Debug\GpsGuide.pdb
+F:\workspace\GpsGuide\GpsGuide\obj\Debug\GpsGuide.exe
+F:\workspace\GpsGuide\GpsGuide\obj\Debug\GpsGuide.pdb
