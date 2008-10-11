@@ -7,13 +7,13 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using Gps;
+using GpsGuide.Gps;
 
 namespace GpsGuide
 {
     public partial class Form1 : Form
     {
-        private System.Windows.Forms.Label position;
+        private System.Windows.Forms.Label labelPosition;
         GpsDevice gps = new GpsDevice();
         private EventHandler updatePosHandler;
         private EventHandler updateSatHandler;
@@ -30,10 +30,10 @@ namespace GpsGuide
         private void Form1_Load(object sender, EventArgs e)
         {
             gps.locationChanged     += new GpsDevice.LocationChangedEventHandler(location);
-            gps.satellitesChanged   += new GpsDevice.SatellitesChangedEventHandler(satellite);
+            //gps.satellitesChanged   += new GpsDevice.SatellitesChangedEventHandler(satellite);
 
             updatePosHandler = new EventHandler(updateLocation);
-            updateSatHandler = new EventHandler(updateSatellite);
+            //updateSatHandler = new EventHandler(updateSatellite);
         }
 
         private void location(GpsDevice gps)
@@ -48,12 +48,14 @@ namespace GpsGuide
 
         private void updateLocation(object sender, System.EventArgs args)
         {
-            position.Text = "LOCATION";
+            LocationData ld = gps.getLocationData();
+            labelPosition.Text = ld.getLatitudeString() + " " + ld.getLongitudeString();
+            labelSpeed.Text = ld.getSpeed();
         }
 
         private void updateSatellite(object sender, System.EventArgs args)
         {
-            position.Text = "SATELLITE";
+            //labelPosition.Text = "SATELLITE";
         }
 
     }

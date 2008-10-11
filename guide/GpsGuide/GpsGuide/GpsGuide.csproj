@@ -62,8 +62,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GpsDevice\GpsDevice.cs" />
-    <Compile Include="GpsDevice\NmeaParser.cs" />
+    <Compile Include="Gps\GpsDevice.cs" />
+    <Compile Include="Gps\LocationData.cs" />
+    <Compile Include="Gps\NmeaParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

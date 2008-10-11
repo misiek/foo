@@ -12,3 +12,5 @@ c:\workspace\foo\guide\GpsConsole\GpsConsole\bin\Debug\GpsConsole.pdb
 c:\workspace\foo\guide\GpsConsole\GpsConsole\obj\Debug\ResolveAssemblyReference.cache
 c:\workspace\foo\guide\GpsConsole\GpsConsole\obj\Debug\GpsConsole.Properties.Resources.resources
 c:\workspace\foo\guide\GpsConsole\GpsConsole\obj\Debug\GpsConsole.csproj.GenerateResource.Cache
+F:\workspace\foo\guide\GpsConsole\GpsConsole\obj\Debug\GpsConsole.exe
+F:\workspace\foo\guide\GpsConsole\GpsConsole\obj\Debug\GpsConsole.pdb
