@@ -1,1 +1,5 @@
 F:\workspace\foo\guide\TouristGuide\Gps\obj\Debug\ResolveAssemblyReference.cache
+F:\workspace\foo\guide\TouristGuide\Gps\bin\Debug\Gps.dll
+F:\workspace\foo\guide\TouristGuide\Gps\bin\Debug\Gps.pdb
+F:\workspace\foo\guide\TouristGuide\Gps\obj\Debug\Gps.dll
+F:\workspace\foo\guide\TouristGuide\Gps\obj\Debug\Gps.pdb

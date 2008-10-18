@@ -6,3 +6,5 @@ F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.Properti
 F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.csproj.GenerateResource.Cache
 F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.exe
 F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.pdb
+F:\workspace\foo\guide\TouristGuide\TouristGuide\bin\Debug\Gps.dll
+F:\workspace\foo\guide\TouristGuide\TouristGuide\bin\Debug\Gps.pdb
