@@ -1,0 +1,8 @@
+F:\workspace\foo\guide\TouristGuide\TouristGuide\bin\Debug\TouristGuide.exe
+F:\workspace\foo\guide\TouristGuide\TouristGuide\bin\Debug\TouristGuide.pdb
+F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\ResolveAssemblyReference.cache
+F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.Form1.resources
+F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.Properties.Resources.resources
+F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.csproj.GenerateResource.Cache
+F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.exe
+F:\workspace\foo\guide\TouristGuide\TouristGuide\obj\Debug\TouristGuide.pdb

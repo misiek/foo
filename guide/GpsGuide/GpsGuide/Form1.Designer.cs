@@ -6,7 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.MainMenu mainMenu1;
+
 
         /// <summary>
         /// Clean up any resources being used.
@@ -33,6 +33,7 @@
             this.labelPosition = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
+          
             this.SuspendLayout();
             // 
             // label1
@@ -66,6 +67,7 @@
             this.labelSpeed.Size = new System.Drawing.Size(77, 13);
             this.labelSpeed.TabIndex = 3;
             this.labelSpeed.Text = "---";
+        
             // 
             // Form1
             // 
@@ -89,7 +91,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelSpeed;
-        
+
     }
 }
 
