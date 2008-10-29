@@ -15,6 +15,8 @@ namespace TouristGuide
         private EventHandler updatePosHandler;
         private EventHandler updateSatHandler;
 
+        private Map map;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +30,8 @@ namespace TouristGuide
 
             updatePosHandler = new EventHandler(updateLocation);
             //updateSatHandler = new EventHandler(updateSatellite);
+
+            map = new Map(mapPanel, gps);
         }
 
         private void location(GpsDevice gps)
@@ -50,6 +54,8 @@ namespace TouristGuide
         private void updateSatellite(object sender, System.EventArgs args)
         {
             //labelPosition.Text = "SATELLITE";
+
+           
         }
 
     }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+    <coordinates>
+        <bottomLeft>
+	    <latitude>50.05359445556083</latitude>
+	    <longitude>19.918277263641357</longitude>
+	</bottomLeft>
+	<topRight>
+	    <latitude>50.071019630953096</latitude>
+	    <longitude>19.956729412078857</longitude>
+	</topRight>
+    </coordinates>
+    <parts>
+        <extension>png</extension>
+	<partWidth>255</partWidth>
+	<partHeight>255</partHeight>
+    </parts>
+</map>
