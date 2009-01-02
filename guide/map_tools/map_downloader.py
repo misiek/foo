@@ -60,7 +60,8 @@ class MapDownloader():
             'osmarender_zoom': '17',
             'commit': 'Export',
         }
-        name = '%s-%s_%s-%s.%s' % (minlon, minlat, maxlon, maxlat,
+        # file name as top left coordinates and bottom right
+        name = '%s-%s_%s-%s.%s' % (minlon, maxlat, maxlon, minlat,
                                         params['osmarender_format'])
         if not dir:
             dir = '%s_%s_%s' % (params['format'],
