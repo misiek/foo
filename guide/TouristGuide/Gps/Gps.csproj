@@ -46,6 +46,18 @@
     <NoConfig>true</NoConfig>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'wewer|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\wewer\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;PocketPC</DefineConstants>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
   <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ItemGroup>

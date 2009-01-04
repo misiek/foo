@@ -12,6 +12,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		wewer|Any CPU = wewer|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F6A13129-8561-4F52-B146-E8B5B362331E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -20,11 +21,16 @@ Global
 		{F6A13129-8561-4F52-B146-E8B5B362331E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6A13129-8561-4F52-B146-E8B5B362331E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6A13129-8561-4F52-B146-E8B5B362331E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F6A13129-8561-4F52-B146-E8B5B362331E}.wewer|Any CPU.ActiveCfg = wewer|Any CPU
+		{F6A13129-8561-4F52-B146-E8B5B362331E}.wewer|Any CPU.Build.0 = wewer|Any CPU
+		{F6A13129-8561-4F52-B146-E8B5B362331E}.wewer|Any CPU.Deploy.0 = wewer|Any CPU
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.wewer|Any CPU.ActiveCfg = wewer|Any CPU
+		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.wewer|Any CPU.Build.0 = wewer|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

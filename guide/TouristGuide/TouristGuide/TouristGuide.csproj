@@ -43,6 +43,18 @@
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'wewer|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\wewer\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;PocketPC</DefineConstants>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -52,18 +64,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="src\AppContext.cs" />
+    <Compile Include="src\main\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="src\main\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Map.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="src\gui\MapContainer.cs" />
+    <Compile Include="src\MapDisplayer.cs" />
+    <Compile Include="src\MapManager.cs" />
+    <Compile Include="src\dataobjects\MapPackage.cs" />
+    <Compile Include="src\loaders\MapPackageLoader.cs" />
+    <Compile Include="src\dataobjects\MapView.cs" />
+    <Compile Include="src\dataobjects\Poi.cs" />
+    <Compile Include="src\loaders\PoiLoader.cs" />
+    <Compile Include="src\main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="src\main\MainWindow.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Form1.cs</DependentUpon>
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -82,6 +102,164 @@
       <Name>Gps</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="uml\ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\map.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\0_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\0_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\0_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\0_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\1_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\1_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\1_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\1_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\2_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\2_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\2_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\2_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\3_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\3_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\3_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\3_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\map.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\0_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\0_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\0_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\0_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\1_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\1_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\1_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\1_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\2_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\2_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\2_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\2_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\3_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\3_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\3_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\3_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\map.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\0_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\0_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\0_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\0_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\1_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\1_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\1_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\1_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\2_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\2_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\2_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\2_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\3_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\3_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\3_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\3_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
   <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
@@ -96,6 +274,7 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+    <Message Text="Running MyCustomTarget2..." xmlns="" />
   </Target>
   -->
 </Project>
