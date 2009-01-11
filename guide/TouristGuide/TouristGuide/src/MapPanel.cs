@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TouristGuide
 {
-    public class PoiLoader
+    public class MapPanel
     {
     }
 }

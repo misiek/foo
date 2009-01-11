@@ -6,9 +6,9 @@ namespace TouristGuide
 {
     public class MapManager
     {
-        private MapPackage[] mapPackeges;
+        private int currentMapPkg;
     
-        public MapPackageLoader MapPackageLoader
+        public MapSourceManager MapSourceManager
         {
             get
             {
@@ -19,7 +19,7 @@ namespace TouristGuide
             }
         }
 
-        public PoiLoader PoiLoader
+        public PoiSourceManager PoiSourceManager
         {
             get
             {
@@ -28,6 +28,22 @@ namespace TouristGuide
             set
             {
             }
+        }
+
+        public MapDisplayer MapDisplayer
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public void newPosition()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

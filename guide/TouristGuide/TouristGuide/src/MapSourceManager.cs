@@ -4,9 +4,9 @@ using System.Text;
 
 namespace TouristGuide
 {
-    public class MapDisplayer
+    public class MapSourceManager
     {
-        public MapPanel MapPanel
+        public MapDisplayer MapDisplayer
         {
             get
             {
@@ -16,11 +16,11 @@ namespace TouristGuide
             {
             }
         }
-
         /// <summary>
-        /// Displays loading message in map panel.
+        /// Get map package by coordinates.
         /// </summary>
-        public void loadingMap()
+        /// <returns>MapPackage instance</returns>
+        public MapPackage getMapPkg()
         {
             throw new System.NotImplementedException();
         }

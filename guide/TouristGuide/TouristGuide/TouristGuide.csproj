@@ -64,24 +64,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\MapSource.cs" />
+    <Compile Include="src\MapSourceHdd.cs" />
+    <Compile Include="src\MapSourceMem.cs" />
+    <Compile Include="src\MapSourceWeb.cs" />
     <Compile Include="src\AppContext.cs" />
-    <Compile Include="src\main\MainWindow.cs">
+    <Compile Include="src\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\main\MainWindow.Designer.cs">
+    <Compile Include="src\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\gui\MapContainer.cs" />
+    <Compile Include="src\MapPanel.cs" />
     <Compile Include="src\MapDisplayer.cs" />
     <Compile Include="src\MapManager.cs" />
-    <Compile Include="src\dataobjects\MapPackage.cs" />
-    <Compile Include="src\loaders\MapPackageLoader.cs" />
-    <Compile Include="src\dataobjects\MapView.cs" />
-    <Compile Include="src\dataobjects\Poi.cs" />
-    <Compile Include="src\loaders\PoiLoader.cs" />
-    <Compile Include="src\main\Program.cs" />
+    <Compile Include="src\MapPackage.cs" />
+    <Compile Include="src\MapSourceManager.cs">
+    </Compile>
+    <Compile Include="src\MapView.cs" />
+    <Compile Include="src\Poi.cs" />
+    <Compile Include="src\PoiSourceManager.cs" />
+    <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="src\main\MainWindow.resx">
+    <EmbeddedResource Include="src\MainWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
