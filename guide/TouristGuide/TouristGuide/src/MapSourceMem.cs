@@ -12,7 +12,7 @@ namespace TouristGuide
         /// Find map package by coordinates in the source.
         /// </summary>
         /// <returns>MapPackage instance.</returns>
-        public MapPackage findMapPkg()
+        public MapPackage findMapPkg(double latitude, double longitude)
         {
             throw new Exception("The method or operation is not implemented.");
         }
@@ -20,7 +20,7 @@ namespace TouristGuide
         /// <summary>
         /// Put map package to the source.
         /// </summary>
-        public void putMapPkg()
+        public void putMapPkg(MapPackage mapPkg)
         {
             throw new Exception("The method or operation is not implemented.");
         }

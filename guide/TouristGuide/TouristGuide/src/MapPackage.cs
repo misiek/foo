@@ -13,23 +13,26 @@ namespace TouristGuide
         private double bottomRightLatitude;
         private double bottomRightLongitude;
 
-        // package name
+        // package name - directory name
         private string name;
         // package description
         private string descr;
         // map parts
         private Hashtable parts;
 
-        public MapPackage(double topLeftLatitude,
+        public MapPackage(string name,
+                          double topLeftLatitude,
                           double topLeftLongitude,
                           double bottomRightLatitude,
                           double bottomRightLongitude)
         {
+            this.name = name;
             this.topLeftLatitude = topLeftLatitude;
             this.topLeftLongitude = topLeftLongitude;
             this.bottomRightLatitude = bottomRightLatitude;
             this.bottomRightLongitude = bottomRightLongitude;
-            parts = new Hashtable();
+            this.parts = new Hashtable();
+            this.descr = "";
         }
 
         /// <summary>
@@ -45,14 +48,40 @@ namespace TouristGuide
 
         public void setPart(Point p, Image image)
         {
-            if (parts.ContainsKey(p))
+            if (this.parts.ContainsKey(p))
                 throw new Exception("Part exists: " + p);
-            parts.Add(p, image);
+            this.parts.Add(p, image);
         }
 
         public Image getPart(Point p)
         {
-            return (Image)parts[p];
+            return (Image)this.parts[p];
+        }
+
+        /*
+         * Free memory by loosing parts.
+         * When map package is not used.
+         */
+        public void freeParts()
+        {
+            this.parts = new Hashtable();
+        }
+
+        public bool isPartsFree()
+        {
+            if (this.parts.Count == 0)
+                return true;
+            return false;
+        }
+
+        public string getDescription()
+        {
+            return this.descr;
+        }
+
+        public void setDescription(string descr)
+        {
+            this.descr = descr;
         }
     }
 }

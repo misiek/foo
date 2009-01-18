@@ -10,11 +10,11 @@ namespace TouristGuide
         /// Find map package by coordinates in the source.
         /// </summary>
         /// <returns>MapPackage instance.</returns>
-        TouristGuide.MapPackage findMapPkg();
+        TouristGuide.MapPackage findMapPkg(double latitude, double longitude);
 
         /// <summary>
         /// Put map package to the source.
         /// </summary>
-        void putMapPkg();
+        void putMapPkg(MapPackage mapPkg);
     }
 }

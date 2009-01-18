@@ -14,12 +14,12 @@ namespace TouristGuide
         private GpsDevice gps = new GpsDevice();
         private EventHandler updatePosHandler;
         private EventHandler updateSatHandler;
-
+        private AppContext appContext;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            this.appContext = new AppContext();
         }
 
         private void Form1_Load(object sender, EventArgs e)

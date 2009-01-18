@@ -1,1 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><map><coordinates><topLeft><longitude>19.93299</longitude><latitude>50.062138</latitude></topLeft><bottomRight><longitude>19.944005</longitude><latitude>50.055061</latitude></bottomRight></coordinates><parts><format>png</format></parts></map>
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<description>sample map package - part of krakow</description>
+	<coordinates>
+		<topLeft>
+			<longitude>19.93299</longitude>
+			<latitude>50.062138</latitude>
+		</topLeft>
+		<bottomRight>
+			<longitude>19.944005</longitude>
+			<latitude>50.055061</latitude>
+		</bottomRight>
+	</coordinates>
+	<parts>
+		<format>png</format>
+	</parts>
+</map>
