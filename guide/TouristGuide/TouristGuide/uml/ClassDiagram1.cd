@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Font Name="Tahoma" Size="8.25" />
-  <Comment CommentText="Instantiates other classes.">
-    <Position X="8.209" Y="0.51" Height="0.354" Width="1.742" />
+  <Comment CommentText="Singleton&#xD;&#xA;Instantiates other classes.">
+    <Position X="8.209" Y="0.5" Height="0.427" Width="1.742" />
   </Comment>
   <Comment CommentText="Current map view - map images returned by coordinates.">
     <Position X="6.218" Y="3.062" Height="0.75" Width="1.648" />
@@ -18,7 +18,7 @@
     <Position X="8.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\AppContext.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAABAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgABAIAAAQAAAAAABAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.MapDisplayer">
@@ -93,7 +93,7 @@
     <Position X="4.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\MapPackage.cs</FileName>
-      <HashCode>AAAEAAAApAAAEAAAAAAAAAACIAAEAAAQAABAAAAAAAA=</HashCode>
+      <HashCode>AAAEAAQApAAgEAIAAAAAAAACIAAEAAAQAABAAAAgAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.Poi">
@@ -128,10 +128,10 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TouristGuide.MapPkgRepository">
-    <Position X="2.5" Y="7.75" Width="1.5" />
+    <Position X="2.5" Y="7.75" Width="1.75" />
     <TypeIdentifier>
       <FileName>MapPkgRepository.cs</FileName>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Interface Name="TouristGuide.MapSource">

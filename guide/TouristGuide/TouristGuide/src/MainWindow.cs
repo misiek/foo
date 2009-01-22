@@ -19,7 +19,7 @@ namespace TouristGuide
         public MainWindow()
         {
             InitializeComponent();
-            this.appContext = new AppContext();
+            this.appContext = AppContext.Instance;
         }
 
         private void Form1_Load(object sender, EventArgs e)

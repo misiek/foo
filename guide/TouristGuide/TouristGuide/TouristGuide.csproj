@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapPkgRepository.cs" />
+    <Compile Include="src\exceptions\MapPkgRepositoryException.cs" />
     <Compile Include="src\MapSource.cs" />
     <Compile Include="src\MapSourceHdd.cs" />
     <Compile Include="src\MapSourceMem.cs" />
@@ -101,7 +102,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="y.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gps\Gps.csproj">

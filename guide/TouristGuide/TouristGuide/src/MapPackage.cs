@@ -17,6 +17,8 @@ namespace TouristGuide
         private string name;
         // package description
         private string descr;
+        // parts image format
+        private string partsFormat;
         // map parts
         private Hashtable parts;
 
@@ -33,6 +35,7 @@ namespace TouristGuide
             this.bottomRightLongitude = bottomRightLongitude;
             this.parts = new Hashtable();
             this.descr = "";
+            this.partsFormat = "";
         }
 
         /// <summary>
@@ -82,6 +85,21 @@ namespace TouristGuide
         public void setDescription(string descr)
         {
             this.descr = descr;
+        }
+
+        public string getPartsFormat()
+        {
+            return this.partsFormat;
+        }
+
+        public void setPartsFormat(string partsFormat)
+        {
+            this.partsFormat = partsFormat;
+        }
+
+        public string getName()
+        {
+            return this.name;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using TouristGuide.exceptions;
 
 namespace TouristGuide
 {
@@ -35,8 +36,17 @@ namespace TouristGuide
                 {
                     Debug.WriteLine("MapSourceHdd: readMapsDir(): found map package, dir: " + dir.Name);
                     string mapPkgName = dir.Name;
-                    MapPackage mapPkg = this.mapPkgRepository.getWithoutImages(mapPkgName);
-                    this.availableMapPkgs.Add(mapPkg);
+                    try
+                    {
+                        MapPackage mapPkg = this.mapPkgRepository.getWithoutImages(mapPkgName);
+                        this.availableMapPkgs.Add(mapPkg);
+                        Debug.WriteLine("MapSourceHdd: readMapsDir: added map packege '" + mapPkgName + "'");
+                    }
+                    catch (MapPkgRepositoryException e) 
+                    {
+                        Debug.WriteLine("MapSourceHdd: readMapsDir: couldn't add map packege '" 
+                                + mapPkgName + "' due to error: " + e.Message);
+                    }
                 }
             }
         }
@@ -66,6 +76,7 @@ namespace TouristGuide
         /// </summary>
         public void putMapPkg(MapPackage mapPkg)
         {
+            // will be useful when map downloaded from web
             throw new Exception("The method or operation is not implemented.");
         }
 
