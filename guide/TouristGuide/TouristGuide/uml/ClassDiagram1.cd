@@ -10,7 +10,7 @@
   <Class Name="TouristGuide.MainWindow" Collapsed="true">
     <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MainWindow.cs</FileName>
+      <FileName>src\gui\MainWindow.cs</FileName>
       <HashCode>AAAAAAggACAAQFAABACwgEACAAAAFgAAAAwABABAEAI=</HashCode>
     </TypeIdentifier>
   </Class>
@@ -18,126 +18,127 @@
     <Position X="8.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\AppContext.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgABAIAAAQAAAAAABAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgABAIAAAQAIAAAABAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="TouristGuide.MapDisplayer">
-    <Position X="3.5" Y="1.75" Width="1.5" />
+  <Class Name="TouristGuide.map.MapDisplayer">
+    <Position X="3.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapDisplayer.cs</FileName>
+      <FileName>src\map\MapDisplayer.cs</FileName>
       <HashCode>AQAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapPanel" />
     </ShowAsAssociation>
+    <AssociationLine Name="MapPanel" Type="TouristGuide.MapPanel">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.378" Y="0.485" />
+      </MemberNameLabel>
+    </AssociationLine>
   </Class>
   <Class Name="TouristGuide.MapPanel">
     <Position X="0.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapPanel.cs</FileName>
+      <FileName>src\gui\MapPanel.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="TouristGuide.MapView" Collapsed="true">
+  <Class Name="TouristGuide.map.obj.MapView" Collapsed="true">
     <Position X="5.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapView.cs</FileName>
+      <FileName>src\map\obj\MapView.cs</FileName>
       <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAGAAAAAABAABgAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="TouristGuide.MapManager">
-    <Position X="3.5" Y="3.25" Width="1.5" />
+  <Class Name="TouristGuide.map.MapManager">
+    <Position X="3.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapManager.cs</FileName>
+      <FileName>src\map\MapManager.cs</FileName>
       <HashCode>CAAAAAAAAAAAAAACAABAAEIAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="MapSourceManager" />
-      <Property Name="PoiSourceManager" />
       <Property Name="MapDisplayer" />
     </ShowAsAssociation>
-    <AssociationLine Name="MapSourceManager" Type="TouristGuide.MapSourceManager">
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="MapDisplayer" Type="TouristGuide.map.MapDisplayer">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-1.598" Y="0.893" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="PoiSourceManager" Type="TouristGuide.PoiSourceManager">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.325" Y="0.579" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="MapDisplayer" Type="TouristGuide.MapDisplayer">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.058" Y="0.185" />
+        <Position X="-0.39" Y="0.31" />
       </MemberNameLabel>
     </AssociationLine>
   </Class>
-  <Class Name="TouristGuide.MapSourceManager">
+  <Class Name="TouristGuide.map.source.MapSourceManager">
     <Position X="0.5" Y="4.75" Width="2" />
     <TypeIdentifier>
-      <FileName>src\MapSourceManager.cs</FileName>
+      <FileName>src\map\source\MapSourceManager.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapDisplayer" />
     </ShowAsAssociation>
+    <AssociationLine Name="MapDisplayer" Type="TouristGuide.map.MapDisplayer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.162" Y="-0.273" />
+      </MemberNameLabel>
+    </AssociationLine>
   </Class>
-  <Class Name="TouristGuide.PoiSourceManager">
+  <Class Name="TouristGuide.map.source.PoiSourceManager">
     <Position X="5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\PoiSourceManager.cs</FileName>
+      <FileName>src\map\source\PoiSourceManager.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="TouristGuide.MapPackage">
+  <Class Name="TouristGuide.map.obj.MapPackage">
     <Position X="4.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapPackage.cs</FileName>
-      <HashCode>AAAEAAQApAAgEAIAAAAAAAACIAAEAAAQAABAAAAgAAA=</HashCode>
+      <FileName>src\map\obj\MapPackage.cs</FileName>
+      <HashCode>EAAEAAUAtAAgEAIAAAAAAAACIAAEAAAQAABEAAAgAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="TouristGuide.Poi">
+  <Class Name="TouristGuide.map.obj.Poi">
     <Position X="6.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\Poi.cs</FileName>
+      <FileName>src\map\obj\Poi.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="TouristGuide.MapSourceMem">
+  <Class Name="TouristGuide.map.source.MapSourceMem">
     <Position X="0.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapSourceMem.cs</FileName>
+      <FileName>src\map\source\MapSourceMem.cs</FileName>
       <HashCode>AAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TouristGuide.MapSourceHdd">
+  <Class Name="TouristGuide.map.source.MapSourceHdd">
     <Position X="0.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapSourceHdd.cs</FileName>
+      <FileName>src\map\source\MapSourceHdd.cs</FileName>
       <HashCode>AABACAAAQAAAAAAABAAAAAAAgAQAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TouristGuide.MapSourceWeb">
+  <Class Name="TouristGuide.map.source.MapSourceWeb">
     <Position X="2.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapSourceWeb.cs</FileName>
+      <FileName>src\map\source\MapSourceWeb.cs</FileName>
       <HashCode>AAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TouristGuide.MapPkgRepository">
+  <Class Name="TouristGuide.map.repository.MapPkgRepository">
     <Position X="2.5" Y="7.75" Width="1.75" />
     <TypeIdentifier>
-      <FileName>MapPkgRepository.cs</FileName>
-      <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>src\map\repository\MapPkgRepository.cs</FileName>
+      <HashCode>IAAAAAAAAACAAAAAAAAAIAAAgAAAAAAAAAAAAAAgAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Interface Name="TouristGuide.MapSource">
+  <Interface Name="TouristGuide.map.source.MapSource">
     <Position X="2.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\MapSource.cs</FileName>
+      <FileName>src\map\source\MapSource.cs</FileName>
       <HashCode>AAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Interface>

@@ -64,31 +64,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MapPkgRepository.cs" />
-    <Compile Include="src\exceptions\MapPkgRepositoryException.cs" />
-    <Compile Include="src\MapSource.cs" />
-    <Compile Include="src\MapSourceHdd.cs" />
-    <Compile Include="src\MapSourceMem.cs" />
-    <Compile Include="src\MapSourceWeb.cs" />
+    <Compile Include="src\map\repository\MapPkgRepository.cs" />
+    <Compile Include="src\map\exceptions\MapPkgRepositoryException.cs" />
+    <Compile Include="src\map\source\MapSource.cs" />
+    <Compile Include="src\map\source\MapSourceHdd.cs" />
+    <Compile Include="src\map\source\MapSourceMem.cs" />
+    <Compile Include="src\map\source\MapSourceWeb.cs" />
     <Compile Include="src\AppContext.cs" />
-    <Compile Include="src\MainWindow.cs">
+    <Compile Include="src\gui\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\MainWindow.Designer.cs">
+    <Compile Include="src\gui\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\MapPanel.cs" />
-    <Compile Include="src\MapDisplayer.cs" />
-    <Compile Include="src\MapManager.cs" />
-    <Compile Include="src\MapPackage.cs" />
-    <Compile Include="src\MapSourceManager.cs">
+    <Compile Include="src\gui\MapPanel.cs" />
+    <Compile Include="src\map\MapDisplayer.cs" />
+    <Compile Include="src\map\MapManager.cs" />
+    <Compile Include="src\map\obj\MapPackage.cs" />
+    <Compile Include="src\map\source\MapSourceManager.cs">
     </Compile>
-    <Compile Include="src\MapView.cs" />
-    <Compile Include="src\Poi.cs" />
-    <Compile Include="src\PoiSourceManager.cs" />
+    <Compile Include="src\map\obj\MapView.cs" />
+    <Compile Include="src\map\obj\Poi.cs" />
+    <Compile Include="src\map\source\PoiSourceManager.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="src\MainWindow.resx">
+    <EmbeddedResource Include="src\gui\MainWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Collections;
 
-namespace TouristGuide
+namespace TouristGuide.map.obj
 {
     public class MapPackage
     {

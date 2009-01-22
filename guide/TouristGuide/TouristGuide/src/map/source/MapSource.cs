@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TouristGuide
+using TouristGuide.map.obj;
+
+namespace TouristGuide.map.source
 {
     public interface MapSource
     {
@@ -10,7 +12,7 @@ namespace TouristGuide
         /// Find map package by coordinates in the source.
         /// </summary>
         /// <returns>MapPackage instance.</returns>
-        TouristGuide.MapPackage findMapPkg(double latitude, double longitude);
+        MapPackage findMapPkg(double latitude, double longitude);
 
         /// <summary>
         /// Put map package to the source.

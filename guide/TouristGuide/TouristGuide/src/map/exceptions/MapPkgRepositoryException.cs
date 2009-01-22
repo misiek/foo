@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TouristGuide.exceptions
+namespace TouristGuide.map.exceptions
 {
     /*
      * Thrown when error in MapPkgRepository

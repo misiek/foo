@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TouristGuide
+using TouristGuide.map.obj;
+
+namespace TouristGuide.map.source
 {
-    public class MapSourceMem : MapSource
+    public class MapSourceWeb : MapSource
     {
         #region MapSource Members
 

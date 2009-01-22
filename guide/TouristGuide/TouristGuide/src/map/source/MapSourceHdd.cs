@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
-using TouristGuide.exceptions;
 
-namespace TouristGuide
+using TouristGuide.map.exceptions;
+using TouristGuide.map.repository;
+using TouristGuide.map.obj;
+
+namespace TouristGuide.map.source
 {
     public class MapSourceHdd : MapSource
     {

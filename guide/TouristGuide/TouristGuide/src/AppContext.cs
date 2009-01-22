@@ -4,6 +4,10 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 
+using TouristGuide.map;
+using TouristGuide.map.repository;
+using TouristGuide.map.source;
+
 namespace TouristGuide
 {
     /**

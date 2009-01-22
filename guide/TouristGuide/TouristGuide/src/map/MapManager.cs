@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TouristGuide
+using TouristGuide.map.source;
+
+namespace TouristGuide.map
 {
     public class MapManager
     {

@@ -6,9 +6,10 @@ using System.Xml;
 using System.IO;
 using System.Diagnostics;
 using System.Drawing;
-using TouristGuide.exceptions;
+using TouristGuide.map.exceptions;
+using TouristGuide.map.obj;
 
-namespace TouristGuide
+namespace TouristGuide.map.repository
 {
     public class MapPkgRepository
     {

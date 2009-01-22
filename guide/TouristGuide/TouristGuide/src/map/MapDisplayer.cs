@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TouristGuide
+namespace TouristGuide.map
 {
-    public class MapSourceManager
+    public class MapDisplayer
     {
-        public MapDisplayer MapDisplayer
+        public MapPanel MapPanel
         {
             get
             {
@@ -16,11 +16,11 @@ namespace TouristGuide
             {
             }
         }
+
         /// <summary>
-        /// Get map package by coordinates.
+        /// Displays loading message in map panel.
         /// </summary>
-        /// <returns>MapPackage instance</returns>
-        public MapPackage getMapPkg()
+        public void loadingMap()
         {
             throw new System.NotImplementedException();
         }

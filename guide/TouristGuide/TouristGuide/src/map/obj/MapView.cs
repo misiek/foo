@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TouristGuide
+namespace TouristGuide.map.obj
 {
     public class MapView
     {
