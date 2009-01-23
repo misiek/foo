@@ -3,12 +3,12 @@
 	<description>sample map package - part of krakow</description>
 	<coordinates>
 		<topLeft>
-			<longitude>19.93299</longitude>
-			<latitude>50.062138</latitude>
+			<longitude>19.93299 E</longitude>
+			<latitude>50.062138 N</latitude>
 		</topLeft>
 		<bottomRight>
-			<longitude>19.944005</longitude>
-			<latitude>50.055061</latitude>
+			<longitude>19.944005 E</longitude>
+			<latitude>50.055061 N</latitude>
 		</bottomRight>
 	</coordinates>
 	<parts>

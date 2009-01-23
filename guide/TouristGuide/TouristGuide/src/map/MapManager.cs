@@ -10,17 +10,6 @@ namespace TouristGuide.map
     {
         private int currentMapPkg;
     
-        public MapSourceManager MapSourceManager
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
         public PoiSourceManager PoiSourceManager
         {
             get
@@ -33,6 +22,17 @@ namespace TouristGuide.map
         }
 
         public MapDisplayer MapDisplayer
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public TouristGuide.map.source.MapSourceManager MapSourceManager
         {
             get
             {

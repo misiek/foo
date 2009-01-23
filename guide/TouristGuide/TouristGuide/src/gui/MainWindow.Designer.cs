@@ -103,6 +103,7 @@ namespace TouristGuide
             this.labelSpeed.Name = "labelSpeed";
             this.labelSpeed.Size = new System.Drawing.Size(76, 20);
             this.labelSpeed.Text = "---";
+            this.labelSpeed.ParentChanged += new System.EventHandler(this.labelSpeed_ParentChanged);
             // 
             // mapPanel
             // 
@@ -120,7 +121,7 @@ namespace TouristGuide
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(266, 279);
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -133,7 +134,7 @@ namespace TouristGuide
             this.Controls.Add(this.labelPosition);
             this.Controls.Add(this.label1);
             this.Menu = this.mainMenu1;
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "TouristGuide";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.mapPanel.ResumeLayout(false);

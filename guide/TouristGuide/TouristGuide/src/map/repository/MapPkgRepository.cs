@@ -20,13 +20,14 @@ namespace TouristGuide.map.repository
             this.mapsDir = mapsDir;
         }
 
-        public MapPackage getWithoutImages(string pkgName)
+        public MapPackage getWithoutImages(string pkgName, int zoom)
         {
-            string pathToMapXml = this.mapsDir + "\\" + pkgName + "\\map.xml";
+            string pathToMapXml = this.mapsDir + "\\zoom_" + zoom + "\\" + pkgName + "\\map.xml";
             MapPackage mapPkg;
             try
             {
                 mapPkg = parseMapXml(pkgName, pathToMapXml);
+                mapPkg.setZoom(zoom);
             }
             catch (Exception e)
             {
@@ -51,19 +52,19 @@ namespace TouristGuide.map.repository
             // get top left corner latitude
             XmlNode topLeftLatitudeNode = docMapXml.SelectSingleNode(
                                                 "/map/coordinates/topLeft/latitude");
-            double topLeftLatitude = Convert.ToDouble(topLeftLatitudeNode.InnerText);
+            double topLeftLatitude = parseCoordinate(topLeftLatitudeNode.InnerText);
             // get top left corner longitude
             XmlNode topLeftLongitudeNode = docMapXml.SelectSingleNode(
                                                 "/map/coordinates/topLeft/longitude");
-            double topLeftLongitude = Convert.ToDouble(topLeftLongitudeNode.InnerText);
+            double topLeftLongitude = parseCoordinate(topLeftLongitudeNode.InnerText);
             // get bottom right corner latitude
             XmlNode bottomRightLatitudeNode = docMapXml.SelectSingleNode(
                                                 "/map/coordinates/bottomRight/latitude");
-            double bottomRightLatitude = Convert.ToDouble(bottomRightLatitudeNode.InnerText);
+            double bottomRightLatitude = parseCoordinate(bottomRightLatitudeNode.InnerText);
             // get bottom right corner longitude
             XmlNode bottomRightLongitudeNode = docMapXml.SelectSingleNode(
                                                 "/map/coordinates/bottomRight/longitude");
-            double bottomRightLongitude = Convert.ToDouble(bottomRightLongitudeNode.InnerText);
+            double bottomRightLongitude = parseCoordinate(bottomRightLongitudeNode.InnerText);
             // get parts image format
             XmlNode partsFormatNode = docMapXml.SelectSingleNode("/map/parts/format");
             string partsFormat = "";
@@ -77,12 +78,22 @@ namespace TouristGuide.map.repository
             return mapPkg;
         }
 
+        private double parseCoordinate(string coordinateStr)
+        {
+            string[] coordinateArr = coordinateStr.Split(' ');
+            double angle = Convert.ToDouble(coordinateArr[0]);
+            char indicator = coordinateArr[1].ToCharArray()[0];
+            if ('W' == indicator || 'S' == indicator)
+                angle *= -1;
+            return angle;
+        }
+
         public void loadImages(MapPackage pkg)
         {
             Hashtable parts = new Hashtable();
             try
             {
-                string pathToParts = this.mapsDir + "\\" + pkg.getName() + "\\parts";
+                string pathToParts = this.mapsDir + "\\zoom_" + pkg.getZoom() + "\\" + pkg.getName() + "\\parts";
                 DirectoryInfo partsDirInfo = new DirectoryInfo(pathToParts);
                 string searchPattern = "*";
                 if (pkg.getPartsFormat() != "")
@@ -97,7 +108,7 @@ namespace TouristGuide.map.repository
                     s = "_".ToCharArray();
                     String[] pointStr = name.Split(s);
                     Point p = new Point(Convert.ToInt32(pointStr[0]), Convert.ToInt32(pointStr[1]));
-                    Bitmap img = new Bitmap(partFileInfo.ToString());
+                    Bitmap img = new Bitmap(pathToParts + "\\" + partFileInfo.ToString());
                     parts[p] = img;
                 }
             }

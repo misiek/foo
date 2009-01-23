@@ -66,6 +66,11 @@ namespace TouristGuide
 
         }
 
+        private void labelSpeed_ParentChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

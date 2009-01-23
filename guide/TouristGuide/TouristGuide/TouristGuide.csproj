@@ -64,12 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\map\exceptions\MapPkgNotFoundException.cs" />
+    <Compile Include="src\map\exceptions\MapSourceException.cs" />
     <Compile Include="src\map\repository\MapPkgRepository.cs" />
     <Compile Include="src\map\exceptions\MapPkgRepositoryException.cs" />
-    <Compile Include="src\map\source\MapSource.cs" />
-    <Compile Include="src\map\source\MapSourceHdd.cs" />
-    <Compile Include="src\map\source\MapSourceMem.cs" />
-    <Compile Include="src\map\source\MapSourceWeb.cs" />
+    <Compile Include="src\map\objsource\MapSource.cs" />
+    <Compile Include="src\map\objsource\MapSourceHdd.cs" />
+    <Compile Include="src\map\objsource\MapSourceMem.cs" />
+    <Compile Include="src\map\objsource\MapSourceWeb.cs" />
     <Compile Include="src\AppContext.cs" />
     <Compile Include="src\gui\MainWindow.cs">
       <SubType>Form</SubType>
@@ -81,11 +83,11 @@
     <Compile Include="src\map\MapDisplayer.cs" />
     <Compile Include="src\map\MapManager.cs" />
     <Compile Include="src\map\obj\MapPackage.cs" />
-    <Compile Include="src\map\source\MapSourceManager.cs">
+    <Compile Include="src\map\objsource\MapSourceManager.cs">
     </Compile>
     <Compile Include="src\map\obj\MapView.cs" />
     <Compile Include="src\map\obj\Poi.cs" />
-    <Compile Include="src\map\source\PoiSourceManager.cs" />
+    <Compile Include="src\map\objsource\PoiSourceManager.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="src\gui\MainWindow.resx">
@@ -113,157 +115,157 @@
     <None Include="uml\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\map.xml">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\map.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\0_0.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\0_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\0_1.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\0_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\0_2.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\0_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\0_3.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\0_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\1_0.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\1_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\1_1.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\1_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\1_2.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\1_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\1_3.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\1_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\2_0.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\2_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\2_1.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\2_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\2_2.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\2_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\2_3.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\2_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\3_0.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\3_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\3_1.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\3_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\3_2.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\3_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.062138_19.944005-50.055061\parts\3_3.png">
+    <Content Include="maps\zoom_0\19.93299-50.062138_19.944005-50.055061\parts\3_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\map.xml">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\map.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\0_0.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\0_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\0_1.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\0_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\0_2.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\0_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\0_3.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\0_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\1_0.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\1_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\1_1.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\1_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\1_2.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\1_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\1_3.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\1_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\2_0.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\2_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\2_1.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\2_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\2_2.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\2_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\2_3.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\2_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\3_0.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\3_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\3_1.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\3_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\3_2.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\3_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.93299-50.069215_19.944005-50.062138\parts\3_3.png">
+    <Content Include="maps\zoom_0\19.93299-50.069215_19.944005-50.062138\parts\3_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\map.xml">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\map.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\0_0.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\0_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\0_1.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\0_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\0_2.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\0_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\0_3.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\0_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\1_0.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\1_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\1_1.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\1_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\1_2.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\1_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\1_3.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\1_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\2_0.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\2_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\2_1.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\2_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\2_2.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\2_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\2_3.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\2_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\3_0.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\3_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\3_1.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\3_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\3_2.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\3_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="maps\19.944005-50.097523_19.95502-50.090446\parts\3_3.png">
+    <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\3_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

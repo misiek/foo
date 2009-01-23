@@ -6,17 +6,27 @@ using TouristGuide.map.obj;
 
 namespace TouristGuide.map.source
 {
-    public interface MapSource
+    public class MapSourceWeb : MapSource
     {
+        #region MapSource Members
+
         /// <summary>
         /// Find map package by coordinates in the source.
         /// </summary>
         /// <returns>MapPackage instance.</returns>
-        MapPackage findMapPkg(double latitude, double longitude);
+        public MapPackage findMapPkg(double latitude, double longitude, int zoom)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Put map package to the source.
         /// </summary>
-        void putMapPkg(MapPackage mapPkg);
+        public void putMapPkg(MapPackage mapPkg)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        #endregion
     }
 }

@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Collections;
+using System.Diagnostics;
 
 namespace TouristGuide.map.obj
 {
     public class MapPackage
     {
+        // Latitude eg. 50.05994539169559 N
         private double topLeftLatitude;
+        // Longitude eg. 19.941730499267578 E
         private double topLeftLongitude;
         private double bottomRightLatitude;
         private double bottomRightLongitude;
+
+        private int zoom;
 
         // package name - directory name
         private string name;
@@ -36,17 +41,27 @@ namespace TouristGuide.map.obj
             this.parts = new Hashtable();
             this.descr = "";
             this.partsFormat = "";
+            this.zoom = -1;
         }
 
         /// <summary>
         /// Check if given coordinates matches this map package.
         /// </summary>
+        /// latitude=50.057 longitude=19.933
+        /// this.topLeftLatitude=50.097523 this.topLeftLongitude=19.944005
+        /// this.bottomRightLatitude=50.090446 this.bottomRightLongitude=19.95502
         public bool coordinatesMatches(double latitude, double longitude)
         {
-            return latitude >= this.topLeftLatitude
-                && latitude <= this.bottomRightLatitude
-                && longitude <= this.topLeftLongitude
-                && longitude >= this.bottomRightLongitude;
+            //Debug.WriteLine("MapPackage: coordinatesMatches: latitude=" + latitude +
+            //                " longitude=" + longitude);
+            //Debug.WriteLine("MapPackage: coordinatesMatches: this.topLeftLatitude=" + this.topLeftLatitude +
+            //                " this.topLeftLongitude=" + this.topLeftLongitude +
+            //                " this.bottomRightLatitude=" + this.bottomRightLatitude +
+            //                " this.bottomRightLongitude=" + this.bottomRightLongitude);
+            return latitude <= this.topLeftLatitude
+                && latitude >= this.bottomRightLatitude
+                && longitude >= this.topLeftLongitude
+                && longitude <= this.bottomRightLongitude;
         }
 
         public void setPart(Point p, Image image)
@@ -101,5 +116,21 @@ namespace TouristGuide.map.obj
         {
             return this.name;
         }
+
+        public void setZoom(int zoom)
+        {
+            if (this.zoom == -1)
+                this.zoom = zoom;
+        }
+
+        public int getZoom() {
+            return this.zoom;
+        }
+
+        public override string ToString()
+        {
+            return "MapPackage[" + this.name + "]";
+        }
+
     }
 }

@@ -16,11 +16,13 @@ namespace TouristGuide.map.source
         private MapPkgRepository mapPkgRepository;
         private List<MapPackage> availableMapPkgs;
 
+        private int zoom;
+
         public MapSourceHdd(string mapsDir, MapPkgRepository mapPkgRepository)
         {
             this.mapsDir = mapsDir;
             this.mapPkgRepository = mapPkgRepository;
-            this.availableMapPkgs = new List<MapPackage>();
+            this.zoom = 0;
             readMapsDir();
         }
 
@@ -30,8 +32,19 @@ namespace TouristGuide.map.source
          */
         public void readMapsDir()
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(this.mapsDir);
-            DirectoryInfo[] dirs = dirInfo.GetDirectories();
+            this.availableMapPkgs = new List<MapPackage>();
+            string zoomMapsDir = this.mapsDir + "\\zoom_" + this.zoom;
+            DirectoryInfo[] dirs;
+            try
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(zoomMapsDir);
+                dirs = dirInfo.GetDirectories();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("MapSourceHdd: readMapsDir: can't read zoom maps dir: " + zoomMapsDir);
+                throw new MapSourceException("error reading zoom maps dir", e);
+            }
             foreach (DirectoryInfo dir in dirs)
             {
                 FileInfo[] mapFileInfo = dir.GetFiles("map.xml");
@@ -41,7 +54,7 @@ namespace TouristGuide.map.source
                     string mapPkgName = dir.Name;
                     try
                     {
-                        MapPackage mapPkg = this.mapPkgRepository.getWithoutImages(mapPkgName);
+                        MapPackage mapPkg = this.mapPkgRepository.getWithoutImages(mapPkgName, this.zoom);
                         this.availableMapPkgs.Add(mapPkg);
                         Debug.WriteLine("MapSourceHdd: readMapsDir: added map packege '" + mapPkgName + "'");
                     }
@@ -49,6 +62,7 @@ namespace TouristGuide.map.source
                     {
                         Debug.WriteLine("MapSourceHdd: readMapsDir: couldn't add map packege '" 
                                 + mapPkgName + "' due to error: " + e.Message);
+                        throw new MapSourceException("error adding map package", e);
                     }
                 }
             }
@@ -60,10 +74,13 @@ namespace TouristGuide.map.source
         /// Find map package by coordinates in the source.
         /// </summary>
         /// <returns>MapPackage instance.</returns>
-        public MapPackage findMapPkg(double latitude, double longitude)
+        public MapPackage findMapPkg(double latitude, double longitude, int zoom)
         {
+            if (this.zoom != zoom)
+                changeZoom(zoom);
             foreach (MapPackage mapPkg in availableMapPkgs)
             {
+                Debug.WriteLine("MapSourceHdd: findMapPkg: checking: " + mapPkg);
                 if (mapPkg.coordinatesMatches(latitude, longitude))
                 {
                     if (mapPkg.isPartsFree())
@@ -71,7 +88,15 @@ namespace TouristGuide.map.source
                     return mapPkg;
                 }
             }
+            Debug.WriteLine("MapSourceHdd: findMapPkg: not found pkg for: ("
+                + latitude + "; " + longitude + "), zoom: " + zoom);
             return null;
+        }
+
+        private void changeZoom(int zoom)
+        {
+            this.zoom = zoom;
+            readMapsDir();
         }
 
         /// <summary>
