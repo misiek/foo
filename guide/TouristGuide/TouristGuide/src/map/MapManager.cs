@@ -9,37 +9,31 @@ namespace TouristGuide.map
     public class MapManager
     {
         private int currentMapPkg;
-    
+
+        private PoiSourceManager poiSourceManager;
         public PoiSourceManager PoiSourceManager
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
             set
             {
+                this.poiSourceManager = value;
             }
         }
 
+        private MapDisplayer mapDisplayer;
         public MapDisplayer MapDisplayer
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
             set
             {
+                this.mapDisplayer = value;
             }
         }
 
-        public TouristGuide.map.source.MapSourceManager MapSourceManager
+        private MapSourceManager mapSourceManager;
+        public MapSourceManager MapSourceManager
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
             set
             {
+                this.mapSourceManager = value;
             }
         }
 

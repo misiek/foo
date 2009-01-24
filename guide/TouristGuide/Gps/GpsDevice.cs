@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 using System.IO.Ports;
+using System.Threading;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
@@ -16,13 +17,14 @@ namespace Gps
         public event SatellitesChangedEventHandler satellitesChanged;
         public delegate void SatellitesChangedEventHandler(GpsDevice gps);
 
-        private SerialPort gpsPort = new SerialPort();
-        private System.Threading.Thread gpsListenerThread = null;
-        private NmeaParser nmea = new NmeaParser();
+        private SerialPort gpsPort;
+        protected Thread gpsListenerThread;
+        protected NmeaParser nmea;
 
         public GpsDevice()
         {
-
+            this.gpsPort = new SerialPort();
+            this.nmea = new NmeaParser();
         }
 
         public LocationData getLocationData()
@@ -30,7 +32,7 @@ namespace Gps
             return nmea.getLocationData();
         }
 
-        public void Open()
+        public virtual void Open()
         {
             FindPort();
             CreateGpsListenerThread();
@@ -74,11 +76,11 @@ namespace Gps
             return;
         }
 
-        private void CreateGpsListenerThread()
+        protected void CreateGpsListenerThread()
         {
             // we only want to create the thread if we don't have one created already 
             // and we have opened the gps device
-            if (gpsListenerThread == null && gpsPort.IsOpen)
+            if (gpsListenerThread == null)
             {
                 // Create and start thread to listen for GPS events
                 gpsListenerThread = new System.Threading.Thread(new System.Threading.ThreadStart(Listen));
@@ -86,7 +88,31 @@ namespace Gps
             }
         }
 
-        private void Listen()
+        protected void parseGpsMessage(string gpsMessage)
+        {
+            short status = nmea.Parse(gpsMessage);
+            switch (status)
+            {
+                case NmeaParser.LOCATION:
+                    if (locationChanged != null)
+                    {
+                        locationChanged(this);
+                    }
+                    break;
+                case NmeaParser.SATELLITE:
+                    if (satellitesChanged != null)
+                    {
+                        satellitesChanged(this);
+                    }
+                    break;
+                case NmeaParser.UNRECOGNIZED:
+                    break;
+                case NmeaParser.CHECKSUM_INVALID:
+                    break;
+            }
+        }
+
+        protected virtual void Listen()
         {
             gpsPort.ReadTimeout = 50;
             lock (this)
@@ -98,26 +124,7 @@ namespace Gps
                     try
                     {
                         gpsMessage = gpsPort.ReadLine();
-                        short status = nmea.Parse(gpsMessage);
-                        switch (status)
-                        {
-                            case NmeaParser.LOCATION:
-                                if (locationChanged != null)
-                                {
-                                    locationChanged(this);
-                                }
-                                break;
-                            case NmeaParser.SATELLITE:
-                                if (satellitesChanged != null)
-                                {
-                                    satellitesChanged(this);
-                                }
-                                break;
-                            case NmeaParser.UNRECOGNIZED:
-                                break;
-                            case NmeaParser.CHECKSUM_INVALID:
-                                break;
-                        }
+                        parseGpsMessage(gpsMessage);
                     }
                     catch (TimeoutException ex)
                     {

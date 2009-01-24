@@ -85,6 +85,7 @@ namespace TouristGuide.map.source
                 {
                     if (mapPkg.isPartsFree())
                         this.mapPkgRepository.loadImages(mapPkg);
+                    Debug.WriteLine("MapSourceHdd: findMapPkg: found map pkg: " + mapPkg);
                     return mapPkg;
                 }
             }

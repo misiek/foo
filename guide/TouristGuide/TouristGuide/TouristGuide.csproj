@@ -112,6 +112,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="gpslog\Gps.2008-08-08.14.57.gps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="uml\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>

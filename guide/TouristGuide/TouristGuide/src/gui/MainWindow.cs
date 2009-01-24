@@ -11,7 +11,7 @@ namespace TouristGuide
 {
     public partial class MainWindow : Form
     {
-        private GpsDevice gps = new GpsDevice();
+        private GpsDevice gps;
         private EventHandler updatePosHandler;
         private EventHandler updateSatHandler;
         private AppContext appContext;
@@ -24,11 +24,6 @@ namespace TouristGuide
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            gps.locationChanged += new GpsDevice.LocationChangedEventHandler(location);
-            //gps.satellitesChanged   += new GpsDevice.SatellitesChangedEventHandler(satellite);
-
-            updatePosHandler = new EventHandler(updateLocation);
-            //updateSatHandler = new EventHandler(updateSatellite);
 
         }
 
@@ -44,9 +39,9 @@ namespace TouristGuide
 
         private void updateLocation(object sender, System.EventArgs args)
         {
-            LocationData ld = gps.getLocationData();
+            LocationData ld = this.gps.getLocationData();
             labelPosition.Text = ld.getLatitudeString() + " " + ld.getLongitudeString();
-            labelSpeed.Text = ld.getSpeed();
+            labelSpeed.Text = ld.getSpeed().ToString();
         }
 
         private void updateSatellite(object sender, System.EventArgs args)
@@ -58,12 +53,18 @@ namespace TouristGuide
 
         private void menuStartDevice_Click(object sender, EventArgs e)
         {
-            gps.Open();
+            //gps.Open();
         }
 
         private void menuStartSymulator_Click(object sender, EventArgs e)
         {
+            this.gps = AppContext.Instance.getGpsSymulator();
+            this.gps.locationChanged += new GpsDevice.LocationChangedEventHandler(location);
+            this.gps.satellitesChanged += new GpsDevice.SatellitesChangedEventHandler(satellite);
 
+            updatePosHandler = new EventHandler(updateLocation);
+            updateSatHandler = new EventHandler(updateSatellite);
+            this.gps.Open();
         }
 
         private void labelSpeed_ParentChanged(object sender, EventArgs e)

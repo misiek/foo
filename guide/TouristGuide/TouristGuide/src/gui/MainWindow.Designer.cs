@@ -85,9 +85,10 @@ namespace TouristGuide
             // 
             // labelPosition
             // 
+            this.labelPosition.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.labelPosition.Location = new System.Drawing.Point(60, 0);
             this.labelPosition.Name = "labelPosition";
-            this.labelPosition.Size = new System.Drawing.Size(136, 20);
+            this.labelPosition.Size = new System.Drawing.Size(177, 20);
             this.labelPosition.Text = "---";
             // 
             // label2
@@ -99,6 +100,7 @@ namespace TouristGuide
             // 
             // labelSpeed
             // 
+            this.labelSpeed.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.labelSpeed.Location = new System.Drawing.Point(60, 20);
             this.labelSpeed.Name = "labelSpeed";
             this.labelSpeed.Size = new System.Drawing.Size(76, 20);

@@ -54,7 +54,7 @@
     <Position X="4.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapManager.cs</FileName>
-      <HashCode>CAAAAAAAAAAAAAACAABAAEIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CAAAIAAAAAIAAAACAABAAEIAAAAABAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapDisplayer" />
@@ -65,7 +65,7 @@
     </Compartments>
     <AssociationLine Name="MapDisplayer" Type="TouristGuide.map.MapDisplayer">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.39" Y="0.31" />
+        <Position X="-0.711" Y="0.256" />
       </MemberNameLabel>
     </AssociationLine>
   </Class>
@@ -86,7 +86,7 @@
     </Compartments>
     <AssociationLine Name="MapDisplayer" Type="TouristGuide.map.MapDisplayer">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.162" Y="-0.273" />
+        <Position X="0.162" Y="-0.398" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="MapSourceMem" Type="TouristGuide.map.source.MapSourceMem">
@@ -102,7 +102,9 @@
     <AssociationLine Name="MapSourceWeb" Type="TouristGuide.map.source.MapSourceWeb" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="2.75" Y="4.522" />
-        <Point X="5.188" Y="4.522" />
+        <Point X="4" Y="4.522" />
+        <Point X="4" Y="4.823" />
+        <Point X="5.188" Y="4.823" />
         <Point X="5.188" Y="6.5" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -165,7 +167,7 @@
     <Position X="4.25" Y="8.25" Width="1.75" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapPkgRepository.cs</FileName>
-      <HashCode>IAAAAAAAAACAAAAAAAAAIAAAgAAAAAAAAAAAAAAgAAA=</HashCode>
+      <HashCode>IAAAAAAAAACAAAAAAAAAIAAAgAAACAAAAAAAAAAgAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Interface Name="TouristGuide.map.source.MapSource">

@@ -127,7 +127,7 @@ namespace TouristGuide.map.obj
             return this.zoom;
         }
 
-        public override string ToString()
+        override public string ToString()
         {
             return "MapPackage[" + this.name + "]";
         }

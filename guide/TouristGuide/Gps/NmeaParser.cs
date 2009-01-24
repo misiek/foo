@@ -11,6 +11,7 @@ namespace Gps
 {
     struct RecivedGpsData
     {
+        // location data
         public DateTime SatelliteTime;
         public string LatitudeString;
         public string LongitudeString;
@@ -19,11 +20,13 @@ namespace Gps
         public string Status;
         public int SatellitesUsed;
 
-        // Satellites
+        // Satellites data
         public double PDOP;
         public double HDOP;
         public double VDOP;
         public int SatellitesInView;
+        // hash table for satellites details,
+        // contains Satellite structures (satelliteID => Satellite)
         public Hashtable SatellitesDetails;
         public int[] SatellitesChannels;
     }
@@ -46,7 +49,7 @@ namespace Gps
         }
     }
 
-    class NmeaParser
+    public class NmeaParser
     {
         public const short UNRECOGNIZED = 0;
         public const short LOCATION = 1;
@@ -61,8 +64,7 @@ namespace Gps
       
 
         private RecivedGpsData RecivedData;
-        
-
+        // gps message
         private string GpsSentence = "";
 
 
@@ -72,7 +74,6 @@ namespace Gps
             RecivedData = new RecivedGpsData();
             RecivedData.SatellitesDetails = new Hashtable();
             RecivedData.SatellitesChannels = new int[11];
-
         }
 
         public LocationData getLocationData()
@@ -90,7 +91,7 @@ namespace Gps
         public short Parse(string gpsMessage)
         {
             short status;
-            Regex rxChecksum = new Regex("[*].+?$");
+            //Regex rxChecksum = new Regex("[*].+?$");
             Regex rxGps = new Regex("^[$]GP");
 
             gpsMessage = gpsMessage.Trim();
@@ -98,7 +99,6 @@ namespace Gps
             if (isChecksumValid(gpsMessage))
             {
                 GpsSentence = gpsMessage;
-                Debug.WriteLine("");
                 Debug.WriteLine("gpsMessage: " + GpsSentence, this.ToString());
 
                 string[] msg = gpsMessage.Split('*');
@@ -136,6 +136,7 @@ namespace Gps
                             status = UNRECOGNIZED;
                             break;
                     }
+                    //DumpGpsData();
                 }
                 else
                 {
@@ -201,8 +202,6 @@ namespace Gps
             updateLongitude(words[4], words[5]);
 
             updateSatellitesUsed(words[7]);
-
-            DumpGpsData();
         }
 
         private void RMC(string[] words)
@@ -219,8 +218,6 @@ namespace Gps
 
             // extract bearing
             updateCourse(words[8]);
-
-            DumpGpsData();
         }
 
         private void GLL(string[] words)
@@ -229,8 +226,6 @@ namespace Gps
             updateLongitude(words[3], words[4]);
             updateSatelliteTime(words[5]);
             updateStatus(words[6]);
-
-            DumpGpsData();
         }
 
         private void GSV(string[] words)
@@ -247,8 +242,6 @@ namespace Gps
                     break;
                 updateSatellitesDetails(words[index], words[index + 1], words[index + 2], words[index + 3]);
             }
-
-            DumpGpsData();
         }
 
         private void GSA(string[] words)
@@ -273,8 +266,6 @@ namespace Gps
                 RecivedData.HDOP = double.Parse(words[16], NmeaCultureInfo);
             if (words[17] != "")
                 RecivedData.VDOP = double.Parse(words[17], NmeaCultureInfo);
-            
-            DumpGpsData();
         }
 
         private void updateSatellitesDetails(string wordSatelliteID, string wordElevation, 
@@ -403,13 +394,13 @@ namespace Gps
         {
             if (wordLatitude != "" && wordIndicator != "")
             {
-                // Append hours
-                string latitude = wordLatitude.Substring(0, 2) + "°";
-                // Append minutes
-                latitude = latitude + wordLatitude.Substring(2) + "\"";
-                // Append the hemisphere
-                latitude = latitude + wordIndicator;
-                RecivedData.LatitudeString = latitude;
+                //// Append hours
+                //string latitude = wordLatitude.Substring(0, 2) + "°";
+                //// Append minutes
+                //latitude = latitude + wordLatitude.Substring(2) + "\"";
+                //// Append the hemisphere
+                //latitude = latitude + wordIndicator;
+                RecivedData.LatitudeString = wordLatitude.Trim() + " " + wordIndicator.Trim();
             }
         }
 
@@ -417,13 +408,13 @@ namespace Gps
         {
             if (wordLongitude != "" && wordIndicator != "")
             {
-                // Append hours
-                string longitude = wordLongitude.Substring(0, 2) + "°";
-                // Append minutes
-                longitude = longitude + wordLongitude.Substring(2) + "\"";
-                // Append the hemisphere
-                longitude = longitude + wordIndicator;
-                RecivedData.LongitudeString = longitude;
+                //// Append hours
+                //string longitude = wordLongitude.Substring(0, 2) + "°";
+                //// Append minutes
+                //longitude = longitude + wordLongitude.Substring(2) + "\"";
+                //// Append the hemisphere
+                //longitude = longitude + wordIndicator;
+                RecivedData.LongitudeString = wordLongitude.Trim() + " " + wordIndicator.Trim();
             }
         }
 

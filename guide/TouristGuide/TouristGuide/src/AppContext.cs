@@ -4,6 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 
+using Gps;
 using TouristGuide.map;
 using TouristGuide.map.repository;
 using TouristGuide.map.source;
@@ -36,8 +37,10 @@ namespace TouristGuide
         private String dirPath;
         private String mapsPath;
 
+        private GpsDevice gpsDevice;
+        private GpsSymulator gpsSymulator;
+
         private MapPkgRepository mapPkgRepo;
-        
         private MapSourceMem mapSourceMem;
         private MapSourceHdd mapSourceHdd;
         private MapSourceWeb mapSourceWeb;
@@ -58,6 +61,14 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): directoryPath: " + this.dirPath);
             this.mapsPath = this.dirPath + "\\maps";
             Debug.WriteLine("AppContext(): mapsPath: " + this.mapsPath);
+
+            // gps device
+            this.gpsDevice = new GpsDevice();
+            Debug.WriteLine("AppContext(): GpsDevice instantiated.");
+
+            // gps symulator
+            this.gpsSymulator = new GpsSymulator(this.dirPath);
+            Debug.WriteLine("AppContext(): GpsSymulator instantiated.");
 
             // map pkg repository
             this.mapPkgRepo = new MapPkgRepository(this.mapsPath);
@@ -98,7 +109,7 @@ namespace TouristGuide
             this.mapManager.PoiSourceManager = this.poiSourceManager;
             Debug.WriteLine("AppContext(): MapManager instantiated.");
 
-            test();
+            //test();
         }
 
         private void test()
@@ -111,6 +122,11 @@ namespace TouristGuide
 
             mapPkg = this.mapSourceManager.getMapPkg(50.057, 19.933, 0);
             Debug.WriteLine("AppContext: Test: " + mapPkg.getName());
+        }
+
+        public GpsSymulator getGpsSymulator()
+        {
+            return this.gpsSymulator;
         }
     }
 }

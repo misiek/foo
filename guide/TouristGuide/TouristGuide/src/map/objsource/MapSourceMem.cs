@@ -21,11 +21,12 @@ namespace TouristGuide.map.source
         /// <returns>MapPackage instance.</returns>
         public MapPackage findMapPkg(double latitude, double longitude, int zoom)
         {
-            foreach (MapPackage pkg in this.recentlyUsedMapPkgs)
+            foreach (MapPackage mapPkg in this.recentlyUsedMapPkgs)
             {
-                if (pkg.getZoom()==zoom && pkg.coordinatesMatches(latitude, longitude))
+                if (mapPkg.getZoom()==zoom && mapPkg.coordinatesMatches(latitude, longitude))
                 {
-                    return pkg;
+                    Debug.WriteLine("MapSourceMem: findMapPkg: found map pkg: " + mapPkg);
+                    return mapPkg;
                 }
             }
             Debug.WriteLine("MapSourceMem: findMapPkg: not found pkg for: ("
