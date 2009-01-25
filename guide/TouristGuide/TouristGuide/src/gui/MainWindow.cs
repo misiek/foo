@@ -14,10 +14,18 @@ namespace TouristGuide
         private GpsDevice gps;
         private EventHandler updatePosHandler;
         private EventHandler updateSatHandler;
+        private GpsDevice.LocationChangedEventHandler locationChangedHandler;
+        private GpsDevice.SatellitesChangedEventHandler satellitesChangedHandler;
         private AppContext appContext;
 
         public MainWindow()
         {
+            this.updatePosHandler = new EventHandler(updateLocation);
+            this.updateSatHandler = new EventHandler(updateSatellite);
+
+            this.locationChangedHandler = new GpsDevice.LocationChangedEventHandler(location);
+            this.satellitesChangedHandler = new GpsDevice.SatellitesChangedEventHandler(satellite);
+
             InitializeComponent();
             this.appContext = AppContext.Instance;
         }
@@ -27,14 +35,14 @@ namespace TouristGuide
 
         }
 
-        private void location(GpsDevice gps)
+        private void location()
         {
-            Invoke(updatePosHandler);
+            Invoke(this.updatePosHandler);
         }
 
-        private void satellite(GpsDevice gps)
+        private void satellite()
         {
-            Invoke(updateSatHandler);
+            Invoke(this.updateSatHandler);
         }
 
         private void updateLocation(object sender, System.EventArgs args)
@@ -53,18 +61,31 @@ namespace TouristGuide
 
         private void menuStartDevice_Click(object sender, EventArgs e)
         {
-            //gps.Open();
+            if (this.gps != null)
+                this.gps.stop();
+            this.gps = AppContext.Instance.getGpsDevice();
+            restartGps();
         }
 
         private void menuStartSymulator_Click(object sender, EventArgs e)
         {
+            if (this.gps != null)
+                this.gps.stop();
             this.gps = AppContext.Instance.getGpsSymulator();
-            this.gps.locationChanged += new GpsDevice.LocationChangedEventHandler(location);
-            this.gps.satellitesChanged += new GpsDevice.SatellitesChangedEventHandler(satellite);
+            restartGps();
+        }
 
-            updatePosHandler = new EventHandler(updateLocation);
-            updateSatHandler = new EventHandler(updateSatellite);
-            this.gps.Open();
+        private void restartGps()
+        {
+            // make sure that events are added once
+            this.gps.locationChanged -= this.locationChangedHandler;
+            this.gps.locationChanged += this.locationChangedHandler;
+            this.gps.satellitesChanged -= this.satellitesChangedHandler;
+            this.gps.satellitesChanged += this.satellitesChangedHandler;
+            // restart gps
+            if (this.gps.isStarted())
+                this.gps.stop();
+            this.gps.start();
         }
 
         private void labelSpeed_ParentChanged(object sender, EventArgs e)

@@ -13,13 +13,16 @@ namespace Gps
     public class GpsDevice
     {
         public event LocationChangedEventHandler locationChanged;
-        public delegate void LocationChangedEventHandler(GpsDevice gps);
+        public delegate void LocationChangedEventHandler();
         public event SatellitesChangedEventHandler satellitesChanged;
-        public delegate void SatellitesChangedEventHandler(GpsDevice gps);
+        public delegate void SatellitesChangedEventHandler();
 
-        private SerialPort gpsPort;
         protected Thread gpsListenerThread;
         protected NmeaParser nmea;
+        protected bool listening = false;
+
+        private SerialPort gpsPort;
+
 
         public GpsDevice()
         {
@@ -32,13 +35,27 @@ namespace Gps
             return nmea.getLocationData();
         }
 
-        public virtual void Open()
+        public virtual bool isStarted()
         {
-            FindPort();
-            CreateGpsListenerThread();
+            return this.listening;
         }
 
-        private void FindPort()
+        public virtual void start()
+        {
+            findPort();
+            this.listening = true;
+            createGpsListenerThread();
+        }
+
+        public virtual void stop()
+        {
+            Debug.WriteLine("stopping gps", this.ToString());
+            this.listening = false;
+            this.gpsListenerThread.Abort();
+            this.gpsListenerThread = null;
+        }
+
+        private void findPort()
         {
             gpsPort.ReadTimeout = 300;
             Regex rxGps = new Regex("^[$]GP");
@@ -76,14 +93,14 @@ namespace Gps
             return;
         }
 
-        protected void CreateGpsListenerThread()
+        protected void createGpsListenerThread()
         {
             // we only want to create the thread if we don't have one created already 
             // and we have opened the gps device
             if (gpsListenerThread == null)
             {
                 // Create and start thread to listen for GPS events
-                gpsListenerThread = new System.Threading.Thread(new System.Threading.ThreadStart(Listen));
+                gpsListenerThread = new Thread(new ThreadStart(listen));
                 gpsListenerThread.Start();
             }
         }
@@ -96,13 +113,13 @@ namespace Gps
                 case NmeaParser.LOCATION:
                     if (locationChanged != null)
                     {
-                        locationChanged(this);
+                        locationChanged();
                     }
                     break;
                 case NmeaParser.SATELLITE:
                     if (satellitesChanged != null)
                     {
-                        satellitesChanged(this);
+                        satellitesChanged();
                     }
                     break;
                 case NmeaParser.UNRECOGNIZED:
@@ -112,13 +129,12 @@ namespace Gps
             }
         }
 
-        protected virtual void Listen()
+        protected virtual void listen()
         {
-            gpsPort.ReadTimeout = 50;
             lock (this)
             {
-                bool listening = true;
-                while (listening)
+                gpsPort.ReadTimeout = 50;
+                while (this.listening)
                 {
                     string gpsMessage = "";
                     try
@@ -132,12 +148,14 @@ namespace Gps
                     }
                     catch (InvalidOperationException ex)
                     {
+                        // device disconnected ?
                         Debug.WriteLine(gpsPort.PortName + ": device disconnected?", this.ToString());
-                        // TODO
-                        // this.Close();
-                        // this.Open(); ?
+                        // consider:
+                        // this.stop();
+                        // this.start();
                     }
                 }
+                gpsPort.Close();
             }
         } 
 

@@ -44,6 +44,8 @@ namespace Gps
 
         private double parseCoordinate(string coordinateStr)
         {
+            if (coordinateStr == null)
+                return 1000;
             string[] coordinateArr = coordinateStr.Split(' ');
             double angle = Convert.ToDouble(coordinateArr[0]);
             // move dot two positions left
@@ -56,6 +58,8 @@ namespace Gps
 
         private string parseCoordinateStr(string coordinateStr, bool wantLongitute)
         {
+            if (coordinateStr == null)
+                return "unknown";
             int degreeLength = 2;
             if (wantLongitute)
                 degreeLength++;
@@ -63,7 +67,6 @@ namespace Gps
             string parsed = coordinateStr.Substring(0, degreeLength) + "°";
             // Append minutes
             int spaceIndex = coordinateStr.IndexOf(" ");
-            Debug.WriteLine("parseCoordinateStr: space index="+spaceIndex, this.ToString());
             parsed += coordinateStr.Substring(degreeLength, spaceIndex - degreeLength) + "\"";
             parsed += coordinateStr.Substring(spaceIndex);
             return parsed;
@@ -71,13 +74,13 @@ namespace Gps
 
         public string getLatitudeString()
         {
-            Debug.WriteLine("getLatitudeString: " + this.latitudeString + " double: " + this.latitude, this.ToString());
+            //Debug.WriteLine("getLatitudeString: " + this.latitudeString + " double: " + this.latitude, this.ToString());
             return this.latitudeString;
         }
 
         public string getLongitudeString()
         {
-            Debug.WriteLine("getLongitudeString: " + this.longitudeString + " double: " + this.longitude, this.ToString());
+            //Debug.WriteLine("getLongitudeString: " + this.longitudeString + " double: " + this.longitude, this.ToString());
             return this.longitudeString;
         }
 

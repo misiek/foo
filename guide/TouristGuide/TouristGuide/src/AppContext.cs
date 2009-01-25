@@ -124,6 +124,11 @@ namespace TouristGuide
             Debug.WriteLine("AppContext: Test: " + mapPkg.getName());
         }
 
+        public GpsDevice getGpsDevice()
+        {
+            return this.gpsDevice;
+        }
+
         public GpsSymulator getGpsSymulator()
         {
             return this.gpsSymulator;
