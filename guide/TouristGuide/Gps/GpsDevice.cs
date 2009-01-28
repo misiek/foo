@@ -30,7 +30,7 @@ namespace Gps
             this.nmea = new NmeaParser();
         }
 
-        public LocationData getLocationData()
+        public GpsLocation getLocationData()
         {
             return nmea.getLocationData();
         }

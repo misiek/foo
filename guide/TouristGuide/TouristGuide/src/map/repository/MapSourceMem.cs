@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 using TouristGuide.map.obj;
 
-namespace TouristGuide.map.source
+namespace TouristGuide.map.repository
 {
     /*
      * Keeps only those map packages

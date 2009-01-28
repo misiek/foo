@@ -83,7 +83,7 @@
   <ItemGroup>
     <Compile Include="GpsDevice.cs" />
     <Compile Include="GpsSymulator.cs" />
-    <Compile Include="LocationData.cs" />
+    <Compile Include="GpsLocation.cs" />
     <Compile Include="NmeaParser.cs" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@ using System.Text;
 
 using TouristGuide.map.obj;
 
-namespace TouristGuide.map.source
+namespace TouristGuide.map.repository
 {
     public class MapSourceWeb : MapSource
     {

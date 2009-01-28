@@ -76,9 +76,9 @@ namespace Gps
             RecivedData.SatellitesChannels = new int[11];
         }
 
-        public LocationData getLocationData()
+        public GpsLocation getLocationData()
         {
-            return new LocationData(
+            return new GpsLocation(
                 RecivedData.SatelliteTime,
                 RecivedData.LatitudeString,
                 RecivedData.LongitudeString,

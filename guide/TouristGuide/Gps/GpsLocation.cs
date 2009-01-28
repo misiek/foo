@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Gps
 {
-    public class LocationData
+    public class GpsLocation
     {
         // time recived from gps
         private DateTime satelliteTime;
@@ -23,7 +23,7 @@ namespace Gps
         private double course;
         //private string status;
 
-        public LocationData(DateTime satelliteTime,
+        public GpsLocation(DateTime satelliteTime,
                             string latitudeString,
                             string longitudeString,
                             double speed,

@@ -64,14 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\map\exceptions\MapPkgNotFoundException.cs" />
-    <Compile Include="src\map\exceptions\MapSourceException.cs" />
-    <Compile Include="src\map\repository\MapPkgRepository.cs" />
-    <Compile Include="src\map\exceptions\MapPkgRepositoryException.cs" />
-    <Compile Include="src\map\objsource\MapSource.cs" />
-    <Compile Include="src\map\objsource\MapSourceHdd.cs" />
-    <Compile Include="src\map\objsource\MapSourceMem.cs" />
-    <Compile Include="src\map\objsource\MapSourceWeb.cs" />
+    <Compile Include="src\map\exception\MapPkgNotFoundException.cs" />
+    <Compile Include="src\map\exception\MapSourceException.cs" />
+    <Compile Include="src\map\mapper\MapPkgRepository.cs" />
+    <Compile Include="src\map\exception\MapPkgRepositoryException.cs" />
+    <Compile Include="src\map\repository\MapSource.cs" />
+    <Compile Include="src\map\repository\MapSourceHdd.cs" />
+    <Compile Include="src\map\repository\MapSourceMem.cs" />
+    <Compile Include="src\map\repository\MapSourceWeb.cs" />
     <Compile Include="src\AppContext.cs" />
     <Compile Include="src\gui\MainWindow.cs">
       <SubType>Form</SubType>
@@ -83,11 +83,11 @@
     <Compile Include="src\map\MapDisplayer.cs" />
     <Compile Include="src\map\MapManager.cs" />
     <Compile Include="src\map\obj\MapPackage.cs" />
-    <Compile Include="src\map\objsource\MapSourceManager.cs">
+    <Compile Include="src\map\repository\MapPkgRepository.cs">
     </Compile>
     <Compile Include="src\map\obj\MapView.cs" />
     <Compile Include="src\map\obj\Poi.cs" />
-    <Compile Include="src\map\objsource\PoiSourceManager.cs" />
+    <Compile Include="src\map\repository\PoiRepository.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="src\gui\MainWindow.resx">

@@ -4,21 +4,21 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 
-using TouristGuide.map.exceptions;
-using TouristGuide.map.repository;
+using TouristGuide.map.exception;
+using TouristGuide.map.mapper;
 using TouristGuide.map.obj;
 
-namespace TouristGuide.map.source
+namespace TouristGuide.map.repository
 {
     public class MapSourceHdd : MapSource
     {
         private string mapsDir;
-        private MapPkgRepository mapPkgRepository;
+        private MapPkgMapperHdd mapPkgRepository;
         private List<MapPackage> availableMapPkgs;
 
         private int zoom;
 
-        public MapSourceHdd(string mapsDir, MapPkgRepository mapPkgRepository)
+        public MapSourceHdd(string mapsDir, MapPkgMapperHdd mapPkgRepository)
         {
             this.mapsDir = mapsDir;
             this.mapPkgRepository = mapPkgRepository;

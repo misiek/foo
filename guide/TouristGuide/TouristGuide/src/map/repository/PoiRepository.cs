@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TouristGuide.map.source
+namespace TouristGuide.map.repository
 {
-    public class PoiSourceManager
+    public class PoiRepository
     {
     }
 }

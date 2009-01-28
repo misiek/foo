@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TouristGuide.map.exceptions
+namespace TouristGuide.map.exception
 {
     /*
      * Thrown when map package con't be found.

@@ -47,7 +47,7 @@ namespace TouristGuide
 
         private void updateLocation(object sender, System.EventArgs args)
         {
-            LocationData ld = this.gps.getLocationData();
+            GpsLocation ld = this.gps.getLocationData();
             labelPosition.Text = ld.getLatitudeString() + " " + ld.getLongitudeString();
             labelSpeed.Text = ld.getSpeed().ToString();
         }

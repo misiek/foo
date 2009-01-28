@@ -7,7 +7,7 @@ using System.IO;
 using Gps;
 using TouristGuide.map;
 using TouristGuide.map.repository;
-using TouristGuide.map.source;
+using TouristGuide.map.mapper;
 
 // for test
 using TouristGuide.map.obj;
@@ -40,13 +40,13 @@ namespace TouristGuide
         private GpsDevice gpsDevice;
         private GpsSymulator gpsSymulator;
 
-        private MapPkgRepository mapPkgRepo;
+        private MapPkgMapperHdd mapPkgMapperHdd;
         private MapSourceMem mapSourceMem;
         private MapSourceHdd mapSourceHdd;
         private MapSourceWeb mapSourceWeb;
-        private MapSourceManager mapSourceManager;
+        private MapPkgRepository mapPkgRepository;
 
-        private PoiSourceManager poiSourceManager;
+        private PoiRepository poiRepository;
 
         private MapPanel mapPanel;
         private MapDisplayer mapDisplayer;
@@ -71,15 +71,15 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): GpsSymulator instantiated.");
 
             // map pkg repository
-            this.mapPkgRepo = new MapPkgRepository(this.mapsPath);
-            Debug.WriteLine("AppContext(): MapPkgRepository instantiated.");
+            this.mapPkgMapperHdd = new MapPkgMapperHdd(this.mapsPath);
+            Debug.WriteLine("AppContext(): MapPkgMapperHdd instantiated.");
 
             // map source memory
             this.mapSourceMem = new MapSourceMem();
             Debug.WriteLine("AppContext(): MapSourceMem instantiated.");
 
             // map source hard drive
-            this.mapSourceHdd = new MapSourceHdd(this.mapsPath, this.mapPkgRepo);
+            this.mapSourceHdd = new MapSourceHdd(this.mapsPath, this.mapPkgMapperHdd);
             Debug.WriteLine("AppContext(): MapSourceHdd instantiated.");
 
             // map source web server
@@ -91,22 +91,21 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): MapDisplayer instantiated.");
 
             // map source manager
-            this.mapSourceManager = new MapSourceManager();
-            this.mapSourceManager.MapDisplayer = this.mapDisplayer;
-            this.mapSourceManager.MapSourceMem = this.mapSourceMem;
-            this.mapSourceManager.MapSourceHdd = this.mapSourceHdd;
-            this.mapSourceManager.MapSourceWeb = this.mapSourceWeb;
-            Debug.WriteLine("AppContext(): MapSourceManager instantiated.");
+            this.mapPkgRepository = new MapPkgRepository();
+            this.mapPkgRepository.MapSourceMem = this.mapSourceMem;
+            this.mapPkgRepository.MapSourceHdd = this.mapSourceHdd;
+            this.mapPkgRepository.MapSourceWeb = this.mapSourceWeb;
+            Debug.WriteLine("AppContext(): MapPkgRepository instantiated.");
 
             // poi source manager
-            this.poiSourceManager = new PoiSourceManager();
-            Debug.WriteLine("AppContext(): PoiSourceManager instantiated.");
+            this.poiRepository = new PoiRepository();
+            Debug.WriteLine("AppContext(): PoiRepository instantiated.");
 
             // map manager
             this.mapManager = new MapManager();
             this.mapManager.MapDisplayer = this.mapDisplayer;
-            this.mapManager.MapSourceManager = this.mapSourceManager;
-            this.mapManager.PoiSourceManager = this.poiSourceManager;
+            this.mapManager.MapPkgRepository = this.mapPkgRepository;
+            this.mapManager.PoiRepository = this.poiRepository;
             Debug.WriteLine("AppContext(): MapManager instantiated.");
 
             //test();
@@ -114,13 +113,13 @@ namespace TouristGuide
 
         private void test()
         {
-            MapPackage mapPkg = this.mapSourceManager.getMapPkg(50.057, 19.933, 0);
+            MapPackage mapPkg = this.mapPkgRepository.getMapPkg(50.057, 19.933, 0);
             Debug.WriteLine("AppContext: Test: " + mapPkg.getName());
 
-            mapPkg = this.mapSourceManager.getMapPkg(50.057, 19.933, 0);
+            mapPkg = this.mapPkgRepository.getMapPkg(50.057, 19.933, 0);
             Debug.WriteLine("AppContext: Test: " + mapPkg.getName());
 
-            mapPkg = this.mapSourceManager.getMapPkg(50.057, 19.933, 0);
+            mapPkg = this.mapPkgRepository.getMapPkg(50.057, 19.933, 0);
             Debug.WriteLine("AppContext: Test: " + mapPkg.getName());
         }
 
