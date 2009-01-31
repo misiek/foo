@@ -53,11 +53,13 @@ namespace TouristGuide.map.repository
             MapPackage pkg = this.mapSourceMem.findMapPkg(latitude, longitude, zoom);
             if (pkg == null)
             {
-                //loadingEvent("Loading map from hard drive.");
+                if (loadingEvent != null)
+                    loadingEvent("Loading map from hard drive.");
                 pkg = this.mapSourceHdd.findMapPkg(latitude, longitude, zoom);
                 if (pkg == null)
                 {
-                    //loadingEvent("Loading map from web server.");
+                    if (loadingEvent != null)
+                        loadingEvent("Loading map from web server.");
                     pkg = this.mapSourceWeb.findMapPkg(latitude, longitude, zoom);
                 }
                 if (pkg != null)

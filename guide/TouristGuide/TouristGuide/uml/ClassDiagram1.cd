@@ -11,7 +11,7 @@
     <Position X="3" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MainWindow.cs</FileName>
-      <HashCode>AAAAAAggACAARFAABBCwgAADAAAAlgAAAAwARABAEAI=</HashCode>
+      <HashCode>AAAAAAggACAARFAAABCwgAADAAAAFgAAAAwARABAEAI=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.AppContext">
@@ -193,7 +193,7 @@
     <TypeIdentifier />
   </Class>
   <Class Name="TouristGuide.AppEvents">
-    <Position X="8" Y="1" Width="1.5" />
+    <Position X="8" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\AppEvents.cs</FileName>
       <HashCode>AAAAgAACAAAAAAAAAAAAAAAAAAAAAAEAAAAABAAAAAA=</HashCode>
