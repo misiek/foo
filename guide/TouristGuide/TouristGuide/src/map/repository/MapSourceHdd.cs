@@ -13,15 +13,15 @@ namespace TouristGuide.map.repository
     public class MapSourceHdd : MapSource
     {
         private string mapsDir;
-        private MapPkgMapperHdd mapPkgRepository;
+        private MapPkgMapperHdd mapPkgMapperHdd;
         private List<MapPackage> availableMapPkgs;
 
         private int zoom;
 
-        public MapSourceHdd(string mapsDir, MapPkgMapperHdd mapPkgRepository)
+        public MapSourceHdd(string mapsDir, MapPkgMapperHdd mapPkgMapperHdd)
         {
             this.mapsDir = mapsDir;
-            this.mapPkgRepository = mapPkgRepository;
+            this.mapPkgMapperHdd = mapPkgMapperHdd;
             this.zoom = 0;
             readMapsDir();
         }
@@ -54,7 +54,7 @@ namespace TouristGuide.map.repository
                     string mapPkgName = dir.Name;
                     try
                     {
-                        MapPackage mapPkg = this.mapPkgRepository.getWithoutImages(mapPkgName, this.zoom);
+                        MapPackage mapPkg = this.mapPkgMapperHdd.getWithoutImages(mapPkgName, this.zoom);
                         this.availableMapPkgs.Add(mapPkg);
                         Debug.WriteLine("MapSourceHdd: readMapsDir: added map packege '" + mapPkgName + "'");
                     }
@@ -84,7 +84,7 @@ namespace TouristGuide.map.repository
                 if (mapPkg.coordinatesMatches(latitude, longitude))
                 {
                     if (mapPkg.isPartsFree())
-                        this.mapPkgRepository.loadImages(mapPkg);
+                        this.mapPkgMapperHdd.loadImages(mapPkg);
                     Debug.WriteLine("MapSourceHdd: findMapPkg: found map pkg: " + mapPkg);
                     return mapPkg;
                 }

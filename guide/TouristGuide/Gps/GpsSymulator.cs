@@ -44,7 +44,7 @@ namespace Gps
                     string gpsMessage;
                     while ((gpsMessage = gpsLogTr.ReadLine()) != null && this.listening)
                     {
-                        parseGpsMessage(gpsMessage);
+                        processGpsMessage(gpsMessage);
                         System.Threading.Thread.Sleep(200);
                     }
                     // close the stream

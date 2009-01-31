@@ -14,20 +14,14 @@ namespace TouristGuide
         private GpsDevice gps;
         private EventHandler updatePosHandler;
         private EventHandler updateSatHandler;
-        private GpsDevice.LocationChangedEventHandler locationChangedHandler;
-        private GpsDevice.SatellitesChangedEventHandler satellitesChangedHandler;
-        private AppContext appContext;
+        // current location
+        private GpsLocation currentGpsLocation;
 
         public MainWindow()
         {
             this.updatePosHandler = new EventHandler(updateLocation);
             this.updateSatHandler = new EventHandler(updateSatellite);
-
-            this.locationChangedHandler = new GpsDevice.LocationChangedEventHandler(location);
-            this.satellitesChangedHandler = new GpsDevice.SatellitesChangedEventHandler(satellite);
-
             InitializeComponent();
-            this.appContext = AppContext.Instance;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,28 +29,27 @@ namespace TouristGuide
 
         }
 
-        private void location()
+        public void locationChanged(GpsLocation gpsLoc)
         {
+            this.currentGpsLocation = gpsLoc;
             Invoke(this.updatePosHandler);
         }
 
-        private void satellite()
+        private void updateLocation(object sender, EventArgs args)
+        {
+            //GpsLocation gpsLoc = this.gps.getLocationData();
+            labelPosition.Text = this.currentGpsLocation.getLatitudeString() + " " + this.currentGpsLocation.getLongitudeString();
+            labelSpeed.Text = this.currentGpsLocation.getSpeed().ToString();
+        }
+
+        public void satellitesChanged()
         {
             Invoke(this.updateSatHandler);
         }
 
-        private void updateLocation(object sender, System.EventArgs args)
-        {
-            GpsLocation ld = this.gps.getLocationData();
-            labelPosition.Text = ld.getLatitudeString() + " " + ld.getLongitudeString();
-            labelSpeed.Text = ld.getSpeed().ToString();
-        }
-
-        private void updateSatellite(object sender, System.EventArgs args)
+        private void updateSatellite(object sender, EventArgs args)
         {
             //labelPosition.Text = "SATELLITE";
-
-           
         }
 
         private void menuStartDevice_Click(object sender, EventArgs e)
@@ -77,11 +70,8 @@ namespace TouristGuide
 
         private void restartGps()
         {
-            // make sure that events are added once
-            this.gps.locationChanged -= this.locationChangedHandler;
-            this.gps.locationChanged += this.locationChangedHandler;
-            this.gps.satellitesChanged -= this.satellitesChangedHandler;
-            this.gps.satellitesChanged += this.satellitesChangedHandler;
+            // add gps events
+            AppContext.Instance.getAppEvents().subscribeToGps(this.gps);
             // restart gps
             if (this.gps.isStarted())
                 this.gps.stop();

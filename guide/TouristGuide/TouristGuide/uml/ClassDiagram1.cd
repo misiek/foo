@@ -5,24 +5,24 @@
     <Position X="0.5" Y="0.5" Height="0.427" Width="1.742" />
   </Comment>
   <Comment CommentText="Current map view - map images returned by coordinates.">
-    <Position X="10.274" Y="3.84" Height="0.597" Width="1.648" />
+    <Position X="5.732" Y="4.121" Height="0.597" Width="1.648" />
   </Comment>
   <Class Name="TouristGuide.MainWindow" Collapsed="true">
     <Position X="3" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MainWindow.cs</FileName>
-      <HashCode>AAAAAAggACAAQFAABASwgEADAAAAFgAAAAwARABgEAI=</HashCode>
+      <HashCode>AAAAAAggACAARFAABBCwgAADAAAAlgAAAAwARABAEAI=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.AppContext">
     <Position X="0.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\AppContext.cs</FileName>
-      <HashCode>AABAAAAAAAIAAEAIAQEABCAAAIBAAIAIQEAAGAgAAAA=</HashCode>
+      <HashCode>AABAAAAAAAIAAEAIBQEABCAABIBAQIBIQEAAGAgAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.MapDisplayer">
-    <Position X="7.75" Y="3.25" Width="1.5" />
+    <Position X="8" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapDisplayer.cs</FileName>
       <HashCode>AQAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -32,10 +32,10 @@
     </ShowAsAssociation>
     <AssociationLine Name="MapPanel" Type="TouristGuide.MapPanel" ManuallyRouted="true" FixedToPoint="true">
       <Path>
-        <Point X="7.75" Y="3.5" />
-        <Point X="7.375" Y="3.5" />
-        <Point X="7.375" Y="3.5" />
-        <Point X="6.25" Y="3.5" />
+        <Point X="8" Y="3" />
+        <Point X="7.375" Y="3" />
+        <Point X="7.375" Y="3" />
+        <Point X="6.25" Y="3" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.422" Y="0.049" />
@@ -43,14 +43,14 @@
     </AssociationLine>
   </Class>
   <Class Name="TouristGuide.MapPanel">
-    <Position X="4.75" Y="3.25" Width="1.5" />
+    <Position X="4.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MapPanel.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.obj.MapView" Collapsed="true">
-    <Position X="10.25" Y="4.5" Width="1.5" />
+    <Position X="5.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\MapView.cs</FileName>
       <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAGAAAAAABAABgAAAAAAA=</HashCode>
@@ -60,7 +60,7 @@
     <Position X="8" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapManager.cs</FileName>
-      <HashCode>AARAAAAAAAIAAAACAAAAEEIAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AARAAAAAAAIAAAACAAAAEEICAAAAAAAAAAAAEAAAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapDisplayer" />
@@ -77,7 +77,7 @@
     </AssociationLine>
   </Class>
   <Class Name="TouristGuide.map.repository.MapPkgRepository">
-    <Position X="4.5" Y="6.5" Width="2" />
+    <Position X="4.75" Y="6.5" Width="2" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapPkgRepository.cs</FileName>
       <HashCode>CAAAAAAAAAAAAgAAIAAAgCAAAoAAAAAAAAAAAAgAAAA=</HashCode>
@@ -109,9 +109,9 @@
     </AssociationLine>
     <AssociationLine Name="MapSourceWeb" Type="TouristGuide.map.repository.MapSourceWeb" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.5" Y="7.658" />
+        <Point X="6.75" Y="7.658" />
         <Point X="7.5" Y="7.658" />
-        <Point X="7.5" Y="8.75" />
+        <Point X="7.5" Y="9" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-0.57" Y="0.536" />
@@ -126,7 +126,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.obj.MapPackage">
-    <Position X="0.5" Y="6.5" Width="1.5" />
+    <Position X="2.75" Y="4" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\MapPackage.cs</FileName>
       <HashCode>EAAEAAUQtAAhEAIEAAAAABACIAAEAAAQAABEAAAgAAA=</HashCode>
@@ -136,14 +136,14 @@
     </Compartments>
   </Class>
   <Class Name="TouristGuide.map.obj.Poi">
-    <Position X="12.75" Y="6.5" Width="1.5" />
+    <Position X="10.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\Poi.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.repository.MapSourceMem">
-    <Position X="2.75" Y="8.75" Width="1.5" />
+    <Position X="2.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapSourceMem.cs</FileName>
       <HashCode>AAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
@@ -151,10 +151,10 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TouristGuide.map.repository.MapSourceHdd">
-    <Position X="4.75" Y="8.75" Width="1.5" />
+    <Position X="4.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapSourceHdd.cs</FileName>
-      <HashCode>AABACAAAQAEAAAAABAAAABAAgAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAQAEAAAAABAEAABAAgAQAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -162,7 +162,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TouristGuide.map.repository.MapSourceWeb">
-    <Position X="6.75" Y="8.75" Width="1.5" />
+    <Position X="6.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapSourceWeb.cs</FileName>
       <HashCode>AAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -179,14 +179,6 @@
   <Class Name="Gps.GpsDevice" Collapsed="true">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier />
-    <NestedTypes>
-      <Delegate Name="Gps.GpsDevice.LocationChangedEventHandler" Collapsed="true">
-        <TypeIdentifier />
-      </Delegate>
-      <Delegate Name="Gps.GpsDevice.SatellitesChangedEventHandler" Collapsed="true">
-        <TypeIdentifier />
-      </Delegate>
-    </NestedTypes>
   </Class>
   <Class Name="Gps.GpsSymulator" Collapsed="true">
     <Position X="3" Y="1.5" Width="1.5" />
@@ -200,8 +192,15 @@
     <Position X="5.25" Y="1.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
+  <Class Name="TouristGuide.AppEvents">
+    <Position X="8" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\AppEvents.cs</FileName>
+      <HashCode>AAAAgAACAAAAAAAAAAAAAAAAAAAAAAEAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="TouristGuide.map.repository.MapSource">
-    <Position X="2.75" Y="5.5" Width="1.5" />
+    <Position X="0.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapSource.cs</FileName>
       <HashCode>AAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

@@ -52,6 +52,9 @@ namespace TouristGuide
         private MapDisplayer mapDisplayer;
         private MapManager mapManager;
 
+        private MainWindow mainWindow;
+        private AppEvents appEvents;
+
         private AppContext()
         {
             // get gull path to exe file
@@ -108,6 +111,12 @@ namespace TouristGuide
             this.mapManager.PoiRepository = this.poiRepository;
             Debug.WriteLine("AppContext(): MapManager instantiated.");
 
+            // main window
+            this.mainWindow = new MainWindow();
+
+            // application events
+            this.appEvents = new AppEvents(this.mainWindow, this.mapManager);
+
             //test();
         }
 
@@ -131,6 +140,16 @@ namespace TouristGuide
         public GpsSymulator getGpsSymulator()
         {
             return this.gpsSymulator;
+        }
+
+        public MainWindow getMainWindow()
+        {
+            return this.mainWindow;
+        }
+
+        public AppEvents getAppEvents()
+        {
+            return this.appEvents;
         }
     }
 }

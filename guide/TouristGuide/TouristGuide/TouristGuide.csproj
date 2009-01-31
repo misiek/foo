@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\AppEvents.cs" />
     <Compile Include="src\map\exception\MapPkgNotFoundException.cs" />
     <Compile Include="src\map\exception\MapSourceException.cs" />
     <Compile Include="src\map\mapper\MapPkgRepository.cs" />

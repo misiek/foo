@@ -13,7 +13,7 @@ namespace Gps
     public class GpsDevice
     {
         public event LocationChangedEventHandler locationChanged;
-        public delegate void LocationChangedEventHandler();
+        public delegate void LocationChangedEventHandler(GpsLocation gpsLoc);
         public event SatellitesChangedEventHandler satellitesChanged;
         public delegate void SatellitesChangedEventHandler();
 
@@ -105,7 +105,7 @@ namespace Gps
             }
         }
 
-        protected void parseGpsMessage(string gpsMessage)
+        protected void processGpsMessage(string gpsMessage)
         {
             short status = nmea.Parse(gpsMessage);
             switch (status)
@@ -113,7 +113,9 @@ namespace Gps
                 case NmeaParser.LOCATION:
                     if (locationChanged != null)
                     {
-                        locationChanged();
+                        GpsLocation gpsLoc = this.nmea.getLocationData();
+                        if (gpsLoc != null)
+                            locationChanged(gpsLoc);
                     }
                     break;
                 case NmeaParser.SATELLITE:
@@ -140,7 +142,7 @@ namespace Gps
                     try
                     {
                         gpsMessage = gpsPort.ReadLine();
-                        parseGpsMessage(gpsMessage);
+                        processGpsMessage(gpsMessage);
                     }
                     catch (TimeoutException ex)
                     {

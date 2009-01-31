@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 
 using TouristGuide.map.repository;
+using TouristGuide.map.obj;
+using Gps;
 
 namespace TouristGuide.map
 {
     public class MapManager
     {
-        private int currentMapPkg;
+        private MapPackage currentMapPkg;
+        private GpsLocation currentGpsLocation;
 
         private MapDisplayer mapDisplayer;
         public MapDisplayer MapDisplayer
@@ -39,9 +43,12 @@ namespace TouristGuide.map
         }      
 
 
-        public void newPosition()
+        public void newPosition(GpsLocation gpsLocation)
         {
-            throw new System.NotImplementedException();
+            this.currentGpsLocation = gpsLocation;
+            string coordinates = this.currentGpsLocation.getLatitudeString() + " " + 
+                                 this.currentGpsLocation.getLongitudeString();
+            Debug.WriteLine("new position: " + coordinates, this.ToString());
         }
 
     

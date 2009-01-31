@@ -78,13 +78,14 @@ namespace Gps
 
         public GpsLocation getLocationData()
         {
-            return new GpsLocation(
+            GpsLocation gpsLoc = new GpsLocation(
                 RecivedData.SatelliteTime,
                 RecivedData.LatitudeString,
                 RecivedData.LongitudeString,
                 RecivedData.Speed,
                 RecivedData.Course
             );
+            return gpsLoc;
         }
 
 
@@ -99,7 +100,7 @@ namespace Gps
             if (isChecksumValid(gpsMessage))
             {
                 GpsSentence = gpsMessage;
-                Debug.WriteLine("gpsMessage: " + GpsSentence, this.ToString());
+                //Debug.WriteLine("gpsMessage: " + GpsSentence, this.ToString());
 
                 string[] msg = gpsMessage.Split('*');
                 string[] words = msg[0].Split(',');

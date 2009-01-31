@@ -12,7 +12,10 @@ namespace TouristGuide
         [MTAThread]
         static void Main()
         {
-            Application.Run(new MainWindow());
+            // initialize components
+            AppContext appContext = AppContext.Instance;
+            // run form
+            Application.Run(appContext.getMainWindow());
         }
     }
 }
