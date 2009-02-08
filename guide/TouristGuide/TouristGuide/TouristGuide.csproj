@@ -67,7 +67,7 @@
     <Compile Include="src\AppEvents.cs" />
     <Compile Include="src\map\exception\MapPkgNotFoundException.cs" />
     <Compile Include="src\map\exception\MapSourceException.cs" />
-    <Compile Include="src\map\mapper\MapPkgRepository.cs" />
+    <Compile Include="src\map\mapper\MapPkgMapperHdd.cs" />
     <Compile Include="src\map\exception\MapPkgRepositoryException.cs" />
     <Compile Include="src\map\repository\MapSource.cs" />
     <Compile Include="src\map\repository\MapSourceHdd.cs" />

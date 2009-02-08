@@ -5,10 +5,10 @@
     <Position X="0.5" Y="0.5" Height="0.427" Width="1.742" />
   </Comment>
   <Comment CommentText="Current map view - map images returned by coordinates.">
-    <Position X="5.732" Y="4.121" Height="0.597" Width="1.648" />
+    <Position X="5.763" Y="3.715" Height="0.472" Width="2.013" />
   </Comment>
   <Class Name="TouristGuide.MainWindow" Collapsed="true">
-    <Position X="3" Y="2.75" Width="1.5" />
+    <Position X="2.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MainWindow.cs</FileName>
       <HashCode>AAAAAAggACAARFAAABCwgAADAAAAFgAAAAwARABAEAI=</HashCode>
@@ -30,7 +30,7 @@
     <ShowAsAssociation>
       <Property Name="MapPanel" />
     </ShowAsAssociation>
-    <AssociationLine Name="MapPanel" Type="TouristGuide.MapPanel" ManuallyRouted="true" FixedToPoint="true">
+    <AssociationLine Name="MapPanel" Type="TouristGuide.MapPanel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="8" Y="3" />
         <Point X="7.375" Y="3" />
@@ -43,17 +43,17 @@
     </AssociationLine>
   </Class>
   <Class Name="TouristGuide.MapPanel">
-    <Position X="4.75" Y="2.75" Width="1.5" />
+    <Position X="4.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MapPanel.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.obj.MapView" Collapsed="true">
-    <Position X="5.75" Y="4.75" Width="1.5" />
+    <Position X="6" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\MapView.cs</FileName>
-      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAGAAAAAABAABgAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAACAABAAAAAAEAABAAABAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.MapManager">
@@ -126,7 +126,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.obj.MapPackage">
-    <Position X="2.75" Y="4" Width="1.5" />
+    <Position X="2.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\MapPackage.cs</FileName>
       <HashCode>EAAEAAUQtAAhEAIEAAAAABACIAAEAAAQAABEAAAgAAA=</HashCode>
@@ -172,7 +172,7 @@
   <Class Name="TouristGuide.map.mapper.MapPkgMapperHdd">
     <Position X="4.75" Y="11" Width="1.75" />
     <TypeIdentifier>
-      <FileName>src\map\mapper\MapPkgRepository.cs</FileName>
+      <FileName>src\map\mapper\MapPkgMapperHdd.cs</FileName>
       <HashCode>IAAAAAAAAACAAAAAAAAAIAAAgAAACAAAAAAAAAAgAAA=</HashCode>
     </TypeIdentifier>
   </Class>
