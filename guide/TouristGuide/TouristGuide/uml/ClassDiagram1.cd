@@ -25,15 +25,15 @@
     <Position X="8" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapDisplayer.cs</FileName>
-      <HashCode>AQAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapPanel" />
     </ShowAsAssociation>
     <AssociationLine Name="MapPanel" Type="TouristGuide.MapPanel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="8" Y="3" />
-        <Point X="7.375" Y="3" />
+        <Point X="8" Y="3.042" />
+        <Point X="7.375" Y="3.042" />
         <Point X="7.375" Y="3" />
         <Point X="6.25" Y="3" />
       </Path>
@@ -53,14 +53,14 @@
     <Position X="6" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\MapView.cs</FileName>
-      <HashCode>AQAAAAAAAAAAAACAABAAAAAAEAABAAABAAAAAAAAAIA=</HashCode>
+      <HashCode>AUAAAAAAAAAAAACAAAAAAAhAAAABAAABBAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.MapManager">
     <Position X="8" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapManager.cs</FileName>
-      <HashCode>AARAAAAAAAIAAAACAAAAEEICAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AARAAAAAAAICAAACAAAAEEJCAAAAAAAAAAAAEAAAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapDisplayer" />

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using System.Drawing;
 using Gps;
@@ -12,25 +13,30 @@ namespace TouristGuide.map.obj
         private GpsLocation gpsLocation;
         // relative coordinates inside map view (pixels)
         private Point imgLocation;
-        // 0 index - center map image (longitude and latidute are inside this image)
-        // the rest as circle from top of center
-        //  8  1  2
-        //  7  0  3
-        //  6  5  4
-        private Bitmap[] images;
+        // table with points which are keys in mapParts, determine order of displaying
+        private ArrayList orderingPoints;
+        // images - hashtable (Point => Bitmap)
+        private Hashtable viewParts;
         // TODO: change type to more suitable
         private object[] pois;
 
-        public MapView(GpsLocation gpsLocation, Point imgLocation, Bitmap[] images)
+        // images - hashtable (Point => Bitmap)
+        public MapView(GpsLocation gpsLocation, Point imgLocation, Hashtable viewParts, ArrayList orderingPoints)
         {
             this.gpsLocation = gpsLocation;
             this.imgLocation = imgLocation;
-            this.images = images;
+            this.viewParts = viewParts;
+            this.orderingPoints = orderingPoints;
         }
 
-        public Bitmap[] getImages()
+        public ArrayList getOrderingPoints()
         {
-            return this.images;
+            return this.orderingPoints;
+        }
+
+        public Bitmap getImgByPoint(Point p)
+        {
+            return (Bitmap)this.viewParts[p];
         }
 
         public Point getImgLocation()

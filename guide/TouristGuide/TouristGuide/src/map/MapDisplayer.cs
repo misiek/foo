@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TouristGuide.map.obj;
 
 namespace TouristGuide.map
 {
@@ -23,6 +24,11 @@ namespace TouristGuide.map
         public void loadingMap()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void displayView(MapView mapView)
+        {
+
         }
     }
 }
