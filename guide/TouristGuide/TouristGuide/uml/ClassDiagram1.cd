@@ -18,7 +18,7 @@
     <Position X="0.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\AppContext.cs</FileName>
-      <HashCode>AABAAAAAAAIAAEAIBQEABCAABIBAQIBIQEAAGAgAAAA=</HashCode>
+      <HashCode>AABAAAAAAAIAAEAIBQEABCAABIBAQIBAQEAAGAgAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.MapDisplayer">
@@ -60,7 +60,7 @@
     <Position X="8" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapManager.cs</FileName>
-      <HashCode>AARAAAAAAAICAAACAAAAEEJCAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AARAABAAAAICAAACAAAAEEJCAAAAAAACAAAAEACAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapDisplayer" />
@@ -129,7 +129,7 @@
     <Position X="2.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\MapPackage.cs</FileName>
-      <HashCode>EAAEAAUQtAAhEAIEAAAAABACIAAEAAAQAABEAAAgAAA=</HashCode>
+      <HashCode>EAAEAAUQ9AAhEAIEAAAAABACIAAEAAAQAABEAAAgAAA=</HashCode>
     </TypeIdentifier>
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />

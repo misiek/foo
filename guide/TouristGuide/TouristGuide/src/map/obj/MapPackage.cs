@@ -27,6 +27,15 @@ namespace TouristGuide.map.obj
         // map parts
         private Hashtable parts;
 
+        private int width;
+        private int height;
+
+        private Hashtable tmpWidthCounting;
+        private Hashtable tmpHeightCounting;
+
+        private double heightLatitude;
+        private double widthLongitude;
+
         public MapPackage(string name,
                           double topLeftLatitude,
                           double topLeftLongitude,
@@ -42,6 +51,12 @@ namespace TouristGuide.map.obj
             this.descr = "";
             this.partsFormat = "";
             this.zoom = -1;
+            this.width = 0;
+            this.height = 0;
+            this.tmpWidthCounting = new Hashtable();
+            this.tmpHeightCounting = new Hashtable();
+            this.heightLatitude = (double)Math.Abs(this.bottomRightLatitude - this.topLeftLatitude);
+            this.widthLongitude = (double)Math.Abs(this.bottomRightLongitude - this.topLeftLongitude);
         }
 
         /// <summary>
@@ -68,6 +83,16 @@ namespace TouristGuide.map.obj
         {
             if (this.parts.ContainsKey(p))
                 throw new Exception("Part exists: " + p);
+            if (!this.tmpWidthCounting.ContainsKey(p.X))
+            {
+                this.tmpWidthCounting[p.X] = 1;
+                this.width += image.Width;
+            }
+            if (!this.tmpHeightCounting.ContainsKey(p.Y))
+            {
+                this.tmpHeightCounting[p.Y] = 1;
+                this.height += image.Height;
+            }
             this.parts.Add(p, image);
         }
 
@@ -83,6 +108,10 @@ namespace TouristGuide.map.obj
         public void freeParts()
         {
             this.parts = new Hashtable();
+            this.width = 0;
+            this.height = 0;
+            this.tmpWidthCounting = new Hashtable();
+            this.tmpHeightCounting = new Hashtable();
         }
 
         public bool isPartsFree()
@@ -132,5 +161,55 @@ namespace TouristGuide.map.obj
             return "MapPackage[" + this.name + "]";
         }
 
+        public Point getPartPoint(double latitude, double longitude)
+        {
+            Point pixelCoordinates = getPixelCoordinates(latitude, longitude);
+            // find x coordinate
+            int x_width = 0;
+            int x = 0;
+            while (x_width < pixelCoordinates.X)
+            {
+                int imgWidth = getPart(new Point(x, 0)).Width;
+                if (x_width + imgWidth > pixelCoordinates.X)
+                    break;
+                x_width += imgWidth;
+                x++;
+            }
+            // find y coordinate
+            int y_height = 0;
+            int y = 0;
+            while (y_height < pixelCoordinates.Y)
+            {
+                int imgHeight = getPart(new Point(y, 0)).Height;
+                if (y_height + imgHeight > pixelCoordinates.Y)
+                    break;
+                y_height += imgHeight;
+                y++;
+            }
+            return new Point(x, y);
+        }
+
+        public Point getInsidePartPosition(double latitude, double longitude)
+        {
+            Point partPoint = getPartPoint(latitude, longitude);
+            Point pixelCoordinates = getPixelCoordinates(latitude, longitude);
+            int x_px = pixelCoordinates.X;
+            for (int x = 0; x < partPoint.X; x++)
+                x_px -= getPart(new Point(x, 0)).Width;
+            int y_px = pixelCoordinates.Y;
+            for (int y = 0; y < partPoint.Y; y++)
+                y_px -= getPart(new Point(y, 0)).Height;
+            return new Point(x_px, y_px);
+        }
+
+        private Point getPixelCoordinates(double latitude, double longitude)
+        {
+            double relativeLatidude = (double)Math.Abs(latitude - this.topLeftLatitude);
+            double relativeLongitude = (double)Math.Abs(longitude - this.bottomRightLongitude);
+
+            int x_px = (int)(relativeLongitude * this.width / this.widthLongitude);
+            int y_px = (int)(relativeLatidude * this.height / this.heightLatitude);
+            return new Point(x_px, y_px);
+        }
     }
 }

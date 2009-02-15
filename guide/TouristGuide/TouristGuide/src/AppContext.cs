@@ -116,20 +116,6 @@ namespace TouristGuide
 
             // application events
             this.appEvents = new AppEvents(this.mainWindow, this.mapManager);
-
-            //test();
-        }
-
-        private void test()
-        {
-            MapPackage mapPkg = this.mapPkgRepository.getMapPkg(50.057, 19.933, 0);
-            Debug.WriteLine("AppContext: Test: " + mapPkg.getName());
-
-            mapPkg = this.mapPkgRepository.getMapPkg(50.057, 19.933, 0);
-            Debug.WriteLine("AppContext: Test: " + mapPkg.getName());
-
-            mapPkg = this.mapPkgRepository.getMapPkg(50.057, 19.933, 0);
-            Debug.WriteLine("AppContext: Test: " + mapPkg.getName());
         }
 
         public GpsDevice getGpsDevice()

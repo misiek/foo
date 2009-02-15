@@ -13,7 +13,7 @@ namespace TouristGuide.map.obj
         private GpsLocation gpsLocation;
         // relative coordinates inside map view (pixels)
         private Point imgLocation;
-        // table with points which are keys in mapParts, determine order of displaying
+        // table with points which are keys in viewParts, determine order of displaying
         private ArrayList orderingPoints;
         // images - hashtable (Point => Bitmap)
         private Hashtable viewParts;

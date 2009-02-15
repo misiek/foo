@@ -84,6 +84,16 @@ namespace Gps
             return this.longitudeString;
         }
 
+        public double getLatitude()
+        {
+            return this.latitude;
+        }
+
+        public double getLongitude()
+        {
+            return this.longitude;
+        }
+
         public double getSpeed()
         {
             return this.speed;
