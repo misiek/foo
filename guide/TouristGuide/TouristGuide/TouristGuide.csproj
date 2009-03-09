@@ -80,7 +80,8 @@
     <Compile Include="src\gui\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\gui\MapPanel.cs" />
+    <Compile Include="src\gui\MapPanel.cs">
+    </Compile>
     <Compile Include="src\map\MapDisplayer.cs" />
     <Compile Include="src\map\MapManager.cs" />
     <Compile Include="src\map\obj\MapPackage.cs" />

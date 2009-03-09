@@ -41,7 +41,6 @@ namespace TouristGuide
             this.label2 = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.mapPanel = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.mapPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,18 +109,10 @@ namespace TouristGuide
             // mapPanel
             // 
             this.mapPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.mapPanel.Controls.Add(this.pictureBox1);
             this.mapPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.mapPanel.Location = new System.Drawing.Point(0, 46);
             this.mapPanel.Name = "mapPanel";
             this.mapPanel.Size = new System.Drawing.Size(240, 222);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-10, -3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(266, 279);
             // 
             // MainWindow
             // 

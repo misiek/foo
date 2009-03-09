@@ -34,9 +34,9 @@ namespace TouristGuide.map.obj
             return this.orderingPoints;
         }
 
-        public Bitmap getImgByPoint(Point p)
+        public Image getImgByPoint(Point p)
         {
-            return (Bitmap)this.viewParts[p];
+            return (Image)this.viewParts[p];
         }
 
         public Point getImgLocation()

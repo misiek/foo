@@ -25,22 +25,8 @@
     <Position X="8" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapDisplayer.cs</FileName>
-      <HashCode>AQAAAAAAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAEAAAABAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="MapPanel" />
-    </ShowAsAssociation>
-    <AssociationLine Name="MapPanel" Type="TouristGuide.MapPanel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8" Y="3.042" />
-        <Point X="7.375" Y="3.042" />
-        <Point X="7.375" Y="3" />
-        <Point X="6.25" Y="3" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.422" Y="0.049" />
-      </MemberNameLabel>
-    </AssociationLine>
   </Class>
   <Class Name="TouristGuide.MapPanel">
     <Position X="4.75" Y="2.5" Width="1.5" />
@@ -129,7 +115,7 @@
     <Position X="2.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\MapPackage.cs</FileName>
-      <HashCode>EAAEAAUQ9AAhEAIEAAAAABACIAAEAAAQAABEAAAgAAA=</HashCode>
+      <HashCode>UAAEAAUQ9AAhEAYEQAAAABACIAAMACAQAgBEAAAgAAA=</HashCode>
     </TypeIdentifier>
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />

@@ -17,6 +17,14 @@ namespace TouristGuide
         // current location
         private GpsLocation currentGpsLocation;
 
+        public Panel MapPanel
+        {
+            get
+            {
+                return this.mapPanel;
+            }
+        }
+
         public MainWindow()
         {
             this.updatePosHandler = new EventHandler(updateLocation);
@@ -26,7 +34,7 @@ namespace TouristGuide
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         public void locationChanged(GpsLocation gpsLoc)

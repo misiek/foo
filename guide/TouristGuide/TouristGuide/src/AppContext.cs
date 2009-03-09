@@ -65,6 +65,10 @@ namespace TouristGuide
             this.mapsPath = this.dirPath + "\\maps";
             Debug.WriteLine("AppContext(): mapsPath: " + this.mapsPath);
 
+            // main window
+            this.mainWindow = new MainWindow();
+            Debug.WriteLine("AppContext(): MainWindow instantiated.");
+
             // gps device
             this.gpsDevice = new GpsDevice();
             Debug.WriteLine("AppContext(): GpsDevice instantiated.");
@@ -91,6 +95,7 @@ namespace TouristGuide
 
             // map displayer
             this.mapDisplayer = new MapDisplayer();
+            this.mapDisplayer.MapPanel = this.mainWindow.MapPanel;
             Debug.WriteLine("AppContext(): MapDisplayer instantiated.");
 
             // map source manager
@@ -110,9 +115,6 @@ namespace TouristGuide
             this.mapManager.MapPkgRepository = this.mapPkgRepository;
             this.mapManager.PoiRepository = this.poiRepository;
             Debug.WriteLine("AppContext(): MapManager instantiated.");
-
-            // main window
-            this.mainWindow = new MainWindow();
 
             // application events
             this.appEvents = new AppEvents(this.mainWindow, this.mapManager);
