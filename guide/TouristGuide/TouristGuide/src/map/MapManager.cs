@@ -7,6 +7,7 @@ using System.Drawing;
 
 using TouristGuide.map.repository;
 using TouristGuide.map.obj;
+using TouristGuide.map.exception;
 using Gps;
 
 namespace TouristGuide.map
@@ -84,10 +85,25 @@ namespace TouristGuide.map
             string coordinates = this.currentGpsLocation.getLatitudeString() + " " + 
                                  this.currentGpsLocation.getLongitudeString();
             Debug.WriteLine("new position: " + coordinates, this.ToString());
-            // create current view
-            MapView mv = createCurrentView();
-            // display map view
-            this.mapDisplayer.displayView(mv);
+            // when gps location is known (valid) try to get map for region and create map view
+            if (gpsLocation.isValid())
+            {
+                try
+                {
+                    // get map package
+                    this.currentMapPkg = this.mapPkgRepository.getMapPkg(this.currentGpsLocation.getLatitude(),
+                                                            this.currentGpsLocation.getLongitude(), this.currentZoom);
+                }
+                catch (MapNotFoundException e)
+                {
+                    // no map for gps location
+                    return;
+                }
+                // create current view when map pkg was found
+                MapView mv = createCurrentView();
+                // display map view
+                this.mapDisplayer.displayView(mv);
+            }
         }
 
         private MapView createCurrentView()
@@ -96,8 +112,6 @@ namespace TouristGuide.map
             // current gps coordinates
             double latitude = this.currentGpsLocation.getLatitude();
             double longitude = this.currentGpsLocation.getLongitude();
-            // get map package
-            this.currentMapPkg = this.mapPkgRepository.getMapPkg(latitude, longitude, this.currentZoom);
             // get point which indicates part image
             Point partPoint = this.currentMapPkg.getPartPoint(latitude, longitude);
             // get location inside part image

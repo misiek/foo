@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
+
 using TouristGuide.map.obj;
 
 namespace TouristGuide.map
@@ -28,6 +30,7 @@ namespace TouristGuide.map
 
         public void displayView(MapView mapView)
         {
+            Debug.WriteLine("new MapView to display", this.ToString());
 
         }
     }

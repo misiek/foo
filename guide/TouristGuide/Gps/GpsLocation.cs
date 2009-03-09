@@ -8,6 +8,8 @@ namespace Gps
 {
     public class GpsLocation
     {
+        // unknown coordinate 1000 - angle is never that big
+        public const double UNKNOWN_COORDINATE = 1000;
         // time recived from gps
         private DateTime satelliteTime;
         // latitude string eg. '50.05994539169559 N'
@@ -42,18 +44,24 @@ namespace Gps
             this.course = course;
         }
 
+        // returns degrees
         private double parseCoordinate(string coordinateStr)
         {
             if (coordinateStr == null)
-                return 1000;
+                return UNKNOWN_COORDINATE;
             string[] coordinateArr = coordinateStr.Split(' ');
             double angle = Convert.ToDouble(coordinateArr[0]);
             // move dot two positions left
             angle /= 100;
+            // convert minutes to degrees
+            double degrees = (double)Math.Floor(angle);
+            double minutes = angle - degrees;
+            degrees = degrees + minutes / 0.60;
+            // take direction indicator into account
             char indicator = coordinateArr[1].ToCharArray()[0];
             if ('W' == indicator || 'S' == indicator)
-                angle *= -1;
-            return angle;
+                degrees *= -1;
+            return degrees;
         }
 
         private string parseCoordinateStr(string coordinateStr, bool wantLongitute)
@@ -67,7 +75,7 @@ namespace Gps
             string parsed = coordinateStr.Substring(0, degreeLength) + "°";
             // Append minutes
             int spaceIndex = coordinateStr.IndexOf(" ");
-            parsed += coordinateStr.Substring(degreeLength, spaceIndex - degreeLength) + "\"";
+            parsed += coordinateStr.Substring(degreeLength, spaceIndex - degreeLength) + "'";
             parsed += coordinateStr.Substring(spaceIndex);
             return parsed;
         }
@@ -97,6 +105,12 @@ namespace Gps
         public double getSpeed()
         {
             return this.speed;
+        }
+
+        public bool isValid()
+        {
+            return this.latitude != null && this.longitude != null &&
+                   this.latitude != UNKNOWN_COORDINATE && this.longitude != UNKNOWN_COORDINATE;
         }
     }
 }
