@@ -83,9 +83,12 @@ namespace TouristGuide.map.mapper
         {
             string[] coordinateArr = coordinateStr.Split(' ');
             double angle = Convert.ToDouble(coordinateArr[0]);
-            char indicator = coordinateArr[1].ToCharArray()[0];
-            if ('W' == indicator || 'S' == indicator)
-                angle *= -1;
+            if (coordinateArr.Length > 1)
+            {
+                char indicator = coordinateArr[1].ToCharArray()[0];
+                if ('W' == indicator || 'S' == indicator)
+                    angle *= -1;
+            }
             return angle;
         }
 

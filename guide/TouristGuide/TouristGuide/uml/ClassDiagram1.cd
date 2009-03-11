@@ -5,13 +5,13 @@
     <Position X="0.5" Y="0.5" Height="0.427" Width="1.742" />
   </Comment>
   <Comment CommentText="Current map view - map images returned by coordinates.">
-    <Position X="5.763" Y="3.715" Height="0.472" Width="2.013" />
+    <Position X="5.43" Y="3.757" Height="0.472" Width="2.013" />
   </Comment>
   <Class Name="TouristGuide.MainWindow" Collapsed="true">
     <Position X="2.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MainWindow.cs</FileName>
-      <HashCode>AAAAAAggACAARFAAABCwgAADAAAAFgAAAAwARABAEAI=</HashCode>
+      <HashCode>AAAAAAggACAARFAAABDwgAADAAAAFgAAAAwARABAEAI=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.AppContext">
@@ -21,18 +21,11 @@
       <HashCode>AABAAAAAAAIAAEAIBQEABCAABIBAQIBAQEAAGAgAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="TouristGuide.map.MapDisplayer">
-    <Position X="8" Y="2.75" Width="1.5" />
+  <Class Name="TouristGuide.map.MapDisplayer" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapDisplayer.cs</FileName>
-      <HashCode>AQAAAAAAAAAAAEAAAABAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TouristGuide.MapPanel">
-    <Position X="4.75" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <FileName>src\gui\MapPanel.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BQAAAAAAAAAAEEAAAARAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.obj.MapView" Collapsed="true">
@@ -58,7 +51,7 @@
     </Compartments>
     <AssociationLine Name="MapDisplayer" Type="TouristGuide.map.MapDisplayer">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.711" Y="0.256" />
+        <Position X="-0.536" Y="1.133" />
       </MemberNameLabel>
     </AssociationLine>
   </Class>

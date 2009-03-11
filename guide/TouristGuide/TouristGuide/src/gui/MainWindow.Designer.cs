@@ -29,7 +29,6 @@ namespace TouristGuide
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuStartDevice = new System.Windows.Forms.MenuItem();
@@ -41,7 +40,6 @@ namespace TouristGuide
             this.label2 = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.mapPanel = new System.Windows.Forms.Panel();
-            this.mapPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu1
@@ -108,18 +106,17 @@ namespace TouristGuide
             // 
             // mapPanel
             // 
-            this.mapPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.mapPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.mapPanel.Location = new System.Drawing.Point(0, 46);
+            this.mapPanel.BackColor = System.Drawing.Color.Khaki;
+            this.mapPanel.Location = new System.Drawing.Point(3, 43);
             this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(240, 222);
+            this.mapPanel.Size = new System.Drawing.Size(234, 222);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.BackColor = System.Drawing.Color.YellowGreen;
             this.ClientSize = new System.Drawing.Size(240, 268);
             this.Controls.Add(this.mapPanel);
             this.Controls.Add(this.labelSpeed);
@@ -130,7 +127,6 @@ namespace TouristGuide
             this.Name = "MainWindow";
             this.Text = "TouristGuide";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.mapPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

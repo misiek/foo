@@ -12,27 +12,18 @@ namespace TouristGuide.map
 {
     public class MapDisplayer
     {
-        EventHandler updateMapPanelHandler;
-
+        private EventHandler updateMapPanelHandler;
+        private ArrayList orderingPoints;
+        private MapView mapView;
         private Panel mapPanel;
-        public Panel MapPanel
-        {
-            get
-            {
-                return this.mapPanel;
-            }
-            set
-            {
-                this.mapPanel = value;
-            }
-        }
+        private Hashtable pictureBoxes;
+        private Label positionMarker;
 
-        // only for tests
-        Image img;
-
-        public MapDisplayer()
+        public MapDisplayer(Panel mapPanel)
         {
+            this.mapPanel = mapPanel;
             this.updateMapPanelHandler = new EventHandler(updateMapPanel);
+            initializeMapPanel();
         }
 
         /// <summary>
@@ -46,25 +37,82 @@ namespace TouristGuide.map
         public void displayView(MapView mapView)
         {
             Debug.WriteLine("new MapView to display", this.ToString());
-
-            ArrayList orderingPoints = mapView.getOrderingPoints();
-            this.img = mapView.getImgByPoint((Point)orderingPoints[0]);
-
-            
-
+            // set ordering points for display process
+            this.orderingPoints = mapView.getOrderingPoints();
+            // set map view to dispaly
+            this.mapView = mapView;
+            // invoke gui panel update in its thread
             this.mapPanel.Invoke(updateMapPanelHandler);
         }
 
         private void updateMapPanel(object sender, EventArgs args)
         {
-            // just for tests
-            PictureBox pictureBox1 = new PictureBox();
-            pictureBox1.Image = this.img;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(266, 279);
-            mapPanel.Controls.Add(pictureBox1);
-            mapPanel.Refresh();
+            Point centerPoint = new Point(this.mapPanel.Width / 2, this.mapPanel.Height / 2);
+            this.positionMarker.Location = new Point(centerPoint.X - 2, centerPoint.Y - 2);
+            this.positionMarker.Visible = true;
+            foreach (Point p in this.orderingPoints)
+            {
+                Image mapPartImg = this.mapView.getImgByPoint(p);
+                PictureBox pBox = (PictureBox)this.pictureBoxes[p];
+                if (mapPartImg != null)
+                {
+                    // center image's coordinates (1, 1) 
+                    // so translation vector is:
+                    int tx = p.X - 1;
+                    int ty = p.Y - 1;
+                    pBox.Image = mapPartImg;
+                    // location of image from point and img size,
+                    // center image in (0, 0) of map panel
+                    Point imgLocation = new Point(centerPoint.X + tx * mapPartImg.Width,
+                                                  centerPoint.Y + ty * mapPartImg.Height);
+                    // translate all images according to map location in center image
+                    Point centerImgLocation = this.mapView.getCenterImgLocation();
+                    Debug.WriteLine("mapImgLocation: " + centerImgLocation.X + " " + centerImgLocation.Y, this.ToString());
+                    imgLocation.X -= centerImgLocation.X;
+                    imgLocation.Y -= centerImgLocation.Y;
+                    Debug.WriteLine("imgLocation: " + imgLocation.X + " " + imgLocation.Y, this.ToString());
+                    pBox.Location = imgLocation;
+                    pBox.Size = new Size(mapPartImg.Width, mapPartImg.Height);
+                    pBox.Visible = true;
+                }
+                else
+                {
+                    pBox.Visible = false;
+                }
+                // refresh map panel
+                this.mapPanel.Refresh();
+            }
+        }
+
+        // Initialize map panel with picture boxes,
+        // which are used as slots for parts of view to display.
+        private void initializeMapPanel()
+        {
+            // initialize position marker
+            this.positionMarker = new Label();
+            this.positionMarker.BackColor = Color.Red;
+            this.positionMarker.Size = new Size(5, 5);
+            this.positionMarker.Visible = false;
+            this.mapPanel.Controls.Add(this.positionMarker);
+            // initialize picture boxes
+            this.pictureBoxes = new Hashtable();
+            this.pictureBoxes[new Point(1, 1)] = new PictureBox();
+            this.pictureBoxes[new Point(0, 1)] = new PictureBox();
+            this.pictureBoxes[new Point(0, 2)] = new PictureBox();
+            this.pictureBoxes[new Point(1, 2)] = new PictureBox();
+            this.pictureBoxes[new Point(2, 2)] = new PictureBox();
+            this.pictureBoxes[new Point(2, 1)] = new PictureBox();
+            this.pictureBoxes[new Point(2, 0)] = new PictureBox();
+            this.pictureBoxes[new Point(1, 0)] = new PictureBox();
+            this.pictureBoxes[new Point(0, 0)] = new PictureBox();
+            // add picture boxes to map panel
+            foreach (DictionaryEntry entry in this.pictureBoxes)
+            {
+                PictureBox pBox = (PictureBox)entry.Value;
+                pBox.Name = "pictureBox" + ((Point)entry.Key).X + ((Point)entry.Key).Y;
+                pBox.Visible = false;
+                this.mapPanel.Controls.Add(pBox);
+            }
         }
     }
 }

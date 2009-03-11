@@ -48,7 +48,6 @@ namespace TouristGuide
 
         private PoiRepository poiRepository;
 
-        private MapPanel mapPanel;
         private MapDisplayer mapDisplayer;
         private MapManager mapManager;
 
@@ -94,8 +93,7 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): MapSourceWeb instantiated.");
 
             // map displayer
-            this.mapDisplayer = new MapDisplayer();
-            this.mapDisplayer.MapPanel = this.mainWindow.MapPanel;
+            this.mapDisplayer = new MapDisplayer(this.mainWindow.MapPanel);
             Debug.WriteLine("AppContext(): MapDisplayer instantiated.");
 
             // map source manager

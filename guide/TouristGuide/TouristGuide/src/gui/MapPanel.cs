@@ -4,7 +4,4 @@ using System.Text;
 
 namespace TouristGuide
 {
-    public class MapPanel
-    {
-    }
 }

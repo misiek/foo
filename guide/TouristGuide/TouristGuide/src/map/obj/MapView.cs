@@ -12,7 +12,7 @@ namespace TouristGuide.map.obj
         // gps location
         private GpsLocation gpsLocation;
         // relative coordinates inside map view (pixels)
-        private Point imgLocation;
+        private Point centerImgLocation;
         // table with points which are keys in viewParts, determine order of displaying
         private ArrayList orderingPoints;
         // images - hashtable (Point => Bitmap)
@@ -21,10 +21,10 @@ namespace TouristGuide.map.obj
         private object[] pois;
 
         // images - hashtable (Point => Bitmap)
-        public MapView(GpsLocation gpsLocation, Point imgLocation, Hashtable viewParts, ArrayList orderingPoints)
+        public MapView(GpsLocation gpsLocation, Point centerImgLocation, Hashtable viewParts, ArrayList orderingPoints)
         {
             this.gpsLocation = gpsLocation;
-            this.imgLocation = imgLocation;
+            this.centerImgLocation = centerImgLocation;
             this.viewParts = viewParts;
             this.orderingPoints = orderingPoints;
         }
@@ -39,9 +39,9 @@ namespace TouristGuide.map.obj
             return (Image)this.viewParts[p];
         }
 
-        public Point getImgLocation()
+        public Point getCenterImgLocation()
         {
-            return this.imgLocation;
+            return this.centerImgLocation;
         }
 
         public GpsLocation getGpsLocation()
