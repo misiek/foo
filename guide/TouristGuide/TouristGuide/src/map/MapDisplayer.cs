@@ -60,19 +60,20 @@ namespace TouristGuide.map
                     // so translation vector is:
                     int tx = p.X - 1;
                     int ty = p.Y - 1;
-                    pBox.Image = mapPartImg;
+                    if (pBox.Image != mapPartImg)
+                    {
+                        pBox.Image = mapPartImg;
+                        pBox.Size = new Size(mapPartImg.Width, mapPartImg.Height);
+                    }
                     // location of image from point and img size,
                     // center image in (0, 0) of map panel
                     Point imgLocation = new Point(centerPoint.X + tx * mapPartImg.Width,
                                                   centerPoint.Y + ty * mapPartImg.Height);
                     // translate all images according to map location in center image
                     Point centerImgLocation = this.mapView.getCenterImgLocation();
-                    Debug.WriteLine("mapImgLocation: " + centerImgLocation.X + " " + centerImgLocation.Y, this.ToString());
                     imgLocation.X -= centerImgLocation.X;
                     imgLocation.Y -= centerImgLocation.Y;
-                    Debug.WriteLine("imgLocation: " + imgLocation.X + " " + imgLocation.Y, this.ToString());
                     pBox.Location = imgLocation;
-                    pBox.Size = new Size(mapPartImg.Width, mapPartImg.Height);
                     pBox.Visible = true;
                 }
                 else

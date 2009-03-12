@@ -143,7 +143,6 @@ namespace TouristGuide
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.MenuItem menuItem5;
         private System.Windows.Forms.Panel mapPanel;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

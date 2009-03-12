@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 using System.Diagnostics;
 
 using TouristGuide.map.obj;
@@ -73,6 +74,45 @@ namespace TouristGuide.map.repository
                 }
             }
             return pkg;
+        }
+
+        // Get map package which is neighbour for given in specified direction.
+        public MapPackage getNeighbourMapPkg(MapPackage pkg, Point direction, int zoom)
+        {
+            if (direction.X != -1 && direction.X != 0 && direction.X != 1 ||
+                direction.Y != -1 && direction.Y != 0 && direction.Y != 1)
+            {
+                throw new MapNotFoundException("Bad direction!");
+            }
+
+            double topLeftLongitude = pkg.getTopLeftLongitude();
+            double topLeftLatitude = pkg.getTopLeftLatitude();
+            double bottomRightLongitude = pkg.getBottomRightLongitude();
+            double bottomRightLatitude = pkg.getBottomRightLatitude();
+
+            double longitude = (topLeftLongitude + bottomRightLongitude) / 2;
+            double latitude = (topLeftLatitude + bottomRightLatitude) / 2;
+
+            switch (direction.X)
+            {
+                case 1:
+                    longitude = bottomRightLongitude + 0.000001;
+                    break;
+                case -1:
+                    longitude = topLeftLongitude - 0.000001;
+                    break;
+            }
+            switch (direction.Y)
+            {
+                case 1:
+                    latitude = topLeftLatitude + 0.000001;
+                    break;
+                case -1:
+                    latitude = bottomRightLatitude - 0.000001;
+                    break;
+            }
+
+            return getMapPkg(latitude, longitude, zoom);
         }
     }
 }

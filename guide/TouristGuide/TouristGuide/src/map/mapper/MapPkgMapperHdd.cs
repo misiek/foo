@@ -111,7 +111,9 @@ namespace TouristGuide.map.mapper
                     // get part coordinates (not geografical)
                     s = "_".ToCharArray();
                     String[] pointStr = name.Split(s);
-                    Point p = new Point(Convert.ToInt32(pointStr[0]), Convert.ToInt32(pointStr[1]));
+                    // NOTE: part images are named inversely, row number is first then col number
+                    Point p = new Point(Convert.ToInt32(pointStr[1]), Convert.ToInt32(pointStr[0]));
+                    Debug.WriteLine("loading part: (" + p.X + "; " + p.Y + ")", this.ToString());
                     Bitmap img = new Bitmap(pathToParts + "\\" + partFileInfo.ToString());
                     parts[p] = img;
                 }

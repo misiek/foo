@@ -30,6 +30,9 @@ namespace TouristGuide.map.obj
         private int width;
         private int height;
 
+        private int max_x;
+        private int max_y;
+
         private Hashtable tmpWidthCounting;
         private Hashtable tmpHeightCounting;
 
@@ -55,8 +58,30 @@ namespace TouristGuide.map.obj
             this.height = 0;
             this.tmpWidthCounting = new Hashtable();
             this.tmpHeightCounting = new Hashtable();
+            this.max_x = -1;
+            this.max_y = -1;
             this.heightLatitude = (double)Math.Abs(this.bottomRightLatitude - this.topLeftLatitude);
             this.widthLongitude = (double)Math.Abs(this.bottomRightLongitude - this.topLeftLongitude);
+        }
+
+        public double getTopLeftLatitude()
+        {
+            return this.topLeftLatitude;
+        }
+
+        public double getTopLeftLongitude()
+        {
+            return this.topLeftLongitude;
+        }
+
+        public double getBottomRightLatitude()
+        {
+            return this.bottomRightLatitude;
+        }
+
+        public double getBottomRightLongitude()
+        {
+            return this.bottomRightLongitude;
         }
 
         /// <summary>
@@ -87,13 +112,25 @@ namespace TouristGuide.map.obj
             {
                 this.tmpWidthCounting[p.X] = 1;
                 this.width += image.Width;
+                this.max_x++;
             }
             if (!this.tmpHeightCounting.ContainsKey(p.Y))
             {
                 this.tmpHeightCounting[p.Y] = 1;
                 this.height += image.Height;
+                this.max_y++;
             }
             this.parts.Add(p, image);
+        }
+
+        public int getMaxX()
+        {
+            return this.max_x;
+        }
+
+        public int getMaxY()
+        {
+            return this.max_y;
         }
 
         public Image getPart(Point p)
@@ -180,7 +217,7 @@ namespace TouristGuide.map.obj
             int y = 0;
             while (y_height < pixelCoordinates.Y)
             {
-                int imgHeight = getPart(new Point(y, 0)).Height;
+                int imgHeight = getPart(new Point(0, y)).Height;
                 if (y_height + imgHeight > pixelCoordinates.Y)
                     break;
                 y_height += imgHeight;
@@ -198,18 +235,21 @@ namespace TouristGuide.map.obj
                 x_px -= getPart(new Point(x, 0)).Width;
             int y_px = pixelCoordinates.Y;
             for (int y = 0; y < partPoint.Y; y++)
-                y_px -= getPart(new Point(y, 0)).Height;
+                y_px -= getPart(new Point(0, y)).Height;
             return new Point(x_px, y_px);
         }
 
         private Point getPixelCoordinates(double latitude, double longitude)
         {
-            double relativeLatidude = (double)Math.Abs(latitude - this.topLeftLatitude);
-            double relativeLongitude = (double)Math.Abs(longitude - this.bottomRightLongitude);
-
+            // how many degrees from left edge
+            double relativeLongitude = (double)Math.Abs(longitude - this.topLeftLongitude);
+            // how many deegres from bottom edge
+            double relativeLatidude = (double)Math.Abs(latitude - this.bottomRightLatitude);
+            // transform relative angles inside map package into pixels
             int x_px = (int)(relativeLongitude * this.width / this.widthLongitude);
-            int y_px = (int)(relativeLatidude * this.height / this.heightLatitude);
+            int y_px = this.height - (int)(relativeLatidude * this.height / this.heightLatitude);
             return new Point(x_px, y_px);
         }
+
     }
 }

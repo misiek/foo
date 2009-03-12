@@ -112,41 +112,65 @@ namespace TouristGuide.map
             // current gps coordinates
             double latitude = this.currentGpsLocation.getLatitude();
             double longitude = this.currentGpsLocation.getLongitude();
-            Debug.WriteLine("latitude: " + latitude + ", longitude: " + longitude, this.ToString());
+            //Debug.WriteLine("latitude: " + latitude + ", longitude: " + longitude, this.ToString());
             // get point which indicates part image
             Point partPoint = this.currentMapPkg.getPartPoint(latitude, longitude);
+            Debug.WriteLine("partPoint: (" + partPoint.X + "; " + partPoint.Y + ")", this.ToString());
             // get location inside part image
             Point insidePartPosition = this.currentMapPkg.getInsidePartPosition(latitude, longitude);
-            Debug.WriteLine("insidePartPosition: " + insidePartPosition, this.ToString());
+            //Debug.WriteLine("insidePartPosition: (" + insidePartPosition.X + "; " + insidePartPosition.Y + ")", this.ToString());
             // add center MapView point
             Point centerViewPoint = new Point(1, 1);
             viewParts[centerViewPoint] = this.currentMapPkg.getPart(partPoint);
             // add neighbours of center point
-            //int x_view = -1;
-            //int y_view = -1;
             foreach (DictionaryEntry entry in this.pointSurroundings)
             {
-                Point viewNeighbour = addPoints(centerViewPoint, (Point)entry.Value);
-                Point mapNeighbour = addPoints(partPoint, (Point)entry.Value);
+                Point directionPoint = (Point)entry.Value;
+                Debug.WriteLine("directionPoint: (" + directionPoint.X + "; " + directionPoint.Y + ")", this.ToString());
+                Point viewNeighbour = addPoints(centerViewPoint, directionPoint);
+                Point mapNeighbour = addPoints(partPoint, directionPoint);
+                Debug.WriteLine("mapNeighbour: (" + mapNeighbour.X + "; " + mapNeighbour.Y + ")", this.ToString());
                 try
                 {
                     viewParts[viewNeighbour] = this.currentMapPkg.getPart(mapNeighbour);
-                    //if (entry.Key == "LEFT")
-                    //    x_view = ((Image)viewParts[viewNeighbour]).Width + insidePartPosition.X;
-                    //if (entry.Key == "TOP")
-                    //    y_view = ((Image)viewParts[viewNeighbour]).Height + insidePartPosition.Y;
+                    if (viewParts[viewNeighbour] == null)
+                    {
+                        Debug.WriteLine("viewNeighbour null", this.ToString());
+                        MapPackage neighbourPkg = null;
+                        try
+                        {
+                            // get neighbour map package
+                            neighbourPkg = this.mapPkgRepository.getNeighbourMapPkg(
+                                                                this.currentMapPkg, directionPoint, this.currentZoom);
+                        }
+                        catch (MapNotFoundException e)
+                        {
+                            Debug.WriteLine("Can't get neighbour pkg for:" + this.currentMapPkg 
+                                            + ", dircetion: " + entry.Key, this.ToString());
+                        }
+                        if (neighbourPkg != null)
+                        {
+                            Debug.WriteLine("Found neighbour pkg: " + neighbourPkg, this.ToString());
+                            if (mapNeighbour.X > this.currentMapPkg.getMaxX())
+                                mapNeighbour.X = 0;
+                            if (mapNeighbour.X < 0)
+                                mapNeighbour.X = neighbourPkg.getMaxX();
+                            if (mapNeighbour.Y > this.currentMapPkg.getMaxY())
+                                mapNeighbour.Y = 0;
+                            if (mapNeighbour.Y < 0)
+                                mapNeighbour.Y = neighbourPkg.getMaxY();
+                            Debug.WriteLine("trying to get viewNeighbour: (" + mapNeighbour.X + "; "
+                                            + mapNeighbour.Y + ")", this.ToString());
+                            viewParts[viewNeighbour] = neighbourPkg.getPart(mapNeighbour);
+                            Debug.WriteLine("viewNeighbour: " + viewParts[viewNeighbour], this.ToString());
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Can't get neighbour(" + entry.Key + ") !", this.ToString());
+                    Debug.WriteLine("Can't get neighbour(" + entry.Key + ")! ERROR: " + e.Message, this.ToString());
                 }
             }
-            //// location in map view
-            //if (x_view == -1)
-            //    x_view = ((Image)viewParts[centerViewPoint]).Width + insidePartPosition.X;
-            //if (y_view == -1)
-            //    y_view = ((Image)viewParts[centerViewPoint]).Height + insidePartPosition.Y;
-            //Point mapViewLocation = new Point(x_view, y_view);
             // create map view
             MapView mapView = new MapView(this.currentGpsLocation, insidePartPosition, viewParts, this.orderingPoints);
             return mapView;
