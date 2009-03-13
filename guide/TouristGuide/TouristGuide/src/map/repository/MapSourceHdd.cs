@@ -80,12 +80,12 @@ namespace TouristGuide.map.repository
                 changeZoom(zoom);
             foreach (MapPackage mapPkg in availableMapPkgs)
             {
-                Debug.WriteLine("MapSourceHdd: findMapPkg: checking: " + mapPkg);
+                //Debug.WriteLine("MapSourceHdd: findMapPkg: checking: " + mapPkg);
                 if (mapPkg.coordinatesMatches(latitude, longitude))
                 {
                     if (mapPkg.isPartsFree())
                         this.mapPkgMapperHdd.loadImages(mapPkg);
-                    Debug.WriteLine("MapSourceHdd: findMapPkg: found map pkg: " + mapPkg);
+                    //Debug.WriteLine("MapSourceHdd: findMapPkg: found map pkg: " + mapPkg);
                     return mapPkg;
                 }
             }

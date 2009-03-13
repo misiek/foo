@@ -25,7 +25,7 @@ namespace TouristGuide.map.repository
             {
                 if (mapPkg.getZoom()==zoom && mapPkg.coordinatesMatches(latitude, longitude))
                 {
-                    Debug.WriteLine("MapSourceMem: findMapPkg: found map pkg: " + mapPkg);
+                    //Debug.WriteLine("MapSourceMem: findMapPkg: found map pkg: " + mapPkg);
                     return mapPkg;
                 }
             }

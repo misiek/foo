@@ -39,7 +39,7 @@
     <Position X="8" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapManager.cs</FileName>
-      <HashCode>AARAABAAAAICAAACAAAAEEJCAAAAAAACAAAAEACAAAA=</HashCode>
+      <HashCode>AAxAABAAAAICAAACAAAAEEJCAAAAAAACAAAAEACAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapDisplayer" />
@@ -108,7 +108,7 @@
     <Position X="2.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\MapPackage.cs</FileName>
-      <HashCode>UAAEAAUQ9AAhEAYEQAAAABACIAAMACAQAgBEAAAgAAA=</HashCode>
+      <HashCode>cAAEAAUQ9AApEEYFQAAAABACIAAMACAQAgBEAAAgAAQ=</HashCode>
     </TypeIdentifier>
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />

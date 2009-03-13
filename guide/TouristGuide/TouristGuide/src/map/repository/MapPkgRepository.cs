@@ -102,13 +102,14 @@ namespace TouristGuide.map.repository
                     longitude = topLeftLongitude - 0.000001;
                     break;
             }
+            // NOTE: y has inverted direction in map context
             switch (direction.Y)
             {
                 case 1:
-                    latitude = topLeftLatitude + 0.000001;
+                    latitude = bottomRightLatitude - 0.000001;
                     break;
                 case -1:
-                    latitude = bottomRightLatitude - 0.000001;
+                    latitude = topLeftLatitude + 0.000001;
                     break;
             }
 

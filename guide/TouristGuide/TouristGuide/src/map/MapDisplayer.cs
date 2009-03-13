@@ -36,7 +36,6 @@ namespace TouristGuide.map
 
         public void displayView(MapView mapView)
         {
-            Debug.WriteLine("new MapView to display", this.ToString());
             // set ordering points for display process
             this.orderingPoints = mapView.getOrderingPoints();
             // set map view to dispaly
@@ -47,42 +46,69 @@ namespace TouristGuide.map
 
         private void updateMapPanel(object sender, EventArgs args)
         {
+            // create the center point of map panel
             Point centerPoint = new Point(this.mapPanel.Width / 2, this.mapPanel.Height / 2);
+            // set location of the position marker to the center point
             this.positionMarker.Location = new Point(centerPoint.X - 2, centerPoint.Y - 2);
-            this.positionMarker.Visible = true;
+            // show position marker when its hidden
+            if (!this.positionMarker.Visible)
+                this.positionMarker.Visible = true;
+            // iterate through view points
+            PictureBox pBoxCenter = (PictureBox)this.pictureBoxes[new Point(1, 1)];
             foreach (Point p in this.orderingPoints)
             {
+                // get map image for the point
                 Image mapPartImg = this.mapView.getImgByPoint(p);
+                // get picture box for the point
                 PictureBox pBox = (PictureBox)this.pictureBoxes[p];
                 if (mapPartImg != null)
                 {
-                    // center image's coordinates (1, 1) 
-                    // so translation vector is:
-                    int tx = p.X - 1;
-                    int ty = p.Y - 1;
+                    // update image only when picture box contains different one
                     if (pBox.Image != mapPartImg)
                     {
                         pBox.Image = mapPartImg;
                         pBox.Size = new Size(mapPartImg.Width, mapPartImg.Height);
                     }
-                    // location of image from point and img size,
-                    // center image in (0, 0) of map panel
-                    Point imgLocation = new Point(centerPoint.X + tx * mapPartImg.Width,
-                                                  centerPoint.Y + ty * mapPartImg.Height);
-                    // translate all images according to map location in center image
+                    // Map MOVEMENT translation translates whole map view to show gps location:
+                    // get location in center image to translate all images according to this location
+                    // this make movement of map
                     Point centerImgLocation = this.mapView.getCenterImgLocation();
-                    imgLocation.X -= centerImgLocation.X;
-                    imgLocation.Y -= centerImgLocation.Y;
-                    pBox.Location = imgLocation;
-                    pBox.Visible = true;
+                    // View PARTS translation places 9 map parts side by side in map panel:
+                    // center image's coordinates (1, 1) 
+                    // so translation vector is:
+                    int tx = p.X - 1;
+                    int ty = p.Y - 1;
+                    // x translation: depending on direction of translation we use different width
+                    int tWidth = 0;
+                    // translation to left width of current image
+                    if (tx < 0)
+                        tWidth = tx * mapPartImg.Width;
+                    // translation to right width of image before current
+                    else if (tx > 0)
+                        // NOTE: this is correct becouse only edge parts can have different sizes than others
+                        tWidth = tx * pBoxCenter.Width;
+                    // y translation: the same with as with x
+                    int tHeight = 0;
+                    if (ty < 0)
+                        tHeight = ty * mapPartImg.Height;
+                    else if (ty > 0)
+                        // NOTE: this is correct becouse only edge parts can have different sizes than others
+                        tHeight = ty * pBoxCenter.Height;
+                    // Position of image is addition of movament and parts translation
+                    pBox.Location = new Point(centerPoint.X + tWidth - centerImgLocation.X,
+                                              centerPoint.Y + tHeight - centerImgLocation.Y);
+                    // when picture box is hidden make it visible
+                    if (!pBox.Visible)
+                        pBox.Visible = true;
                 }
+                // when there is no map image hide picture box
                 else
                 {
                     pBox.Visible = false;
                 }
-                // refresh map panel
-                this.mapPanel.Refresh();
             }
+            // refresh map panel
+            this.mapPanel.Refresh();
         }
 
         // Initialize map panel with picture boxes,
