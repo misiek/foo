@@ -77,30 +77,32 @@ namespace TouristGuide
             // 
             // label1
             // 
+            this.label1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 20);
+            this.label1.Size = new System.Drawing.Size(41, 20);
             this.label1.Text = "Position";
             // 
             // labelPosition
             // 
             this.labelPosition.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.labelPosition.Location = new System.Drawing.Point(60, 0);
+            this.labelPosition.Location = new System.Drawing.Point(50, 0);
             this.labelPosition.Name = "labelPosition";
             this.labelPosition.Size = new System.Drawing.Size(177, 20);
             this.labelPosition.Text = "---";
             // 
             // label2
             // 
+            this.label2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.label2.Location = new System.Drawing.Point(3, 20);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 20);
+            this.label2.Size = new System.Drawing.Size(41, 20);
             this.label2.Text = "Speed";
             // 
             // labelSpeed
             // 
             this.labelSpeed.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.labelSpeed.Location = new System.Drawing.Point(60, 20);
+            this.labelSpeed.Location = new System.Drawing.Point(50, 20);
             this.labelSpeed.Name = "labelSpeed";
             this.labelSpeed.Size = new System.Drawing.Size(76, 20);
             this.labelSpeed.Text = "---";
@@ -116,7 +118,7 @@ namespace TouristGuide
             // 
             // mapMessageBox
             // 
-            this.mapMessageBox.BackColor = System.Drawing.Color.Red;
+            this.mapMessageBox.BackColor = System.Drawing.Color.Orange;
             this.mapMessageBox.Font = new System.Drawing.Font("Courier New", 8F, System.Drawing.FontStyle.Regular);
             this.mapMessageBox.Location = new System.Drawing.Point(0, 0);
             this.mapMessageBox.Name = "mapMessageBox";

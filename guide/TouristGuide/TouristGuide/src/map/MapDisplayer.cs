@@ -23,6 +23,8 @@ namespace TouristGuide.map
         private EventHandler hideMapMessageBoxHandler;
         private string message;
         private Label mapMessageBox;
+        private Color mapMessageBoxDefaultColor;
+        private Color mapMessageBoxColor;
 
         public MapDisplayer(Panel mapPanel)
         {
@@ -39,12 +41,24 @@ namespace TouristGuide.map
 
         }
 
+        public void displayMessage(string message, int mSecounds, Color color)
+        {
+            this.mapMessageBoxColor = color;
+            displayMessage(message, mSecounds);
+        }
+
         // display message in map pannel
         // message is shown until hideMessage() or next dispalayMessage
         public void displayMessage(string message)
         {
             this.message = message;
             this.mapPanel.Invoke(updateMapMessageBoxHandler);
+        }
+
+        public void displayMessage(string message, Color color)
+        {
+            this.mapMessageBoxColor = color;
+            displayMessage(message);
         }
 
         // hide message but not time message
@@ -64,6 +78,7 @@ namespace TouristGuide.map
         private void hideMapMessageBox(object sender, EventArgs args)
         {
             this.mapMessageBox.Visible = false;
+            this.mapMessageBox.BackColor = this.mapMessageBoxDefaultColor;
             this.mapMessageBox.Refresh();
         }
 
@@ -153,6 +168,7 @@ namespace TouristGuide.map
         private void initializeMapPanel()
         {
             this.mapMessageBox = (Label)this.mapPanel.Controls[0];
+            this.mapMessageBoxDefaultColor = this.mapMessageBox.BackColor;
             // initialize position marker
             this.positionMarker = new Label();
             this.positionMarker.BackColor = Color.Red;
