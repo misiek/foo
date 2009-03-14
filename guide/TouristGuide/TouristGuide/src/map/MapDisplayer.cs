@@ -17,7 +17,7 @@ namespace TouristGuide.map
         private MapView mapView;
         private Panel mapPanel;
         private Hashtable pictureBoxes;
-        private Label positionMarker;
+        private PictureBox positionMarker;
 
         private EventHandler updateMapMessageBoxHandler;
         private EventHandler hideMapMessageBoxHandler;
@@ -170,11 +170,7 @@ namespace TouristGuide.map
             this.mapMessageBox = (Label)this.mapPanel.Controls[0];
             this.mapMessageBoxDefaultColor = this.mapMessageBox.BackColor;
             // initialize position marker
-            this.positionMarker = new Label();
-            this.positionMarker.BackColor = Color.Red;
-            this.positionMarker.Size = new Size(5, 5);
-            this.positionMarker.Visible = false;
-            this.mapPanel.Controls.Add(this.positionMarker);
+            this.positionMarker = (PictureBox)this.mapPanel.Controls[1];
             // initialize picture boxes
             this.pictureBoxes = new Hashtable();
             this.pictureBoxes[new Point(1, 1)] = new PictureBox();

@@ -29,6 +29,7 @@ namespace TouristGuide
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuStartDevice = new System.Windows.Forms.MenuItem();
@@ -41,6 +42,7 @@ namespace TouristGuide
             this.labelSpeed = new System.Windows.Forms.Label();
             this.mapPanel = new System.Windows.Forms.Panel();
             this.mapMessageBox = new System.Windows.Forms.Label();
+            this.positionPictureBox = new System.Windows.Forms.PictureBox();
             this.mapPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,6 +114,7 @@ namespace TouristGuide
             // 
             this.mapPanel.BackColor = System.Drawing.Color.Khaki;
             this.mapPanel.Controls.Add(this.mapMessageBox);
+            this.mapPanel.Controls.Add(this.positionPictureBox);
             this.mapPanel.Location = new System.Drawing.Point(3, 43);
             this.mapPanel.Name = "mapPanel";
             this.mapPanel.Size = new System.Drawing.Size(234, 222);
@@ -125,6 +128,15 @@ namespace TouristGuide
             this.mapMessageBox.Size = new System.Drawing.Size(234, 18);
             this.mapMessageBox.Text = "Map message box.";
             this.mapMessageBox.Visible = false;
+            // 
+            // positionPictureBox
+            // 
+            this.positionPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.positionPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("positionPictureBox.Image")));
+            this.positionPictureBox.Location = new System.Drawing.Point(114, 99);
+            this.positionPictureBox.Name = "positionPictureBox";
+            this.positionPictureBox.Size = new System.Drawing.Size(9, 9);
+            this.positionPictureBox.Visible = false;
             // 
             // MainWindow
             // 
@@ -160,6 +172,7 @@ namespace TouristGuide
         private System.Windows.Forms.MenuItem menuItem5;
         private System.Windows.Forms.Panel mapPanel;
         private System.Windows.Forms.Label mapMessageBox;
+        public System.Windows.Forms.PictureBox positionPictureBox;
     }
 }
 
