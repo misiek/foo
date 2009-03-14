@@ -18,6 +18,13 @@ namespace TouristGuide.map.repository
 
         private int zoom;
 
+        /// <summary>
+        /// When loading map takes long time (source web or hdd),
+        /// set this event (eg. map displayer can show loading box)
+        /// </summary>
+        public event LoadingMapPkg loadingMapPkgEvent;
+        public delegate void LoadingMapPkg(string msg);
+
         public MapSourceHdd(string mapsDir, MapPkgMapperHdd mapPkgMapperHdd)
         {
             this.mapsDir = mapsDir;
@@ -83,6 +90,8 @@ namespace TouristGuide.map.repository
                 //Debug.WriteLine("MapSourceHdd: findMapPkg: checking: " + mapPkg);
                 if (mapPkg.coordinatesMatches(latitude, longitude))
                 {
+                    if (loadingMapPkgEvent != null)
+                        loadingMapPkgEvent("Loading map. Please wait...");
                     if (mapPkg.isPartsFree())
                         this.mapPkgMapperHdd.loadImages(mapPkg);
                     //Debug.WriteLine("MapSourceHdd: findMapPkg: found map pkg: " + mapPkg);

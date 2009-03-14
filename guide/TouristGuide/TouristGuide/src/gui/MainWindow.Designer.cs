@@ -40,6 +40,8 @@ namespace TouristGuide
             this.label2 = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.mapPanel = new System.Windows.Forms.Panel();
+            this.mapMessageBox = new System.Windows.Forms.Label();
+            this.mapPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu1
@@ -107,9 +109,20 @@ namespace TouristGuide
             // mapPanel
             // 
             this.mapPanel.BackColor = System.Drawing.Color.Khaki;
+            this.mapPanel.Controls.Add(this.mapMessageBox);
             this.mapPanel.Location = new System.Drawing.Point(3, 43);
             this.mapPanel.Name = "mapPanel";
             this.mapPanel.Size = new System.Drawing.Size(234, 222);
+            // 
+            // mapMessageBox
+            // 
+            this.mapMessageBox.BackColor = System.Drawing.Color.Red;
+            this.mapMessageBox.Font = new System.Drawing.Font("Courier New", 8F, System.Drawing.FontStyle.Regular);
+            this.mapMessageBox.Location = new System.Drawing.Point(0, 0);
+            this.mapMessageBox.Name = "mapMessageBox";
+            this.mapMessageBox.Size = new System.Drawing.Size(234, 18);
+            this.mapMessageBox.Text = "Map message box.";
+            this.mapMessageBox.Visible = false;
             // 
             // MainWindow
             // 
@@ -127,6 +140,7 @@ namespace TouristGuide
             this.Name = "MainWindow";
             this.Text = "TouristGuide";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.mapPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -143,6 +157,7 @@ namespace TouristGuide
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.MenuItem menuItem5;
         private System.Windows.Forms.Panel mapPanel;
+        private System.Windows.Forms.Label mapMessageBox;
     }
 }
 

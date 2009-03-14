@@ -115,7 +115,7 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): MapManager instantiated.");
 
             // application events
-            this.appEvents = new AppEvents(this.mainWindow, this.mapManager);
+            this.appEvents = new AppEvents(this.mainWindow, this.mapManager, this.mapPkgRepository);
         }
 
         public GpsDevice getGpsDevice()

@@ -19,29 +19,66 @@ namespace TouristGuide.map
         private Hashtable pictureBoxes;
         private Label positionMarker;
 
+        private EventHandler updateMapMessageBoxHandler;
+        private EventHandler hideMapMessageBoxHandler;
+        private string message;
+        private Label mapMessageBox;
+
         public MapDisplayer(Panel mapPanel)
         {
             this.mapPanel = mapPanel;
             this.updateMapPanelHandler = new EventHandler(updateMapPanel);
+            this.updateMapMessageBoxHandler = new EventHandler(updateMapMessageBox);
+            this.hideMapMessageBoxHandler = new EventHandler(hideMapMessageBox);
             initializeMapPanel();
         }
 
-        /// <summary>
-        /// Displays loading message in map panel.
-        /// </summary>
-        public void loadingMap()
+        // display message for specified time
+        public void displayMessage(string message, int mSecounds)
         {
-            throw new System.NotImplementedException();
+
+        }
+
+        // display message in map pannel
+        // message is shown until hideMessage() or next dispalayMessage
+        public void displayMessage(string message)
+        {
+            this.message = message;
+            this.mapPanel.Invoke(updateMapMessageBoxHandler);
+        }
+
+        // hide message but not time message
+        public void hideMessage(string message)
+        {
+            if (this.message == message) // TODO: and time
+                this.mapPanel.Invoke(hideMapMessageBoxHandler);
+        }
+
+        private void updateMapMessageBox(object sender, EventArgs args)
+        {
+            this.mapMessageBox.Text = this.message;
+            this.mapMessageBox.Visible = true;
+            this.mapMessageBox.Refresh();
+        }
+
+        private void hideMapMessageBox(object sender, EventArgs args)
+        {
+            this.mapMessageBox.Visible = false;
+            this.mapMessageBox.Refresh();
         }
 
         public void displayView(MapView mapView)
         {
+            
             // set ordering points for display process
             this.orderingPoints = mapView.getOrderingPoints();
             // set map view to dispaly
             this.mapView = mapView;
             // invoke gui panel update in its thread
             this.mapPanel.Invoke(updateMapPanelHandler);
+            //// test
+            //displayMessage("New map view: " + mapView.getGpsLocation().getLatitude()
+            //               + ", " + mapView.getGpsLocation().getLongitude());
         }
 
         private void updateMapPanel(object sender, EventArgs args)
@@ -115,6 +152,7 @@ namespace TouristGuide.map
         // which are used as slots for parts of view to display.
         private void initializeMapPanel()
         {
+            this.mapMessageBox = (Label)this.mapPanel.Controls[0];
             // initialize position marker
             this.positionMarker = new Label();
             this.positionMarker.BackColor = Color.Red;

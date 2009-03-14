@@ -11,7 +11,7 @@
     <Position X="2.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MainWindow.cs</FileName>
-      <HashCode>AAAAAAggACAARFAAABDwgAADAAAAFgAAAAwARAAAEAI=</HashCode>
+      <HashCode>AAAAAAggACAARFAAABDwgAADAAAAHgAAAAwARAAAEAI=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.AppContext">
@@ -25,7 +25,7 @@
     <Position X="8" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapDisplayer.cs</FileName>
-      <HashCode>BQBAAAAAAAAAAEAAgAQAAABABAAAQAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>BABAAAAAAAAIIEAAgAQAAABABCAASAAAAEACAAAAECg=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.obj.MapView" Collapsed="true">
@@ -39,7 +39,7 @@
     <Position X="8" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapManager.cs</FileName>
-      <HashCode>AAxAABAAAAICAAACAAAAEEJCAAAAAAACAAAAEACAAAA=</HashCode>
+      <HashCode>AQxAABAAAAJCAAACAAIAEEJCAAAAAAACAAAAEACAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapDisplayer" />
@@ -59,7 +59,7 @@
     <Position X="4.75" Y="6.5" Width="2" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapPkgRepository.cs</FileName>
-      <HashCode>CAAAAAAACAAAAgAAIAAAgCAAAoAAAAAAAAAAAAgAAAA=</HashCode>
+      <HashCode>CQAAAAAACAAAAAAAIAAAgCAAAoAAAQAAAAAAAAgAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapSourceMem" />
@@ -70,7 +70,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <NestedTypes>
-      <Delegate Name="TouristGuide.map.repository.MapPkgRepository.LoadingMapPkg" Collapsed="true">
+      <Delegate Name="TouristGuide.map.repository.MapPkgRepository.LoadingMap" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>src\map\repository\MapPkgRepository.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -88,8 +88,8 @@
     </AssociationLine>
     <AssociationLine Name="MapSourceWeb" Type="TouristGuide.map.repository.MapSourceWeb" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.75" Y="7.764" />
-        <Point X="7.5" Y="7.764" />
+        <Point X="6.75" Y="7.87" />
+        <Point X="7.5" Y="7.87" />
         <Point X="7.5" Y="9" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -133,11 +133,18 @@
     <Position X="4.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapSourceHdd.cs</FileName>
-      <HashCode>AAAACAAAQAEAAAAABAEAABAAgAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAQAEAAAAABgEAABAAgAQAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
+    <NestedTypes>
+      <Delegate Name="TouristGuide.map.repository.MapSourceHdd.LoadingMapPkg" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\map\repository\MapSourceHdd.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TouristGuide.map.repository.MapSourceWeb">
@@ -175,7 +182,7 @@
     <Position X="8" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\AppEvents.cs</FileName>
-      <HashCode>AAAAgAACAAAAAAAAAAAAAAAAAAAAAAEAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAAgAACAAAAAAAAQAAAAAAAAAAAAAEAAAAABAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Interface Name="TouristGuide.map.repository.MapSource">

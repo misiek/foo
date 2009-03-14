@@ -26,6 +26,8 @@ namespace TouristGuide.map.repository
             set
             {
                 this.mapSourceHdd = value;
+                // subscribe to map source loading map pkg event
+                this.mapSourceHdd.loadingMapPkgEvent += new MapSourceHdd.LoadingMapPkg(loadingMap);
             }
         }
 
@@ -42,8 +44,15 @@ namespace TouristGuide.map.repository
         /// When loading map takes long time (source web or hdd),
         /// set this event (eg. map displayer can show loading box)
         /// </summary>
-        public event LoadingMapPkg loadingEvent;
-        public delegate void LoadingMapPkg(string msg);
+        public event LoadingMap loadingMapEvent;
+        public delegate void LoadingMap(string msg);
+
+        // set loading map event with msg
+        private void loadingMap(string msg)
+        {
+            if (loadingMapEvent != null)
+                loadingMapEvent(msg);
+        }
 
         /// <summary>
         /// Get map package by coordinates.
@@ -54,17 +63,15 @@ namespace TouristGuide.map.repository
             MapPackage pkg = this.mapSourceMem.findMapPkg(latitude, longitude, zoom);
             if (pkg == null)
             {
-                if (loadingEvent != null)
-                    loadingEvent("Loading map from hard drive.");
                 pkg = this.mapSourceHdd.findMapPkg(latitude, longitude, zoom);
                 if (pkg == null)
                 {
-                    if (loadingEvent != null)
-                        loadingEvent("Loading map from web server.");
                     pkg = this.mapSourceWeb.findMapPkg(latitude, longitude, zoom);
                 }
                 if (pkg != null)
+                {
                     this.mapSourceMem.putMapPkg(pkg);
+                }
                 else
                 {
                     string msg = "Map package can't be found for location: ("

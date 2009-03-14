@@ -18,6 +18,7 @@ namespace TouristGuide.map
         private GpsLocation currentGpsLocation;
         private int currentZoom;
         private ArrayList orderingPoints;
+        private string loadingEventMsg;
 
         // hash table with point surroundings
         private Hashtable pointSurroundings;      
@@ -52,6 +53,7 @@ namespace TouristGuide.map
 
         public MapManager()
         {
+            this.loadingEventMsg = "";
             this.currentZoom = 0;
             // 8  1  2
             // 7  0  3
@@ -76,6 +78,22 @@ namespace TouristGuide.map
             this.pointSurroundings["TOP_LEFT"] = new Point(-1, 1);
             this.pointSurroundings["BOTTOM_RIGHT"] = new Point(1, -1);
             this.pointSurroundings["BOTTOM_LEFT"] = new Point(-1, -1);
+        }
+
+
+        /// <summary>
+        /// Displays loading message in map panel.
+        /// </summary>
+        public void loadingMap(string msg)
+        {
+            this.loadingEventMsg = msg;
+            this.mapDisplayer.displayMessage(msg);
+        }
+
+        private void mapLoaded()
+        {
+            this.mapDisplayer.hideMessage(this.loadingEventMsg);
+            this.loadingEventMsg = "";
         }
 
         public void newPosition(GpsLocation gpsLocation)
@@ -189,6 +207,8 @@ namespace TouristGuide.map
                     Debug.WriteLine("Can't get neighbour(" + entry.Key + ")! ERROR: " + e.Message, this.ToString());
                 }
             }
+            if (this.loadingEventMsg != "")
+                mapLoaded();
             // create map view
             MapView mapView = new MapView(this.currentGpsLocation, insidePartPosition, viewParts, this.orderingPoints);
             Debug.WriteLine("-----------------------------\n", ToString());
