@@ -7,11 +7,11 @@
   <Comment CommentText="Current map view - map images returned by coordinates.">
     <Position X="5.43" Y="3.757" Height="0.472" Width="2.013" />
   </Comment>
-  <Class Name="TouristGuide.MainWindow" Collapsed="true">
+  <Class Name="TouristGuide.gui.MainWindow" Collapsed="true">
     <Position X="2.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MainWindow.cs</FileName>
-      <HashCode>AAAAAAggACAARFAAABDwgAADAAAAHgAAAAwARAAAEAI=</HashCode>
+      <HashCode>AAAAAAgAAAAARAAAABBAgAADAAAABgAAAAwARAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.AppContext">
@@ -25,7 +25,7 @@
     <Position X="8" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapDisplayer.cs</FileName>
-      <HashCode>BABAAAAAAAAIIEAAgAQAAABABCAASAAAAEACAAAAECg=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.obj.MapView" Collapsed="true">

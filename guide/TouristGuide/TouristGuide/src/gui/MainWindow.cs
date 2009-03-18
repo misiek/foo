@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Gps;
 
-namespace TouristGuide
+namespace TouristGuide.gui
 {
     public partial class MainWindow : Form
     {
@@ -17,7 +17,7 @@ namespace TouristGuide
         // current location
         private GpsLocation currentGpsLocation;
 
-        public Panel MapPanel
+        public MapPanel MapPanel
         {
             get
             {

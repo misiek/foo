@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 
 using Gps;
+using TouristGuide.gui;
 using TouristGuide.map;
 using TouristGuide.map.repository;
 using TouristGuide.map.mapper;

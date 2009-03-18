@@ -65,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AppEvents.cs" />
+    <Compile Include="src\gui\MapPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="src\map\exception\MapPkgNotFoundException.cs" />
     <Compile Include="src\map\exception\MapSourceException.cs" />
     <Compile Include="src\map\mapper\MapPkgMapperHdd.cs" />
@@ -424,6 +427,7 @@
     <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\3_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\location_dot.png" />
   </ItemGroup>
   <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
   <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Gps;
+using TouristGuide.gui;
 using TouristGuide.map;
 using TouristGuide.map.repository;
 
