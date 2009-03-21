@@ -14,6 +14,8 @@ namespace TouristGuide.map
 {
     public class MapManager
     {
+        private const double MIN_DELTA_LOCATION = 0.00001;
+
         private MapPackage currentMapPkg;
         private GpsLocation currentGpsLocation;
         private int currentZoom;
@@ -98,30 +100,49 @@ namespace TouristGuide.map
 
         public void newPosition(GpsLocation gpsLocation)
         {
-            this.currentGpsLocation = gpsLocation;
-            // DEBUG
-            string coordinates = this.currentGpsLocation.getLatitudeString() + " " + 
-                                 this.currentGpsLocation.getLongitudeString();
-            //Debug.WriteLine("new position: " + coordinates, this.ToString());
             // when gps location is known (valid) try to get map for region and create map view
             if (gpsLocation.isValid())
             {
-                try
-                {
-                    // get map package
-                    this.currentMapPkg = this.mapPkgRepository.getMapPkg(this.currentGpsLocation.getLatitude(),
-                                                            this.currentGpsLocation.getLongitude(), this.currentZoom);
+                if (this.currentGpsLocation != null){
+                    double deltaLocation = getLocationsDistance(this.currentGpsLocation, gpsLocation);
+                    // if distance is to small skip processing
+                    Debug.WriteLine("DELTA LOCATION: " + deltaLocation, this.ToString());
+                    if (deltaLocation < MIN_DELTA_LOCATION)
+                        return;
                 }
-                catch (MapNotFoundException e)
+                this.currentGpsLocation = gpsLocation;
+                double latitude = this.currentGpsLocation.getLatitude();
+                double longitude = this.currentGpsLocation.getLongitude();
+                // when current map pkg doesn't match get pkg from repository
+                if (!(this.currentMapPkg != null 
+                    && this.currentMapPkg.coordinatesMatches(latitude, longitude)
+                    && this.currentMapPkg.getZoom() == this.currentZoom))
                 {
-                    // no map for gps location
-                    return;
+                    try
+                    {
+                        // get map package from repository
+                        this.currentMapPkg = this.mapPkgRepository.getMapPkg(latitude, longitude, this.currentZoom);
+                    }
+                    catch (MapNotFoundException e)
+                    {
+                        // map pkg for current location doesn't exist in repository
+                        this.mapDisplayer.displayMessage("No map for location.", 2000, Color.Red);
+                        return;
+                    }
                 }
                 // create current view when map pkg was found
                 MapView mv = createCurrentView();
                 // display map view
                 this.mapDisplayer.displayView(mv);
             }
+        }
+
+
+        private double getLocationsDistance(GpsLocation gl1, GpsLocation gl2)
+        {
+            // distance between two points
+            return Math.Sqrt(Math.Pow(gl2.getLatitude() - gl1.getLatitude(), 2) + 
+                                Math.Pow(gl2.getLongitude() - gl1.getLongitude(), 2));
         }
 
         // for debugging

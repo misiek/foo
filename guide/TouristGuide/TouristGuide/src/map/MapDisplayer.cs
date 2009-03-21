@@ -21,6 +21,8 @@ namespace TouristGuide.map
         private EventHandler updateMapMessageBoxHandler;
         private EventHandler hideMapMessageBoxHandler;
         private string message;
+        private System.Threading.Timer hideMessageTimer;
+        private string timerMessage;
         private Label mapMessageBox;
         private Color mapMessageBoxDefaultColor;
         private Color mapMessageBoxColor;
@@ -30,20 +32,43 @@ namespace TouristGuide.map
             this.mapPanel = mapPanel;
             this.mapMessageBox = (Label)this.mapPanel.Controls[0];
             this.mapMessageBoxDefaultColor = this.mapMessageBox.BackColor;
+            this.mapMessageBoxColor = this.mapMessageBoxDefaultColor;
             this.updateMapPanelHandler = new EventHandler(updateMapPanel);
             this.updateMapMessageBoxHandler = new EventHandler(updateMapMessageBox);
             this.hideMapMessageBoxHandler = new EventHandler(hideMapMessageBox);
+            this.message = "";
+            this.timerMessage = "";
         }
 
         // display message for specified time
         public void displayMessage(string message, int mSecounds)
         {
-
+            if (this.timerMessage=="")
+            {
+                this.timerMessage = message;
+                this.hideMessageTimer = new System.Threading.Timer(
+                                    new System.Threading.TimerCallback(hideMessageCallback),
+                                    null, mSecounds, System.Threading.Timeout.Infinite);
+                displayMessage(this.timerMessage);
+            }
+            // make time longer when timer is running and message is the same
+            else if (this.timerMessage == message && this.hideMessageTimer!=null)
+            {
+                this.hideMessageTimer.Change(mSecounds, System.Threading.Timeout.Infinite);
+            }
         }
 
-        public void displayMessage(string message, int mSecounds, Color color)
+        private void hideMessageCallback(object sender)
         {
-            this.mapMessageBoxColor = color;
+            hideMessage(this.timerMessage);
+            this.timerMessage = "";
+            this.hideMessageTimer = null;
+        }
+
+
+        public void displayMessage(string message, int mSecounds, Color bgColor)
+        {
+            this.mapMessageBoxColor = bgColor;
             displayMessage(message, mSecounds);
         }
 
@@ -55,9 +80,9 @@ namespace TouristGuide.map
             this.mapPanel.Invoke(updateMapMessageBoxHandler);
         }
 
-        public void displayMessage(string message, Color color)
+        public void displayMessage(string message, Color bgColor)
         {
-            this.mapMessageBoxColor = color;
+            this.mapMessageBoxColor = bgColor;
             displayMessage(message);
         }
 
@@ -71,6 +96,7 @@ namespace TouristGuide.map
         private void updateMapMessageBox(object sender, EventArgs args)
         {
             this.mapMessageBox.Text = this.message;
+            this.mapMessageBox.BackColor = this.mapMessageBoxColor;
             this.mapMessageBox.Visible = true;
             this.mapMessageBox.Refresh();
         }
