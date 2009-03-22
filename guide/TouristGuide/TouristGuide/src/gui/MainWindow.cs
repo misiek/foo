@@ -47,7 +47,7 @@ namespace TouristGuide.gui
         {
             //GpsLocation gpsLoc = this.gps.getLocationData();
             labelPosition.Text = this.currentGpsLocation.getLatitudeString() + " " + this.currentGpsLocation.getLongitudeString();
-            labelSpeed.Text = this.currentGpsLocation.getSpeed().ToString();
+            labelSpeed.Text = this.currentGpsLocation.getSpeedKMH().ToString() + " km/h";
         }
 
         public void satellitesChanged()

@@ -59,8 +59,10 @@ namespace Gps
 
         // Represents the EN-US culture, used for numers in NMEA sentences
         public static CultureInfo NmeaCultureInfo = new CultureInfo("en-US");
-        // Used to convert knots into miles per hour
-        private static double MPHPerKnot = double.Parse("1.150779", NmeaCultureInfo);
+        // Used to convert knots into MPH
+        private static double MPHPerKnot = 1.150779;
+        // Used to convert knots into KMH
+        private static double KMHPerKnot = 1.85166;
       
 
         private RecivedGpsData RecivedData;
@@ -214,8 +216,12 @@ namespace Gps
             // Extract latitude and longitude
             updateLatitude(words[3], words[4]);
             updateLongitude(words[5], words[6]);
-
-            updateSpeed(words[7], MPHPerKnot);
+            //// convert speed to MPH
+            //updateSpeed(words[7], MPHPerKnot);
+            //// convert speed to KMH
+            //updateSpeed(words[7], KMHPerKnot);
+            // do not convert
+            updateSpeed(words[7], 1);
 
             // extract bearing
             updateCourse(words[8]);

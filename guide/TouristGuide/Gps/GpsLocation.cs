@@ -8,6 +8,9 @@ namespace Gps
 {
     public class GpsLocation
     {
+        private static double MPHPerKnot = 1.150779;
+        private static double KMHPerKnot = 1.85166;
+
         // unknown coordinate 1000 - angle is never that big
         public const double UNKNOWN_COORDINATE = 1000;
         // time recived from gps
@@ -20,7 +23,7 @@ namespace Gps
         private string longitudeString;
         // longitude converted to double positive for E negative for W
         private double longitude;
-        
+        // speed in knots
         private double speed;
         private double course;
         //private string status;
@@ -105,6 +108,16 @@ namespace Gps
         public double getSpeed()
         {
             return this.speed;
+        }
+
+        public double getSpeedKMH()
+        {
+            return Math.Round(this.speed * KMHPerKnot, 2);
+        }
+
+        public double getSpeedMPH()
+        {
+            return Math.Round(this.speed * MPHPerKnot, 2);
         }
 
         public bool isValid()
