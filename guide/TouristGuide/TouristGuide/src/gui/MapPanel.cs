@@ -35,8 +35,9 @@ namespace TouristGuide.gui
     {
         private Bitmap positionMarkerImg;
         private Bitmap off_screen;
+        private Point targetPoint;
+        private bool directionLineVisible;
         private Hashtable pictureSlots;
-
         public Hashtable PictureSlots { get { return this.pictureSlots;  } }
 
         public MapPanel()
@@ -46,6 +47,18 @@ namespace TouristGuide.gui
             // initialize picture slots hash table
             this.pictureSlots = new Hashtable();
             createPictureSlots();
+            this.directionLineVisible = false;
+        }
+
+        public void showDirectionLine(Point targetPoint)
+        {
+            this.targetPoint = targetPoint;
+            this.directionLineVisible = true;
+        }
+
+        public void hideDirectionLine()
+        {
+            this.directionLineVisible = false;
         }
 
         // Initialize picture slots for parts of view to display.
@@ -82,6 +95,8 @@ namespace TouristGuide.gui
             Graphics g = Graphics.FromImage(this.off_screen);
             g.Clear(this.BackColor);
             drawMap(g);
+            if (this.directionLineVisible)
+                drawDirectionLine(g);
             drawPositionMarkerImg(g);
 
             e.Graphics.DrawImage(this.off_screen, 0, 0);
@@ -98,6 +113,15 @@ namespace TouristGuide.gui
             }
         }
 
+        private void drawDirectionLine(Graphics g)
+        {
+            using (Pen p = new Pen(Color.Red))
+            {
+                p.DashStyle = DashStyle.Solid;
+                g.DrawLine(p, this.Width / 2, this.Height / 2, targetPoint.X, targetPoint.Y);
+            }
+        }
+
         private void drawPositionMarkerImg(Graphics g)
         {
             // image size
@@ -110,7 +134,7 @@ namespace TouristGuide.gui
             ImageAttributes attrs = new ImageAttributes();
             attrs.SetColorKey(this.positionMarkerImg.GetPixel(0, 0), this.positionMarkerImg.GetPixel(0, 0));
             //attrs.SetColorKey(Color.Transparent, Color.Transparent);
-            Rectangle rDest = new Rectangle(x, x, width, height);
+            Rectangle rDest = new Rectangle(x, y, width, height);
             // Draws the image
             g.DrawImage(this.positionMarkerImg, rDest, 0, 0, width, height, GraphicsUnit.Pixel, attrs);
         }

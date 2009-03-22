@@ -1,0 +1,14 @@
+F:\workspace\GDIPlusCF\TestApp1\bin\Debug\brushPattern.bmp
+F:\workspace\GDIPlusCF\TestApp1\bin\Debug\test.jpg
+F:\workspace\GDIPlusCF\TestApp1\bin\Debug\TestApp1.exe
+F:\workspace\GDIPlusCF\TestApp1\bin\Debug\TestApp1.pdb
+F:\workspace\GDIPlusCF\TestApp1\bin\Debug\OpenNETCF.GDIPlus.dll
+F:\workspace\GDIPlusCF\TestApp1\bin\Debug\OpenNETCF.GDIPlus.pdb
+F:\workspace\GDIPlusCF\TestApp1\obj\Debug\ResolveAssemblyReference.cache
+F:\workspace\GDIPlusCF\TestApp1\obj\Debug\TestApp1.BrushDemo.resources
+F:\workspace\GDIPlusCF\TestApp1\obj\Debug\TestApp1.MainForm.resources
+F:\workspace\GDIPlusCF\TestApp1\obj\Debug\TestApp1.PenDemo.resources
+F:\workspace\GDIPlusCF\TestApp1\obj\Debug\TestApp1.Properties.Resources.resources
+F:\workspace\GDIPlusCF\TestApp1\obj\Debug\TestApp1.csproj.GenerateResource.Cache
+F:\workspace\GDIPlusCF\TestApp1\obj\Debug\TestApp1.exe
+F:\workspace\GDIPlusCF\TestApp1\obj\Debug\TestApp1.pdb

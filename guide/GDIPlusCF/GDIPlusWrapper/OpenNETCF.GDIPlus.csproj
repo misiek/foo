@@ -1,0 +1,106 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenNETCF.GDIPlus</RootNamespace>
+    <AssemblyName>OpenNETCF.GDIPlus</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>PocketPC</PlatformFamilyName>
+    <PlatformID>b2c48bd2-963d-4549-9169-1fa021dce484</PlatformID>
+    <OSVersion>5.02</OSVersion>
+    <DeployDirSuffix>GDIPlusWrapper</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FormFactorID>
+    </FormFactorID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BitmapPlus.cs" />
+    <Compile Include="BrushPlus.cs" />
+    <Compile Include="CustomLineCap.cs" />
+    <Compile Include="FontFamilyPlus.cs" />
+    <Compile Include="FontPlus.cs" />
+    <Compile Include="GraphicsPath.cs" />
+    <Compile Include="GraphicsPlus.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="ImageAttributesPlus.cs" />
+    <Compile Include="Matrix.cs" />
+    <Compile Include="NativeMethods\Bitmaps.cs" />
+    <Compile Include="NativeMethods\Brushes.cs" />
+    <Compile Include="NativeMethods\Common.cs" />
+    <Compile Include="DataTypes.cs" />
+    <Compile Include="NativeMethods\Drawing.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="FileStream.cs" />
+    <Compile Include="FILETIME.cs" />
+    <Compile Include="NativeMethods\Fonts.cs" />
+    <Compile Include="NativeMethods\Graphics.cs" />
+    <Compile Include="NativeMethods\ImageAttributes.cs" />
+    <Compile Include="NativeMethods\Images.cs" />
+    <Compile Include="IStream.cs" />
+    <Compile Include="NativeMethods\Matrices.cs" />
+    <Compile Include="NativeMethods\Others.cs" />
+    <Compile Include="NativeMethods\Paths.cs" />
+    <Compile Include="NativeMethods\Pens.cs" />
+    <Compile Include="NativeMethods\Regions.cs" />
+    <Compile Include="PenPlus.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegionPlus.cs" />
+    <Compile Include="SimpleTypes.cs" />
+    <Compile Include="STATSTG.cs" />
+    <Compile Include="StringFormatPlus.cs" />
+    <Compile Include="Stubs.cs" />
+  </ItemGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

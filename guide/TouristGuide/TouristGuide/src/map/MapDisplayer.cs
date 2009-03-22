@@ -174,6 +174,8 @@ namespace TouristGuide.map
                     pSlot.Image = null;
                 }
             }
+            // just for test
+            //this.mapPanel.showDirectionLine(new Point(50, 50));
             // refresh map panel
             this.mapPanel.Refresh();
         }

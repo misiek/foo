@@ -1,0 +1,5 @@
+F:\workspace\GDIPlusCF\GDIPlusWrapper\bin\Debug\OpenNETCF.GDIPlus.dll
+F:\workspace\GDIPlusCF\GDIPlusWrapper\bin\Debug\OpenNETCF.GDIPlus.pdb
+F:\workspace\GDIPlusCF\GDIPlusWrapper\obj\Debug\ResolveAssemblyReference.cache
+F:\workspace\GDIPlusCF\GDIPlusWrapper\obj\Debug\OpenNETCF.GDIPlus.dll
+F:\workspace\GDIPlusCF\GDIPlusWrapper\obj\Debug\OpenNETCF.GDIPlus.pdb
