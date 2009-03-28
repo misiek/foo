@@ -22,7 +22,7 @@ class Detail(models.Model):
     description = models.TextField()
     media_files = models.ManyToManyField(MediaFile)
     # each detail can have its own details
-    datails = models.ForeignKey('self')
+    details = models.ManyToManyField('self')
 
 class POI(models.Model):
     """ Represents Point Of Interest - geografical point on map.
@@ -34,4 +34,4 @@ class POI(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     media_files = models.ManyToManyField(MediaFile)
-    datails = models.ManyToManyField(Detail)
+    details = models.ManyToManyField(Detail)
