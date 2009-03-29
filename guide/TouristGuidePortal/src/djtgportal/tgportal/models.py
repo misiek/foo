@@ -8,6 +8,10 @@ class MediaFile(models.Model):
     title = models.CharField(max_length=200)
     descr = models.TextField()
     file = models.FileField(upload_to='media_files')
+    
+    def __unicode__(self):
+        return self.title
+
 
 class Type(models.Model):
     """ Type class represents type of POI.
@@ -15,6 +19,9 @@ class Type(models.Model):
     """
     name = models.CharField(max_length=200)
     descr = models.TextField()
+    
+    def __unicode__(self):
+        return self.name
 
 class POI(models.Model):
     """ Represents Point Of Interest - geografical point on map.
@@ -25,7 +32,10 @@ class POI(models.Model):
     type = models.ForeignKey(Type)
     name = models.CharField(max_length=200)
     descr = models.TextField()
-    media_files = models.ManyToManyField(MediaFile)
+    media_files = models.ManyToManyField(MediaFile, blank=True)
+    
+    def __unicode__(self):
+        return self.name
 
 class Detail(models.Model):
     """ Detail abstract class """
@@ -33,7 +43,10 @@ class Detail(models.Model):
         abstract = True
     title = models.CharField(max_length=200)
     descr = models.TextField()
-    media_files = models.ManyToManyField(MediaFile)
+    media_files = models.ManyToManyField(MediaFile, blank=True)
+    
+    def __unicode__(self):
+        return self.title
 
 class MainDetail(Detail):
     """ MainDetail class represents detail of POI.
