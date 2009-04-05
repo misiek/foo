@@ -123,12 +123,17 @@ function computepos(point) {
     var lgd = (Math.floor(((((lonA/1000000) - Math.floor(lonA/1000000)) * 60)
               - Math.floor(((lonA/1000000) - Math.floor(lonA/1000000)) * 60)) * 100000) *60/100000 );
 
-    document.getElementById(latbox).value=point.y;
+    if(document.getElementById(latbox)!=null)
+        document.getElementById(latbox).value=point.y;
+    if(document.getElementById(lonbox)!=null)
+        document.getElementById(lonbox).value=point.x;
+    
+    // @TODO: add if(document.getElementById('id')!=null) to each place
+    //        where document.getElementById is used
     document.getElementById(latboxm).value=ls;
     document.getElementById(latboxmd).value=lm;
     document.getElementById(latboxms).value=ld;
 
-    document.getElementById(lonbox).value=point.x;
     document.getElementById(lonboxm).value=lgs;
     document.getElementById(lonboxmd).value=lgm;
     document.getElementById(lonboxms).value=lgd;
