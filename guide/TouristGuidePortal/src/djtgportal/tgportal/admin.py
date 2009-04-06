@@ -21,7 +21,7 @@ admin.site.register(MainDetail, MainDetailAdmin)
 
 class MainDetailInline(admin.TabularInline):
     model = MainDetail
-    extra = 2
+    extra = 1
 
 class POIAdmin(admin.ModelAdmin):
     inlines = [MainDetailInline]
