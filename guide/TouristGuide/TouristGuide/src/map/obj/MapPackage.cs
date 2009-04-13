@@ -207,7 +207,7 @@ namespace TouristGuide.map.obj
             while (x_width < pixelCoordinates.X)
             {
                 int imgWidth = getPart(new Point(x, 0)).Width;
-                if (x_width + imgWidth > pixelCoordinates.X)
+                if (x_width + imgWidth >= pixelCoordinates.X)
                     break;
                 x_width += imgWidth;
                 x++;
@@ -218,7 +218,7 @@ namespace TouristGuide.map.obj
             while (y_height < pixelCoordinates.Y)
             {
                 int imgHeight = getPart(new Point(0, y)).Height;
-                if (y_height + imgHeight > pixelCoordinates.Y)
+                if (y_height + imgHeight >= pixelCoordinates.Y)
                     break;
                 y_height += imgHeight;
                 y++;

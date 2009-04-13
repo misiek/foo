@@ -106,9 +106,11 @@ namespace TouristGuide.map
                 if (this.currentGpsLocation != null){
                     double deltaLocation = getLocationsDistance(this.currentGpsLocation, gpsLocation);
                     // if distance is to small skip processing
-                    Debug.WriteLine("DELTA LOCATION: " + deltaLocation, this.ToString());
                     if (deltaLocation < MIN_DELTA_LOCATION)
+                    {
+                        Debug.WriteLine("delta location to small.", this.ToString());
                         return;
+                    }
                 }
                 this.currentGpsLocation = gpsLocation;
                 double latitude = this.currentGpsLocation.getLatitude();
@@ -132,8 +134,11 @@ namespace TouristGuide.map
                 }
                 // create current view when map pkg was found
                 MapView mv = createCurrentView();
-                // display map view
-                this.mapDisplayer.displayView(mv);
+                if (mv != null)
+                {
+                    // display map view
+                    this.mapDisplayer.displayView(mv);
+                }
             }
         }
 
@@ -169,6 +174,13 @@ namespace TouristGuide.map
             // add center MapView point
             Point centerViewPoint = new Point(1, 1);
             viewParts[centerViewPoint] = this.currentMapPkg.getPart(partPoint);
+            // map view has only sense when there is center map part
+            if (viewParts[centerViewPoint] == null)
+            {
+                Debug.WriteLine("Cant get center part! viewParts[centerViewPoint] is null - skipping.", this.ToString());
+                // return when center part is null
+                return null;
+            }
             // add neighbours of center point
             foreach (DictionaryEntry entry in this.pointSurroundings)
             {

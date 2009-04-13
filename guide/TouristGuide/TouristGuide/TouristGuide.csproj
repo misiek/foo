@@ -115,9 +115,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="gpslog\Gps.2008-08-08.14.57.gps">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="uml\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
@@ -426,6 +423,9 @@
     </Content>
     <Content Include="maps\zoom_0\19.944005-50.097523_19.95502-50.090446\parts\3_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="gpslog\Gps.2009-04-01.17.11.gps">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\location_dot.png" />
   </ItemGroup>

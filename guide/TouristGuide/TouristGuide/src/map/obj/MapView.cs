@@ -25,8 +25,11 @@ namespace TouristGuide.map.obj
         {
             this.gpsLocation = gpsLocation;
             this.centerImgLocation = centerImgLocation;
-            this.viewParts = viewParts;
             this.orderingPoints = orderingPoints;
+            // check if view parts contains center image
+            if (viewParts[new Point(1, 1)] == null)
+                throw new Exception("Can't instantiate map view without center image!");
+            this.viewParts = viewParts;
         }
 
         public ArrayList getOrderingPoints()

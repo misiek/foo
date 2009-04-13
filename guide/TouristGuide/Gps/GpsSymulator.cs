@@ -44,8 +44,9 @@ namespace Gps
                     string gpsMessage;
                     while ((gpsMessage = gpsLogTr.ReadLine()) != null && this.listening)
                     {
+                        Debug.WriteLine("GpsSymulator: processing gps msg: " + gpsMessage);
                         processGpsMessage(gpsMessage);
-                        System.Threading.Thread.Sleep(200);
+                        System.Threading.Thread.Sleep(60);
                     }
                     // close the stream
                     gpsLogTr.Close();
