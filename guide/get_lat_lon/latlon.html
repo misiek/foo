@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Latitude and Longitude of a Point</title>
+<meta name="description" content="Find the latitude and longitude of a point using Google Maps.">
+<meta name="keywords" content="latitude, longitude, google maps, get latitude and longitude">
+
+<script src="http://maps.google.com/?file=api&amp;v=2&amp;key=ABQIAAAA9fM6Vg1sNheq6r5IMI6kZRRm2SEPmOspzCQkeVrFMcw587AklxRT0Qzdzdr9LaKyM502xxyDjs6lrA" type="text/javascript"></script>
+<SCRIPT type="text/javascript" src="js/mapctrl.js"></SCRIPT>
+<script type="text/javascript" src="js/gmap.js"></SCRIPT>
+
+</head>
+
+<body onload="xz()" onunload="GUnload()">
+<center>
+
+<!-- insert google map -->
+<div id="wrapper" style="margin:5px"><div id="map" style="width: 800px; height: 450px"></div></div>
+
+
+<table cellpadding="5" cellspacing="0" border="1" style="width: 800px;">
+<tr>
+<td width="50%" valign="top">
+<center><b>Note:</b> Right click on a <font color="blue"><strong>blue marker</strong></font> to remove it.</center>
+<br>
+<center><input type="button" value="Clear/Reset All Markers" id="reset" onclick="reset()">&nbsp;&nbsp;<input type="button" value="Center Red Marker" id="reset1" onclick="reset1()"></center>
+<hr>
+<h3>Get the Latitude and Longitude of a Point</h3>
+<p>When you click on the map, move the marker or enter an address the latitude and longitude coordinates of the point are inserted in the boxes below.</p>
+
+<table width="100%">
+<tr>
+    <td>Latitude:</td><td colspan="3"><input size="20" type="text" id="latbox" name="lat" value="" ></td>
+</tr>
+<tr>
+    <td >Longitude:</td><td colspan="3"><input size="20" type="text" id="lonbox" name="lon" value="" ></td>
+</tr>
+<tr><td colspan="4"><br><hr></td></tr>
+<tr><td> </td><td><strong>Degrees</strong></td><td><strong>Minutes</strong></td><td><strong>Seconds</strong></td></tr>
+<tr><td>Latitude:</td><td><input size="5" type="text" id="latboxm" name="latm" value="" ></td><td><input size="6" type="text" id="latboxmd" name="latmd" value="" ></td><td><input size="8" type="text" id="latboxms" name="latms" value="" ></td></tr>
+<tr><td >Longitude:</td><td><input size="5" type="text" id="lonboxm" name="lonm" value="" ></td><td><input size="6" type="text" id="lonboxmd" name="lonmd" value="" ></td><td><input size="8" type="text" id="lonboxms" name="lonms" value="" ></td></tr>
+</table>
+
+</td>
+
+<td width="50%" valign="top">
+
+<h3>Show Point from Latitude and Longitude</h3>
+<p>Use this if you know the latitude and longitude coordinates of a point and want to see where on the map the point is.
+<br><strong>Use:</strong>&nbsp;<strong><font size="5">+</font></strong> for <em>N</em> Lat or <em>E</em> Long&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font size="5">-</font></strong> for <em>S</em> Lat or <em>W</em> Long.<br><strong>Example:</strong> +40.689060&nbsp;&nbsp;-74.044636<br><strong>Note:</strong> Your entry should not have any embedded spaces.</p>
+<table width="100%">
+<form onsubmit="showLatLong(this.latitude.value, this.longitude.value); return false;">
+<tr><td colspan="2">Decimal Deg. Latitude:</td><td colspan="2"><input type="text" size="13" id="latbox1" name="latitude" value=""></td></tr>
+<tr><td colspan="2">Decimal Deg. Longitude:</td><td colspan="2"><input type="text" size="13" id="lonbox1" name="longitude" value=""></td></tr>
+<tr><td colspan="4" align="center"><input type="submit" value="Show Point"></td></tr>
+</form>
+<tr><td colspan="4"><hr>Example: <strong>+34&nbsp;&nbsp;&nbsp;40&nbsp;&nbsp;&nbsp;50.12</strong>&nbsp;&nbsp;&nbsp;for <em>34N 40' 50.12"</em></td></tr>
+<form onsubmit="showLatLong1(this.latm.value, this.latmd.value, this.latms. value, this.lonm.value, this.lonmd.value, this.lonms.value); return false;">
+<tr><td> </td><td><strong>Degrees</strong></td><td><strong>Minutes</strong></td><td><strong>Seconds</strong></td></tr>
+<tr><td>Latitude:</td><td><input size="5" type="text" id="latboxm1" name="latm" value="" ></td><td><input size="6" type="text" id="latboxmd1" name="latmd" value="" ></td><td><input size="8" type="text" id="latboxms1" name="latms" value="" ></td></tr>
+<tr><td >Longitude:</td><td><input size="5" type="text" id="lonboxm1" name="lonm" value="" ></td><td><input size="6" type="text" id="lonboxmd1" name="lonmd" value="" ></td><td><input size="8" type="text" id="lonboxms1" name="lonms" value="" ></td></tr>
+<tr><td colspan="4" align="center"><input type="submit" value="Show Point"></td></tr>
+</form>
+</table>
+
+</td>
+
+</tr>
+</table>
+</td>
+  
+<td class="as" align="center"></td>
+</tr>
+</table>
+</center>
+
+</body>
+</html>
