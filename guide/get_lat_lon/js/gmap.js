@@ -21,7 +21,7 @@ var lonboxm     = "lonboxm";
 var lonboxmd    = "lonboxmd";
 var lonboxms    = "lonboxms";
 
-function xz() {
+function showMap() {
     if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("map"));
         map.setCenter(new GLatLng(20.0, -10.0), 2);

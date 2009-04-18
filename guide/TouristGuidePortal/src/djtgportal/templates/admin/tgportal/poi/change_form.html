@@ -3,7 +3,7 @@
 {% block object-tools %}
 {% if change %}{% if not is_popup %}
 
-<script src="http://maps.google.com/?file=api&amp;v=2&amp;key=ABQIAAAA9fM6Vg1sNheq6r5IMI6kZRRm2SEPmOspzCQkeVrFMcw587AklxRT0Qzdzdr9LaKyM502xxyDjs6lrA" type="text/javascript"></script>
+<script src="http://maps.google.com/?file=api&amp;v=2&amp;key=ABQIAAAAi4xDIAJMUxaaQNZtYzpLxRTpH3CbXHjuCVmaTc5MkkU4wO1RRhSDVBhOQuW6vb2eJSEWDwSNoyy_nw" type="text/javascript"></script>
 <script type="text/javascript" src="http://localhost/mike/get_lat_lon/js/mapctrl.js"></script>
 <script type="text/javascript" src="http://localhost/mike/get_lat_lon/js/gmap.js"></script>
 <!-- insert google map -->
@@ -11,7 +11,7 @@
 <script type="text/javascript">
   latbox = "id_latitude";
   lonbox = "id_longitude";
-  xz();
+  showMap();
 </script>
 
   <ul class="object-tools">
@@ -23,4 +23,12 @@
     {% endif%}
   </ul>
 {% endif %}{% endif %}
+{% endblock %}
+
+{% block after_field_sets %}
+<script type="text/javascript">
+  var latitude = document.getElementById(latbox).value;
+  var longitude = document.getElementById(lonbox).value;
+  showLatLong(latitude, longitude);
+</script>
 {% endblock %}
