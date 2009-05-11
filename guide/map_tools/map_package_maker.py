@@ -121,7 +121,7 @@ class MapPackageMaker():
                 # cut out sub image
                 sub_image = self.map_image.crop(sub_image_box)
                 # prepare sub image file name
-                sub_image_name = "%d:%d.%s" % (h, w, self.map_image_format)
+                sub_image_name = "%d_%d.%s" % (h, w, self.map_image_format)
                 # save sub image to file
                 sub_image.save(self.parts_dir + "/" + sub_image_name)
                 #print "1[%s, %s] 2[%s, %s]" % sub_image_box
