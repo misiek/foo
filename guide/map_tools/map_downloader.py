@@ -17,12 +17,10 @@ class MapDownloader():
         # right bottom corner of area to download
         self.x2 = 20.0029
         self.y2 = 50.0233
-        # lon delta
-        self.dx = 0.011015
-        # lat delta
-        self.dy = 0.007077
         self.grid = []
-        
+        self.osmarender_format = 'png'
+        self.osmarender_zoom = '17'
+    
     def create_grid(self):
         ''' Creates coordinates grid - it is only possible to download
             big area in parts.
@@ -56,8 +54,8 @@ class MapDownloader():
             'format': 'osmarender',
             'mapnik_format': 'png',
             'mapnik_scale': '6950000',
-            'osmarender_format': 'png',
-            'osmarender_zoom': '17',
+            'osmarender_format': self.osmarender_format,
+            'osmarender_zoom': self.osmarender_zoom,
             'commit': 'Export',
         }
         # file name as top left coordinates and bottom right
@@ -74,6 +72,12 @@ class MapDownloader():
     def download(self):
         ''' Downloads all parts.
         '''
+        # lon delta
+        #self.dx = 0.011015
+        self.dx = 0.011014 + (17 - int(self.osmarender_zoom)) * 0.011014
+        # lat delta
+        #self.dy = 0.007077
+        self.dy = 0.007076 + (17 - int(self.osmarender_zoom)) * 0.007076
         self.create_grid()
         i = 1
         for p in self.grid:
@@ -85,4 +89,6 @@ class MapDownloader():
 
 if __name__ == '__main__':
     mapd = MapDownloader()
+    mapd.osmarender_format = 'jpeg'
+    mapd.osmarender_zoom = '16'
     mapd.download()

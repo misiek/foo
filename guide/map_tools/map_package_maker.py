@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+import sys
 import Image
 
 class MapPackageMaker():
@@ -154,7 +155,10 @@ class DirMapPackageMaker():
 
 
 if __name__ == '__main__':
-    src_dir = './osmarender_png_17'
-    dst_dir = './osmarender_png_17_pkgs'
+    src_dir = sys.argv[1]
+    l = src_dir.split('_')
+    img_type = l[1]
+    zoom = l[2]
+    dst_dir = './map_pkgs/' + img_type + '/zoom_' + zoom
     dmpm = DirMapPackageMaker(src_dir, dst_dir)
     dmpm.make()

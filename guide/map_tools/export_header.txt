@@ -1,0 +1,26 @@
+http://www.openstreetmap.org/export/finish
+
+POST /export/finish HTTP/1.1
+Host: www.openstreetmap.org
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.10) Gecko/2009042523 Ubuntu/9.04 (jaunty) Firefox/3.0.10
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://www.openstreetmap.org/export/
+Cookie: _osm_location=19.939073228036115|50.0653067481528|17|0B00FTFT; _osm_session=8024478f671730f91754512b24a374aa; _osm_location=19.939073228036115|50.0653067481528|18|B000FTFT
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 173
+maxlat=50.06746&minlon=19.93599&maxlon=19.94297&minlat=50.06332&format=osmarender&mapnik_format=png&mapnik_scale=3400&osmarender_format=jpeg&osmarender_zoom=17&commit=Export
+
+HTTP/1.x 302 Found
+Content-Type: text/html; charset=utf-8
+Set-Cookie: _osm_session=8024478f671730f91754512b24a374aa; path=/
+Location: http://tah.openstreetmap.org/MapOf/index.php?long=19.93948&lat=50.06539&z=17&w=650&h=601&format=jpeg
+X-Runtime: 0ms
+Cache-Control: no-cache
+Content-Length: 186
+Date: Mon, 11 May 2009 08:54:47 GMT
+Server: lighttpd/1.4.22
