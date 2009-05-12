@@ -1,6 +1,15 @@
 from django.db import models
 
 
+class Lang(models.Model):
+    """ Language
+    """
+    lang = models.CharField(max_length=10, help_text="Language shortcut eg. en.")
+    name = models.CharField(max_length=200, help_text="Language name eg. English.")
+    
+    def __unicode__(self):
+        return self.name
+
 class MediaFile(models.Model):
     """ MediaFile class represents media associated with POI or Detail.
         (image, mp3, avi etc)
@@ -27,6 +36,7 @@ class POI(models.Model):
     """ Represents Point Of Interest - geografical point on map.
         (monument, cinema, restaurant etc)
     """
+    lang = models.ForeignKey(Lang, help_text="Language of a point.")
     latitude = models.FloatField(help_text="Latitude of a point.")
     longitude = models.FloatField(help_text="Longitude of a point.")
     type = models.ForeignKey(Type, help_text="Type of a point.")

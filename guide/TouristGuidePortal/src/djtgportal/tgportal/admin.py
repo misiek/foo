@@ -1,3 +1,4 @@
+from djtgportal.tgportal.models import Lang
 from djtgportal.tgportal.models import Type
 from djtgportal.tgportal.models import POI
 from djtgportal.tgportal.models import MediaFile
@@ -6,6 +7,7 @@ from djtgportal.tgportal.models import SubDetail
 
 from django.contrib import admin
 
+admin.site.register(Lang)
 admin.site.register(Type)
 admin.site.register(MediaFile)
 
