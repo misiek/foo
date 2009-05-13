@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pois>
+  {% if poi_list %}
+    {% for poi in poi_list %}
+        <poi>
+          <lang>{{ poi.lang.lang }}</lang>
+          <name>{{ poi.name }}</name>
+          <latitude>{{ poi.latitude }}</latitude>
+          <longitude>{{ poi.longitude }}</longitude>
+          <type>{{ poi.type.name }}</type>
+          <descr><![CDATA[{{ poi.descr }}]]></descr>
+          {% if poi.media_files %}
+            <media_files>
+            {% for media_file in poi.media_files.iterator %}
+              <media_file>
+                <title>{{ media_file.title }}</title>
+                <descr><![CDATA[{{ media_file.descr }}]]></descr>
+                <url><![CDATA[{{ media_url }}{{ media_file.file }}]]></url>
+              </media_file>
+            {% endfor %}
+            </media_files>
+          {% endif %}
+          {% if poi.maindetail_set %}
+	          <details>
+	          {% for detail in poi.maindetail_set.iterator %}
+	             <detail>
+	                <title>{{ detail.title }}</title>
+                  <descr><![CDATA[{{ detail.descr }}]]></descr>
+				          {% if detail.media_files %}
+				            <media_files>
+				            {% for media_file in detail.media_files.iterator %}
+				              <media_file>
+				                <title>{{ media_file.title }}</title>
+				                <descr><![CDATA[{{ media_file.descr }}]]></descr>
+				                <url><![CDATA[{{ media_url }}{{ media_file.file }}]]></url>
+				              </media_file>
+				            {% endfor %}
+				            </media_files>
+				          {% endif %}
+	             </detail>
+	          {% endfor %}
+	          </details>
+          {% endif %}
+        </poi>
+    {% endfor %}
+  {% endif %}
+</pois>

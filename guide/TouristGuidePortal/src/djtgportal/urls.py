@@ -13,5 +13,7 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+#    (r'^tgportalws/pois/area/(?P<area>[\d.,]+)/$', 'djtgportal.tgportal.views.pois.list'),
+    (r'^tgportalws/pois/area/(?P<area>.+)/lang/(?P<lang_shortcut>.+)/$', 'djtgportal.tgportal.views.pois.list'),
     (r'^admin/(.*)', admin.site.root),
 )
