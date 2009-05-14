@@ -1,6 +1,7 @@
 from django.views.decorators.http import require_GET
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
+from django.http import HttpResponseForbidden
 from django.template import Context, loader
 #from django.shortcuts import render_to_response
 from djtgportal.settings import MEDIA_URL
@@ -9,6 +10,14 @@ from djtgportal.tgportal.dao.poi_dao import PoiDao
 
 @require_GET
 def list(request, area, lang_shortcut):
+    mobappid = '45435kj34l5j3l45j3l5'
+    # default language
+    if not lang_shortcut:
+        lang_shortcut = 'pl'
+    if not request.GET.has_key('mobappid') or not mobappid == request.GET['mobappid']:
+        return HttpResponseForbidden('<?xml version="1.0" encoding="utf-8"?>' +
+                                      '<error>Bad mappid.</error>',
+                                      content_type='text/xml')
     # process area parameter
     try:
         area_array = area.split(',')
