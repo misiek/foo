@@ -8,7 +8,7 @@ using Gps;
 using TouristGuide.gui;
 using TouristGuide.map;
 using TouristGuide.map.repository;
-using TouristGuide.map.mapper;
+using TouristGuide.map.repository.mapper;
 
 // for test
 using TouristGuide.map.obj;

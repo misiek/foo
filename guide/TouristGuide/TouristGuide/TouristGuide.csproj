@@ -68,14 +68,18 @@
     <Compile Include="src\gui\MapPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="src\map\exception\MapPkgNotFoundException.cs" />
-    <Compile Include="src\map\exception\MapSourceException.cs" />
-    <Compile Include="src\map\mapper\MapPkgMapperHdd.cs" />
-    <Compile Include="src\map\exception\MapPkgRepositoryException.cs" />
+    <Compile Include="src\map\repository\exception\MapPkgNotFoundException.cs" />
+    <Compile Include="src\map\repository\exception\MapSourceException.cs" />
+    <Compile Include="src\map\repository\exception\NoPoiOnAreaException.cs" />
+    <Compile Include="src\map\repository\mapper\MapPkgMapperHdd.cs" />
+    <Compile Include="src\map\repository\exception\MapPkgRepositoryException.cs" />
+    <Compile Include="src\map\repository\mapper\PoiMapperHdd.cs" />
     <Compile Include="src\map\obj\Detail.cs" />
     <Compile Include="src\map\obj\MainDetail.cs" />
     <Compile Include="src\map\obj\MediaFile.cs" />
     <Compile Include="src\map\obj\SubDetail.cs" />
+    <Compile Include="src\map\repository\parser\PoiXmlParser.cs" />
+    <Compile Include="src\map\repository\PoiSource.cs" />
     <Compile Include="src\map\repository\MapSource.cs" />
     <Compile Include="src\map\repository\MapSourceHdd.cs" />
     <Compile Include="src\map\repository\MapSourceMem.cs" />
@@ -95,6 +99,9 @@
     <Compile Include="src\map\obj\MapView.cs" />
     <Compile Include="src\map\obj\Poi.cs" />
     <Compile Include="src\map\repository\PoiRepository.cs" />
+    <Compile Include="src\map\repository\PoiSourceHdd.cs" />
+    <Compile Include="src\map\repository\PoiSourceMem.cs" />
+    <Compile Include="src\map\repository\PoiSourceWeb.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="src\gui\MainWindow.resx">

@@ -5,7 +5,7 @@ using System.IO;
 using System.Diagnostics;
 
 using TouristGuide.map.exception;
-using TouristGuide.map.mapper;
+using TouristGuide.map.repository.mapper;
 using TouristGuide.map.obj;
 
 namespace TouristGuide.map.repository

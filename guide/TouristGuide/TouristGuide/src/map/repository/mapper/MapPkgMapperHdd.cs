@@ -10,7 +10,7 @@ using System.Drawing;
 using TouristGuide.map.exception;
 using TouristGuide.map.obj;
 
-namespace TouristGuide.map.mapper
+namespace TouristGuide.map.repository.mapper
 {
     public class MapPkgMapperHdd
     {
