@@ -72,6 +72,10 @@
     <Compile Include="src\map\exception\MapSourceException.cs" />
     <Compile Include="src\map\mapper\MapPkgMapperHdd.cs" />
     <Compile Include="src\map\exception\MapPkgRepositoryException.cs" />
+    <Compile Include="src\map\obj\Detail.cs" />
+    <Compile Include="src\map\obj\MainDetail.cs" />
+    <Compile Include="src\map\obj\MediaFile.cs" />
+    <Compile Include="src\map\obj\SubDetail.cs" />
     <Compile Include="src\map\repository\MapSource.cs" />
     <Compile Include="src\map\repository\MapSourceHdd.cs" />
     <Compile Include="src\map\repository\MapSourceMem.cs" />
@@ -124,6 +128,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\location_dot.png" />
+    <None Include="uml\ClassDiagramPoi.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="maps\" />

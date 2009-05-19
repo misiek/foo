@@ -59,13 +59,13 @@
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
     <AssociationLine Name="MapDisplayer" Type="TouristGuide.map.MapDisplayer">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.536" Y="1.133" />
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.119" Y="0.716" Height="0.16" Width="1.108" />
       </MemberNameLabel>
     </AssociationLine>
   </Class>
   <Class Name="TouristGuide.map.repository.MapPkgRepository">
-    <Position X="4.75" Y="6.5" Width="2" />
+    <Position X="5" Y="6.25" Width="2" />
     <TypeIdentifier>
       <FileName>src\map\repository\MapPkgRepository.cs</FileName>
       <HashCode>CQAAAAAACAAAAAAAIAAAgCAAAoAAAQAAAAAAAAgAAAA=</HashCode>
@@ -91,14 +91,14 @@
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="MapSourceHdd" Type="TouristGuide.map.repository.MapSourceHdd">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.557" Y="0.539" />
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.64" Y="0.268" Height="0.16" Width="1.045" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="MapSourceWeb" Type="TouristGuide.map.repository.MapSourceWeb" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.75" Y="7.87" />
-        <Point X="7.5" Y="7.87" />
+        <Point X="7" Y="7.62" />
+        <Point X="7.5" Y="7.62" />
         <Point X="7.5" Y="9" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -127,7 +127,7 @@
     <Position X="10.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\Poi.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAQAAAAAAAAQAAAAAAAAAACAAFAAAQAAAAAFQAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.repository.MapSourceMem">

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="TouristGuide.map.obj.Poi">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\obj\Poi.cs</FileName>
+      <HashCode>AAAAQAAAAAAAAQAAAAAAAAAACAAFAAAQAAAAAFQAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.map.obj.Detail">
+    <Position X="7.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\obj\Detail.cs</FileName>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAQAAAAABAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.map.obj.MainDetail">
+    <Position X="9" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\obj\MainDetail.cs</FileName>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.map.obj.SubDetail">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\obj\SubDetail.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.map.obj.MediaFile">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\obj\MediaFile.cs</FileName>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAIAAAQAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>
