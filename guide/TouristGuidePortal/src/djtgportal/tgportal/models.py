@@ -1,5 +1,15 @@
 from django.db import models
 
+#class Area(models.Model):
+#    """ Area for which poi are deffined
+#    """
+#    topLeftLatitude = models.FloatField(help_text="Top left latitude of the area.")
+#    topRightLongitude = models.FloatField(help_text="Top left longitude of the area.")
+#    bottomRightLatitude = models.FloatField(help_text="Bottom right latitude of the area.")
+#    bottomRightRongitude = models.FloatField(help_text="Bottom right latitude of the area.")
+#    name = models.CharField(max_length=200, help_text="Name of the area.")
+#    descr = models.TextField(help_text="Description of the area.")
+    
 
 class Lang(models.Model):
     """ Language
