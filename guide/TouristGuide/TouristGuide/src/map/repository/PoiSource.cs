@@ -8,5 +8,9 @@ namespace TouristGuide.map.repository
 {
     public interface PoiSource
     {
+
+        List<Poi> findPois(Area area);
+
+        void putPois(List<Poi> pois);
     }
 }

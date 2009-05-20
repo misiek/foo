@@ -65,9 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AppEvents.cs" />
+    <Compile Include="src\Config.cs" />
     <Compile Include="src\gui\MapPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="src\map\obj\Area.cs" />
+    <Compile Include="src\map\Portal.cs" />
     <Compile Include="src\map\repository\exception\MapPkgNotFoundException.cs" />
     <Compile Include="src\map\repository\exception\MapSourceException.cs" />
     <Compile Include="src\map\repository\exception\NoPoiOnAreaException.cs" />

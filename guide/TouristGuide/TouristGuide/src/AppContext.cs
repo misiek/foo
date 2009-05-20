@@ -55,6 +55,8 @@ namespace TouristGuide
         private MainWindow mainWindow;
         private AppEvents appEvents;
 
+        private Config config;
+
         private AppContext()
         {
             // get gull path to exe file
@@ -64,6 +66,10 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): directoryPath: " + this.dirPath);
             this.mapsPath = this.dirPath + "\\maps";
             Debug.WriteLine("AppContext(): mapsPath: " + this.mapsPath);
+
+            // config
+            this.config = new Config();
+            Debug.WriteLine("AppContext(): Config instantiated.");
 
             // main window
             this.mainWindow = new MainWindow();
@@ -137,6 +143,11 @@ namespace TouristGuide
         public AppEvents getAppEvents()
         {
             return this.appEvents;
+        }
+
+        public Config getConfig()
+        {
+            return this.config;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TouristGuide.map.obj;
 using TouristGuide.map.repository.exception;
+using System.Collections;
 
 namespace TouristGuide.map.repository
 {
@@ -53,7 +54,7 @@ namespace TouristGuide.map.repository
         {
             if (!poisAvailable())
             {
-                throw new NoPoiOnAreaException("There are not pois for current area.");
+                throw new NoPoiOnAreaException("There are no pois for current area.");
             }
             List<Poi> pois = new List<Poi>();
             // get pois
@@ -66,14 +67,26 @@ namespace TouristGuide.map.repository
             return false;
         }
 
-        public void downloadAreaPois()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void setRuntimeDownload()
         {
             this.runtimeDownload = true;
+        }
+
+
+        // TODO: should download pois for specified area
+        public void downloadAreaPois()
+        {
+            Hashtable areas = this.PoiSourceWeb.findAreas();
+            // download pois from the web server
+            List<Poi> pois = this.PoiSourceWeb.findPois((Area)areas["Kraków"]);
+            // save downloaded pois
+            this.PoiSourceMem.putPois(pois);
+            this.PoiSourceHdd.putPois(pois);
+        }
+
+        public void getAreas()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
