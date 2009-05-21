@@ -63,7 +63,7 @@ namespace TouristGuide.map.repository
                     {
                         MapPackage mapPkg = this.mapPkgMapperHdd.getWithoutImages(mapPkgName, this.zoom);
                         this.availableMapPkgs.Add(mapPkg);
-                        Debug.WriteLine("MapSourceHdd: readMapsDir: added map packege '" + mapPkgName + "'");
+                        //Debug.WriteLine("MapSourceHdd: readMapsDir: added map packege '" + mapPkgName + "'");
                     }
                     catch (MapPkgRepositoryException e) 
                     {

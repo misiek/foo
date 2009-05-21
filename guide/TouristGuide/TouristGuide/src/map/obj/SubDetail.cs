@@ -4,7 +4,11 @@ using System.Text;
 
 namespace TouristGuide.map.obj
 {
-    class SubDetail : Detail
+    public class SubDetail : Detail
     {
+        public SubDetail(string title, string descr)
+            : base(title, descr)
+        {
+        }
     }
 }

@@ -38,14 +38,12 @@ namespace TouristGuide.map.repository
             }
         }
 
+        private PoiSourceWeb poiSourceWeb;
         internal PoiSourceWeb PoiSourceWeb
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
             set
             {
+                this.poiSourceWeb = value;
             }
         }
 
@@ -74,19 +72,18 @@ namespace TouristGuide.map.repository
 
 
         // TODO: should download pois for specified area
-        public void downloadAreaPois()
+        public void downloadAreaPois(Area area)
         {
-            Hashtable areas = this.PoiSourceWeb.findAreas();
             // download pois from the web server
-            List<Poi> pois = this.PoiSourceWeb.findPois((Area)areas["Kraków"]);
+            List<Poi> pois = this.poiSourceWeb.findPois(area);
             // save downloaded pois
-            this.PoiSourceMem.putPois(pois);
-            this.PoiSourceHdd.putPois(pois);
+            //this.PoiSourceMem.putPois(pois);
+            //this.PoiSourceHdd.putPois(pois);
         }
 
-        public void getAreas()
+        public Hashtable getAreas()
         {
-            throw new System.NotImplementedException();
+            return this.poiSourceWeb.findAreas();
         }
     }
 }

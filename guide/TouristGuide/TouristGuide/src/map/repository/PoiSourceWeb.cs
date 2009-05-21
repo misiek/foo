@@ -6,19 +6,20 @@ using System.Collections;
 
 using TouristGuide.map;
 using TouristGuide.map.obj;
+using TouristGuide.map.exception;
+using System.IO;
+using TouristGuide.map.repository.parser;
 
 namespace TouristGuide.map.repository
 {
     class PoiSourceWeb : PoiSource
     {
+        private Portal portal;
         internal Portal Portal
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
             set
             {
+                this.portal = value;
             }
         }
 
@@ -27,9 +28,18 @@ namespace TouristGuide.map.repository
         public List<Poi> findPois(Area area)
         {
             List<Poi> pois = new List<Poi>();
-
-            string portalResponse = this.Portal.getPois(area);
-            Debug.WriteLine("findPois: portalResponse: " + portalResponse, ToString());
+            try
+            {
+                String portalResponse = this.portal.getPois(area);
+                //Debug.WriteLine("findPois: portalResponse: " + portalResponse, ToString());
+                // process response
+                PoisXmlParser poisParser = new PoisXmlParser(pois);
+                poisParser.parse(portalResponse);
+            }
+            catch (PortalException e)
+            {
+                Debug.WriteLine("findPois: portal error: " + e.Message, ToString());
+            }
 
             return pois;
         }

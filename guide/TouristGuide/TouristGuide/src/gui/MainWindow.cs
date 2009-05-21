@@ -91,6 +91,12 @@ namespace TouristGuide.gui
 
         }
 
+        // download POIs
+        private void menuItem2_Click(object sender, EventArgs e)
+        {
+            AppContext.Instance.getMapManager().downloadPois();
+        }
+
 
     }
 }

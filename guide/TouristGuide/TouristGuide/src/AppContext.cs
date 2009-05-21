@@ -41,6 +41,8 @@ namespace TouristGuide
         private GpsDevice gpsDevice;
         private GpsSymulator gpsSymulator;
 
+        private Portal portal;
+
         private MapPkgMapperHdd mapPkgMapperHdd;
         private MapSourceMem mapSourceMem;
         private MapSourceHdd mapSourceHdd;
@@ -48,6 +50,10 @@ namespace TouristGuide
         private MapPkgRepository mapPkgRepository;
 
         private PoiRepository poiRepository;
+        private PoiSourceMem poiSourceMem;
+        private PoiSourceHdd poiSourceHdd;
+        private PoiSourceWeb poiSourceWeb;
+        private PoiMapperHdd poiMapperHdd;
 
         private MapDisplayer mapDisplayer;
         private MapManager mapManager;
@@ -103,15 +109,24 @@ namespace TouristGuide
             this.mapDisplayer = new MapDisplayer(this.mainWindow.MapPanel);
             Debug.WriteLine("AppContext(): MapDisplayer instantiated.");
 
-            // map source manager
+            // map pkg repository
             this.mapPkgRepository = new MapPkgRepository();
             this.mapPkgRepository.MapSourceMem = this.mapSourceMem;
             this.mapPkgRepository.MapSourceHdd = this.mapSourceHdd;
             this.mapPkgRepository.MapSourceWeb = this.mapSourceWeb;
             Debug.WriteLine("AppContext(): MapPkgRepository instantiated.");
 
-            // poi source manager
+            // portal
+            this.portal = new Portal();
+            this.portal.Config = this.config;
+
+            // poi source web
+            this.poiSourceWeb = new PoiSourceWeb();
+            this.poiSourceWeb.Portal = this.portal;
+
+            // poi repository
             this.poiRepository = new PoiRepository();
+            this.poiRepository.PoiSourceWeb = this.poiSourceWeb;
             Debug.WriteLine("AppContext(): PoiRepository instantiated.");
 
             // map manager
@@ -148,6 +163,11 @@ namespace TouristGuide
         public Config getConfig()
         {
             return this.config;
+        }
+
+        public MapManager getMapManager()
+        {
+            return this.mapManager;
         }
     }
 }

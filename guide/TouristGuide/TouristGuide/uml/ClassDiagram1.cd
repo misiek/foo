@@ -20,14 +20,14 @@
     <Position X="2.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\gui\MainWindow.cs</FileName>
-      <HashCode>AAAAAAggACAARFAAABDwgAADAAAAHgAAAAwARAAAEAI=</HashCode>
+      <HashCode>AAAAAAggACAARFAAABDwgAADAAAAHgBAAAwARAAAEAI=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.AppContext">
     <Position X="0.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\AppContext.cs</FileName>
-      <HashCode>AABCAAAAAAoAAEAIBQEABCAABIBAQIBAQEAAGAgAAAA=</HashCode>
+      <HashCode>AEBCAAAAAAsAQEAIRQEABCAABIBAQIBAQEEQGAgAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.MapDisplayer" Collapsed="true">
@@ -48,7 +48,7 @@
     <Position X="8.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\MapManager.cs</FileName>
-      <HashCode>AQxgABAAAAJCAAACAAIAEEJCAAAAAAACAAAAEBCAAAA=</HashCode>
+      <HashCode>AQxgABAAAAJCAAADAAIAEEJCAAAAAAACAAAAEBCAAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="MapDisplayer" />
@@ -105,7 +105,7 @@
     <Position X="10.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\PoiRepository.cs</FileName>
-      <HashCode>AAAAAgABAABAAAABAEAAAAAAAACJAAAAAAAAAAAQAAA=</HashCode>
+      <HashCode>AAAAAgABAABAQAABAEAAAAAAAACJAAAAAAAAAAAQAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PoiSourceMem" />
@@ -119,9 +119,9 @@
     </AssociationLine>
     <AssociationLine Name="PoiSourceHdd" Type="TouristGuide.map.repository.PoiSourceHdd" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="11.938" Y="8.684" />
-        <Point X="11.938" Y="9.125" />
-        <Point X="12.875" Y="9.125" />
+        <Point X="11.938" Y="8.848" />
+        <Point X="11.938" Y="9.224" />
+        <Point X="12.875" Y="9.224" />
         <Point X="12.875" Y="9.5" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -130,8 +130,8 @@
     </AssociationLine>
     <AssociationLine Name="PoiSourceWeb" Type="TouristGuide.map.repository.PoiSourceWeb" ManuallyRouted="true">
       <Path>
-        <Point X="12.25" Y="7.751" />
-        <Point X="14.068" Y="7.751" />
+        <Point X="12.25" Y="7.845" />
+        <Point X="14.068" Y="7.845" />
         <Point X="14.068" Y="8.861" />
         <Point X="14.75" Y="8.861" />
         <Point X="14.75" Y="9.5" />
@@ -155,7 +155,7 @@
     <Position X="13" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\Poi.cs</FileName>
-      <HashCode>AAAAQAAAAAAAAQAAAAAAAAAACAAFAAAQAAAAAFQAAAA=</HashCode>
+      <HashCode>AAAEQBAAAAQAAQAEAAAABAAACQAFAAAQQAAAAFQhEAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.repository.MapSourceMem">
@@ -256,16 +256,18 @@
     <Position X="14" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\PoiSourceWeb.cs</FileName>
-      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAIAAAAAAAAAAACBAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAIAAAAAAAEAAACBAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Portal" />
     </ShowAsAssociation>
     <AssociationLine Name="Portal" Type="TouristGuide.map.Portal" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="14.625" Y="10.81" />
-        <Point X="14.625" Y="11" />
-        <Point X="9.25" Y="11" />
+        <Point X="14.625" Y="11.192" />
+        <Point X="14.625" Y="11.294" />
+        <Point X="13.898" Y="11.294" />
+        <Point X="13.898" Y="11.096" />
+        <Point X="9.25" Y="11.096" />
         <Point X="9.25" Y="11.25" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -278,7 +280,7 @@
     <Position X="14" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\parser\PoiXmlParser.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.Portal">

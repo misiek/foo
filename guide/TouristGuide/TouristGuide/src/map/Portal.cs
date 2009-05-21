@@ -6,6 +6,7 @@ using System.Net;
 
 using TouristGuide.map.obj;
 using System.IO;
+using TouristGuide.map.exception;
 
 namespace TouristGuide.map
 {
@@ -25,7 +26,7 @@ namespace TouristGuide.map
             throw new System.NotImplementedException();
         }
 
-        public string getPois(Area area)
+        public String getPois(Area area)
         {
             string portalUrl = this.config.get("portal_url");
             string mobappid = this.config.get("mobappid");
@@ -38,16 +39,26 @@ namespace TouristGuide.map
             return GET(queryString);
         }
 
-        private string GET(string url)
+        private String GET(string url)
         {
+            String responseStr = null;
+
             WebRequest request = WebRequest.Create(url);
-            request.Proxy = null;
+            //request.Proxy = null;
             request.Credentials = CredentialCache.DefaultCredentials;
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            string responseStr = reader.ReadToEnd();
+            try
+            {
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+                responseStr = reader.ReadToEnd();
+            }
+            catch (WebException e)
+            {
+                Debug.WriteLine("GET: connection error: " + e.Message, ToString());
+                throw new PortalException("Connection error", e);
+            }
 
             return responseStr;
         }

@@ -82,6 +82,12 @@ namespace TouristGuide.map
             this.pointSurroundings["BOTTOM_LEFT"] = new Point(-1, -1);
         }
 
+        public void downloadPois()
+        {
+            Hashtable areas = this.poiRepository.getAreas();
+
+            this.poiRepository.downloadAreaPois((Area)areas["Kraków"]);
+        }
 
         /// <summary>
         /// Displays loading message in map panel.
