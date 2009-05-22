@@ -124,20 +124,20 @@
         <Point X="12.875" Y="9.224" />
         <Point X="12.875" Y="9.5" />
       </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.098" Y="0.498" />
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.171" Y="0.342" Height="0.16" Width="1.089" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="PoiSourceWeb" Type="TouristGuide.map.repository.PoiSourceWeb" ManuallyRouted="true">
+    <AssociationLine Name="PoiSourceWeb" Type="TouristGuide.map.repository.PoiSourceWeb" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="12.25" Y="7.845" />
-        <Point X="14.068" Y="7.845" />
-        <Point X="14.068" Y="8.861" />
-        <Point X="14.75" Y="8.861" />
+        <Point X="12.25" Y="8.75" />
+        <Point X="12.448" Y="8.75" />
+        <Point X="12.448" Y="8.767" />
+        <Point X="14.75" Y="8.767" />
         <Point X="14.75" Y="9.5" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="1.089" Y="1.529" />
+        <Position X="1.193" Y="0.737" />
       </MemberNameLabel>
     </AssociationLine>
   </Class>
@@ -152,10 +152,10 @@
     </Compartments>
   </Class>
   <Class Name="TouristGuide.map.obj.Poi">
-    <Position X="13" Y="4.5" Width="1.5" />
+    <Position X="13.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\obj\Poi.cs</FileName>
-      <HashCode>AAAEQBAAAAQAAQAEAAAABAAACQAFAAAQQAAAAFQhEAA=</HashCode>
+      <HashCode>AAAEQBAAAAQAAQAEAAAABAAACQAFAAAQQAAEAFQhEAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.repository.MapSourceMem">
@@ -276,11 +276,11 @@
     </AssociationLine>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TouristGuide.map.repository.parser.PoiXmlParser" Collapsed="true">
+  <Class Name="TouristGuide.map.repository.adapter.PoiXmlAdapter" Collapsed="true">
     <Position X="14" Y="11.5" Width="1.5" />
     <TypeIdentifier>
-      <FileName>src\map\repository\parser\PoiXmlParser.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>src\map\repository\adapter\PoiXmlAdapter.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TouristGuide.map.Portal">
@@ -291,7 +291,7 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="TouristGuide.map.repository.PoiSource">
-    <Position X="14.5" Y="7.25" Width="1.5" />
+    <Position X="15.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\PoiSource.cs</FileName>
       <NewMemberFileName>src\map\repository\MapSource.cs</NewMemberFileName>

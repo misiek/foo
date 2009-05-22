@@ -72,6 +72,8 @@
     <Compile Include="src\map\exception\PortalException.cs" />
     <Compile Include="src\map\obj\Area.cs" />
     <Compile Include="src\map\Portal.cs" />
+    <Compile Include="src\map\repository\adapter\ListXmlAdapter.cs" />
+    <Compile Include="src\map\repository\adapter\ObjXmlAdapter.cs" />
     <Compile Include="src\map\repository\exception\MapPkgNotFoundException.cs" />
     <Compile Include="src\map\repository\exception\MapSourceException.cs" />
     <Compile Include="src\map\repository\exception\NoPoiOnAreaException.cs" />
@@ -82,12 +84,12 @@
     <Compile Include="src\map\obj\MainDetail.cs" />
     <Compile Include="src\map\obj\MediaFile.cs" />
     <Compile Include="src\map\obj\SubDetail.cs" />
-    <Compile Include="src\map\repository\parser\MainDetailsXmlParser.cs" />
-    <Compile Include="src\map\repository\parser\MainDetailXmlParser.cs" />
-    <Compile Include="src\map\repository\parser\MediaFilesXmlParser.cs" />
-    <Compile Include="src\map\repository\parser\MediaFileXmlParser.cs" />
-    <Compile Include="src\map\repository\parser\PoisXmlParser.cs" />
-    <Compile Include="src\map\repository\parser\PoiXmlParser.cs" />
+    <Compile Include="src\map\repository\adapter\MainDetailsXmlAdapter.cs" />
+    <Compile Include="src\map\repository\adapter\MainDetailXmlAdapter.cs" />
+    <Compile Include="src\map\repository\adapter\MediaFilesXmlAdapter.cs" />
+    <Compile Include="src\map\repository\adapter\MediaFileXmlAdapter.cs" />
+    <Compile Include="src\map\repository\adapter\PoisXmlAdapter.cs" />
+    <Compile Include="src\map\repository\adapter\PoiXmlAdapter.cs" />
     <Compile Include="src\map\repository\PoiSource.cs" />
     <Compile Include="src\map\repository\MapSource.cs" />
     <Compile Include="src\map\repository\MapSourceHdd.cs" />
