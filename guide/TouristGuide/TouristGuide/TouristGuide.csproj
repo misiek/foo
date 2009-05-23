@@ -74,6 +74,7 @@
     <Compile Include="src\map\Portal.cs" />
     <Compile Include="src\map\repository\adapter\ListXmlAdapter.cs" />
     <Compile Include="src\map\repository\adapter\ObjXmlAdapter.cs" />
+    <Compile Include="src\map\repository\exception\PoiSourceException.cs" />
     <Compile Include="src\map\repository\exception\MapPkgNotFoundException.cs" />
     <Compile Include="src\map\repository\exception\MapSourceException.cs" />
     <Compile Include="src\map\repository\exception\NoPoiOnAreaException.cs" />

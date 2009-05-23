@@ -4,37 +4,37 @@ using System.Text;
 using TouristGuide.map.obj;
 using TouristGuide.map.repository.exception;
 using System.Collections;
+using System.Diagnostics;
 
 namespace TouristGuide.map.repository
 {
     public class PoiRepository
     {
         private bool runtimeDownload;
+        // influances size of cache area
+        private double cacheFactor;
 
         public PoiRepository()
         {
             this.runtimeDownload = false;
+            this.cacheFactor = 0.5;
         }
 
+        private PoiSourceMem poiSourceMem;
         internal PoiSourceMem PoiSourceMem
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
             set
             {
+                this.poiSourceMem = value;
             }
         }
 
+        private PoiSourceHdd poiSourceHdd;
         internal PoiSourceHdd PoiSourceHdd
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
             set
             {
+                this.poiSourceHdd = value;
             }
         }
 
@@ -47,22 +47,42 @@ namespace TouristGuide.map.repository
             }
         }
 
-        public List<Poi> getPois(double topLeftLatitude, double topLeftLongitude,
-                            double bottomRightLatitude, double bottomRightLongitude)
+        public List<Poi> getPois(Area area)
         {
-            if (!poisAvailable())
-            {
-                throw new NoPoiOnAreaException("There are no pois for current area.");
-            }
-            List<Poi> pois = new List<Poi>();
+            List<Poi> pois = null;
             // get pois
+            pois = this.poiSourceMem.findPois(area);
+            if (pois == null)
+            {
+                Area cacheArea = newCacheArea(area);
+                pois = this.poiSourceHdd.findPois(cacheArea);
+                if (pois != null)
+                {
+                    this.poiSourceMem.setCacheArea(cacheArea);
+                    this.poiSourceMem.putPois(pois);
+                }
+                else
+                {
+                    string msg = "No pois for area: " + area;
+                    Debug.WriteLine("getPois: " + msg, ToString());
+                    throw new NoPoiOnAreaException(msg);
+                }
+
+            }
+
             return pois;
         }
 
-        private bool poisAvailable()
+        // create bigger area for cache
+        private Area newCacheArea(Area area)
         {
-            // TODO:
-            return false;
+            double deltaLatitude = Math.Abs(area.getTopLeftLatitude() - area.getBottomRightLatitude());
+            double deltaLongitude = Math.Abs(area.getTopLeftLongitude() - area.getBottomRightLongitude());
+            double topLeftLatitude = area.getTopLeftLatitude() + this.cacheFactor * deltaLatitude;
+            double topLeftLongitude = area.getTopLeftLongitude() - this.cacheFactor * deltaLongitude;
+            double bottomRightLatitude = area.getBottomRightLatitude() - this.cacheFactor * deltaLatitude;
+            double bottomRightLongitude = area.getBottomRightLongitude() + this.cacheFactor * deltaLongitude;
+            return new Area(topLeftLatitude, topLeftLongitude, bottomRightLatitude, bottomRightLongitude);
         }
 
         public void setRuntimeDownload()
