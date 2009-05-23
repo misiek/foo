@@ -37,6 +37,7 @@ namespace TouristGuide
 
         private String dirPath;
         private String mapsPath;
+        private string poisPath;
 
         private GpsDevice gpsDevice;
         private GpsSymulator gpsSymulator;
@@ -72,6 +73,7 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): directoryPath: " + this.dirPath);
             this.mapsPath = this.dirPath + "\\maps";
             Debug.WriteLine("AppContext(): mapsPath: " + this.mapsPath);
+            this.poisPath = this.dirPath + "\\pois";
 
             // config
             this.config = new Config();
@@ -124,8 +126,19 @@ namespace TouristGuide
             this.poiSourceWeb = new PoiSourceWeb();
             this.poiSourceWeb.Portal = this.portal;
 
+            // poi source mem
+            this.poiSourceMem = new PoiSourceMem();
+
+            // poi mapper hdd
+            this.poiMapperHdd = new PoiMapperHdd(this.poisPath);
+
+            // poi source hdd
+            this.poiSourceHdd = new PoiSourceHdd(this.poisPath, this.poiMapperHdd);
+
             // poi repository
             this.poiRepository = new PoiRepository();
+            this.poiRepository.PoiSourceMem = this.poiSourceMem;
+            this.poiRepository.PoiSourceHdd = this.poiSourceHdd;
             this.poiRepository.PoiSourceWeb = this.poiSourceWeb;
             Debug.WriteLine("AppContext(): PoiRepository instantiated.");
 

@@ -105,7 +105,7 @@
     <Position X="10.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>src\map\repository\PoiRepository.cs</FileName>
-      <HashCode>AACBAgABAAFAQAABQEAAAAAAAACBAAAAAAAAAAAQAAA=</HashCode>
+      <HashCode>AACBAgABAAFAQAABQECAAAAAAACBAAAEAAAAAAAQAAA=</HashCode>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PoiSourceMem" />
@@ -113,15 +113,15 @@
       <Property Name="PoiSourceWeb" />
     </ShowAsAssociation>
     <AssociationLine Name="PoiSourceMem" Type="TouristGuide.map.repository.PoiSourceMem">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.15" Y="0.487" />
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.39" Y="0.331" Height="0.16" Width="1.045" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="PoiSourceHdd" Type="TouristGuide.map.repository.PoiSourceHdd" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="11.938" Y="8.591" />
-        <Point X="11.938" Y="9.125" />
-        <Point X="12.875" Y="9.125" />
+        <Point X="11.938" Y="8.92" />
+        <Point X="11.938" Y="9.25" />
+        <Point X="12.875" Y="9.25" />
         <Point X="12.875" Y="9.5" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
@@ -130,8 +130,8 @@
     </AssociationLine>
     <AssociationLine Name="PoiSourceWeb" Type="TouristGuide.map.repository.PoiSourceWeb" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="12.25" Y="8.472" />
-        <Point X="12.448" Y="8.472" />
+        <Point X="12.25" Y="8.787" />
+        <Point X="12.448" Y="8.787" />
         <Point X="12.448" Y="8.767" />
         <Point X="14.75" Y="8.767" />
         <Point X="14.75" Y="9.5" />

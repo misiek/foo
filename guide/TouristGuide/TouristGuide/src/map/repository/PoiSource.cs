@@ -10,7 +10,5 @@ namespace TouristGuide.map.repository
     {
 
         List<Poi> findPois(Area area);
-
-        void putPois(List<Poi> pois);
     }
 }

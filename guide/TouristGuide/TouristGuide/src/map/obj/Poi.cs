@@ -17,11 +17,11 @@ namespace TouristGuide.map.obj
         // to be able to update poi from portal
         private DateTime updated;
 
-        public Poi(double latitude, double longitude)
+        public Poi(string name, double latitude, double longitude)
         {
+            this.name = name;
             this.latitude = latitude;
             this.longitude = longitude;
-            this.name = null;
             this.lang = null;
             this.type = null;
             this.descr = null;
@@ -44,23 +44,20 @@ namespace TouristGuide.map.obj
 
         public bool isDataFree()
         {
-            return this.name == null && this.descr == null;
+            return this.descr == null;
         }
 
         public void freeData()
         {
-            this.name = null;
             this.descr = null;
             this.lang = null;
             this.type = null;
         }
 
-        public void insertData(string name, string descr, string lang, string type)
+        public void insertData(string descr, string lang, string type)
         {
-            if (this.name == null && this.lang == null &&
-                this.type == null && this.descr == null)
+            if (this.lang == null && this.type == null && this.descr == null)
             {
-                this.name = name;
                 this.lang = lang;
                 this.type = type;
                 this.descr = descr;
@@ -88,7 +85,7 @@ namespace TouristGuide.map.obj
 
         public override string ToString()
         {
-            return "<poi " + this.name + " [" + this.latitude + ", " + this.longitude + "]>";
+            return this.name + "_" + this.latitude + "_" + this.longitude;
         }
 
         public string getName()

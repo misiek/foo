@@ -20,7 +20,7 @@ namespace TouristGuide.map.repository
 
         }
 
-        // loads pois without media - fast search
+        // loads pois without media -> fast search
         private void loadPoisFromHdd()
         {
             //this.pois.Add(...
@@ -49,13 +49,15 @@ namespace TouristGuide.map.repository
             return areaPois;
         }
 
-        public void putPois(List<Poi> pois)
+        public void putPois(List<Poi> pois, NamedArea namedArea)
         {
             foreach (Poi p in pois)
             {
                 if (!p.isDataFree())
                 {
-                    this.poiMapperHdd.save(p);
+                    string poiSubDir = namedArea.getName() + "\\" + p;
+                    this.poiMapperHdd.save(p, poiSubDir);
+                    p.free();
                 }
             }
             this.pois.AddRange(pois);

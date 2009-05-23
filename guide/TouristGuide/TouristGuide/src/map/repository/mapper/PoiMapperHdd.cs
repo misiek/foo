@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TouristGuide.map.obj;
+using System.Diagnostics;
 
 namespace TouristGuide.map.repository.mapper
 {
@@ -38,9 +39,9 @@ namespace TouristGuide.map.repository.mapper
 
         }
 
-        public void save(Poi poi)
+        public void save(Poi poi, string poiSubDir)
         {
-
+            Debug.WriteLine("save: poi: " + poi + ", dir: " + poiSubDir, ToString());
         }
     }
 }

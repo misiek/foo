@@ -86,7 +86,7 @@ namespace TouristGuide.map
         {
             Hashtable areas = this.poiRepository.getAreas();
 
-            this.poiRepository.downloadAreaPois((Area)areas["Kraków"]);
+            this.poiRepository.downloadAreaPois((NamedArea)areas["Kraków"]);
         }
 
         /// <summary>

@@ -13,6 +13,7 @@ namespace TouristGuide.map.repository
         private bool runtimeDownload;
         // influances size of cache area
         private double cacheFactor;
+        private NamedArea currentNamedArea;
 
         public PoiRepository()
         {
@@ -91,19 +92,22 @@ namespace TouristGuide.map.repository
         }
 
 
-        // TODO: should download pois for specified area
-        public void downloadAreaPois(Area area)
+        public void downloadAreaPois(NamedArea namedArea)
         {
             // download pois from the web server
-            List<Poi> pois = this.poiSourceWeb.findPois(area);
+            List<Poi> pois = this.poiSourceWeb.findPois(namedArea);
             // save downloaded pois
-            //this.PoiSourceMem.putPois(pois);
-            //this.PoiSourceHdd.putPois(pois);
+            this.poiSourceHdd.putPois(pois, namedArea);
         }
 
         public Hashtable getAreas()
         {
             return this.poiSourceWeb.findAreas();
+        }
+
+        public void setCurrentArea(NamedArea namedArea)
+        {
+            this.currentNamedArea = namedArea;
         }
     }
 }
