@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 
 namespace TouristGuide.map.obj
 {
@@ -9,6 +10,7 @@ namespace TouristGuide.map.obj
         private string title;
         private string descr;
         private Uri url;
+        private Object media;
 
         public MediaFile(string title, string descr, Uri url)
         {
@@ -35,6 +37,20 @@ namespace TouristGuide.map.obj
         public Uri getUrl()
         {
             return this.url;
+        }
+
+        public void setMedia(Object media)
+        {
+            if (this.media != null)
+            {
+                throw new Exception("Media conflict, replacing media not allowed.");
+            }
+            this.media = media;
+        }
+
+        public Object getMedia()
+        {
+            return this.media;
         }
     }
 }

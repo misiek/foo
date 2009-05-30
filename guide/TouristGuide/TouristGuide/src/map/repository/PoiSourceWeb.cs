@@ -9,6 +9,7 @@ using TouristGuide.map.obj;
 using TouristGuide.map.exception;
 using System.IO;
 using TouristGuide.map.repository.adapter;
+using System.Drawing;
 
 namespace TouristGuide.map.repository
 {
@@ -35,7 +36,6 @@ namespace TouristGuide.map.repository
                 PoisXmlAdapter poisAdapter = new PoisXmlAdapter(pois);
                 poisAdapter.parse(portalResponse);
 
-
                 Debug.WriteLine("findPois: after parse, pois count: " + pois.Count, ToString());
                 foreach (Poi poi in pois) {
                     Debug.WriteLine("findPois: poi name: " + poi.getName(), ToString());
@@ -58,6 +58,32 @@ namespace TouristGuide.map.repository
             }
 
             return pois;
+        }
+
+        public void downloadPoiMedia(Poi p)
+        {
+            List<MediaFile> allMediaFiles = new List<MediaFile>();
+            // poi's media files
+            allMediaFiles.AddRange(p.getMediaFiles());
+            // media files form details
+            foreach (MainDetail md in p.getMainDetails())
+            {
+                allMediaFiles.AddRange(md.getMediaFiles());
+            }
+            // poi's media files
+            foreach (MediaFile m in allMediaFiles)
+            {
+                Debug.WriteLine("downloading media file: uri: " + m.getUrl().ToString(), ToString());
+                try
+                {
+                    byte[] data = this.portal.download(m.getUrl());
+                    m.setMedia(new Bitmap(new MemoryStream(data)));
+                }
+                catch (PortalException e)
+                {
+                    Debug.WriteLine("loadPoiMedia: portal error: " + e.Message, ToString());
+                }
+            }
         }
 
         public void putPois(List<Poi> pois)

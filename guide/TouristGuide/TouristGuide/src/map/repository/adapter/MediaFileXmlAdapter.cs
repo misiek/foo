@@ -24,7 +24,29 @@ namespace TouristGuide.map.repository.adapter
 
         public override string serialize(object obj)
         {
-            throw new Exception("The method or operation is not implemented.");
+            MediaFile mf = (MediaFile)obj;
+            StringBuilder builder = new StringBuilder();
+            // opening tag eg. <media_file>
+            builder.Append("<");
+            builder.Append(getXmlNodeName());
+            builder.Append(">");
+            // title
+            builder.Append("<title>");
+            builder.Append(mf.getTitle());
+            builder.Append("</title>");
+            // description
+            builder.Append("<descr><![CDATA[");
+            builder.Append(mf.getDescr());
+            builder.Append("]]></descr>");
+            // url
+            builder.Append("<url><![CDATA[");
+            builder.Append(mf.getUrl());
+            builder.Append("]]></url>");
+            // closing tag eg. </media_file>
+            builder.Append("</");
+            builder.Append(getXmlNodeName());
+            builder.Append(">");
+            return builder.ToString();
         }
     }
 }

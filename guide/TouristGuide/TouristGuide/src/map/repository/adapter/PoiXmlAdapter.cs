@@ -40,8 +40,48 @@ namespace TouristGuide.map.repository.adapter
 
         public override string serialize(object obj)
         {
+            Poi p = (Poi)obj;
             StringBuilder builder = new StringBuilder();
-
+            // opening tag
+            builder.Append("<");
+            builder.Append(getXmlNodeName());
+            builder.Append(">");
+            // lang
+            builder.Append("<lang>");
+            builder.Append(p.getLang());
+            builder.Append("</lang>");
+            // name
+            builder.Append("<name>");
+            builder.Append(p.getName());
+            builder.Append("</name>");
+            // latitude
+            builder.Append("<latitude>");
+            builder.Append(p.getLatitude());
+            builder.Append("</latitude>");
+            // longitude
+            builder.Append("<longitude>");
+            builder.Append(p.getLongitude());
+            builder.Append("</longitude>");
+            // type
+            builder.Append("<type>");
+            builder.Append(p.getType());
+            builder.Append("</type>");
+            // description
+            builder.Append("<descr><![CDATA[");
+            builder.Append(p.getDescr());
+            builder.Append("]]></descr>");
+            // media files
+            MediaFilesXmlAdapter mfxa = new MediaFilesXmlAdapter(p.getMediaFiles());
+            string mediaFilesXml = mfxa.serialize();
+            builder.Append(mediaFilesXml);
+            // main details
+            MainDetailsXmlAdapter mdxa = new MainDetailsXmlAdapter(p.getMainDetails());
+            string mainDetailsXml = mdxa.serialize();
+            builder.Append(mainDetailsXml);
+            // closing tag
+            builder.Append("</");
+            builder.Append(getXmlNodeName());
+            builder.Append(">");
             return builder.ToString();
         }
     }

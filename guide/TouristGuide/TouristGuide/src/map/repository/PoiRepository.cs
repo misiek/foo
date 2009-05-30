@@ -97,7 +97,12 @@ namespace TouristGuide.map.repository
             // download pois from the web server
             List<Poi> pois = this.poiSourceWeb.findPois(namedArea);
             // save downloaded pois
-            this.poiSourceHdd.putPois(pois, namedArea);
+            foreach (Poi p in pois)
+            {
+                this.poiSourceWeb.downloadPoiMedia(p);
+                this.poiSourceHdd.put(p, namedArea);
+                p.free();
+            }
         }
 
         public Hashtable getAreas()

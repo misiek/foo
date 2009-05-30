@@ -36,14 +36,15 @@ namespace TouristGuide.map
                 "/lang/pl/?mobappid=" + mobappid;
 
             Debug.WriteLine("getPois: queryString: " + queryString, ToString());
-            return GET(queryString);
+            return GET(new Uri(queryString));
         }
 
-        private String GET(string url)
+        private string GET(Uri u)
         {
-            String responseStr = null;
+            string data = null;
 
-            WebRequest request = WebRequest.Create(url);
+            WebRequest request = WebRequest.Create(u);
+            request.Timeout = 15000; // 15 seconds in milliseconds
             //request.Proxy = null;
             request.Credentials = CredentialCache.DefaultCredentials;
 
@@ -52,15 +53,57 @@ namespace TouristGuide.map
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream dataStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(dataStream);
-                responseStr = reader.ReadToEnd();
+                data = reader.ReadToEnd();
             }
             catch (WebException e)
             {
                 Debug.WriteLine("GET: connection error: " + e.Message, ToString());
                 throw new PortalException("Connection error", e);
             }
-
-            return responseStr;
+            return data;
         }
+
+        public byte[] download(Uri u)
+        {
+            byte[] downloadedData = new byte[0];
+            try
+            {
+
+                //Get a data stream from the url
+                WebRequest req = WebRequest.Create(u);
+                WebResponse response = req.GetResponse();
+                Stream stream = response.GetResponseStream();
+
+                //Download in chuncks
+                byte[] buffer = new byte[1024];
+
+                //Get Total Size
+                int dataLength = (int)response.ContentLength;
+
+                //Download to memory
+                //Note: adjust the streams here to download directly to the hard drive
+                MemoryStream memStream = new MemoryStream();
+                int bytesRead = 0;
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    //Write the downloaded data
+                    memStream.Write(buffer, 0, bytesRead);
+                }
+
+                //Convert the downloaded stream to a byte array
+                downloadedData = memStream.ToArray();
+
+                //Clean up
+                stream.Close();
+                memStream.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("download: error: " + e.Message, ToString());
+                throw new PortalException("Donwload error", e);
+            }
+            return downloadedData;
+        }
+
     }
 }

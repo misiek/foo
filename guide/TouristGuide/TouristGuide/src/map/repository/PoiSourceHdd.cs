@@ -53,21 +53,21 @@ namespace TouristGuide.map.repository
         {
             foreach (Poi p in pois)
             {
-                if (!p.isDataFree())
-                {
-                    string poiSubDir = namedArea.getName() + "\\" + p;
-                    this.poiMapperHdd.save(p, poiSubDir);
-                    p.free();
-                }
+                put(p, namedArea);
             }
-            this.pois.AddRange(pois);
         }
 
         #endregion
 
-
-        
-
-
+        internal void put(Poi p, NamedArea namedArea)
+        {
+            if (!p.isDataFree())
+            {
+                string poiSubDir = namedArea.getName() + "\\" + p;
+                this.poiMapperHdd.save(p, poiSubDir);
+                p.free();
+                this.pois.Add(p);
+            }
+        }
     }
 }
