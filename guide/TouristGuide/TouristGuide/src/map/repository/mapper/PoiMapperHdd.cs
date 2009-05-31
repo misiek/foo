@@ -43,7 +43,7 @@ namespace TouristGuide.map.repository.mapper
 
         }
 
-        public void save(Poi poi, string poiSubDir)
+        private string createPoiXmlPath(string poiSubDir)
         {
             string poiDir = this.poisDir + "\\" + poiSubDir;
 
@@ -52,15 +52,46 @@ namespace TouristGuide.map.repository.mapper
                 Directory.CreateDirectory(poiDir);
             }
 
-            string pathToFile = poiDir  + "\\poi.xml";
+            return poiDir + "\\poi.xml";
+        }
 
-            Debug.WriteLine("save: poi: " + poi + ", path to file: " + pathToFile, ToString());
+        private string createPoiMediaFilesPath(string poiSubDir)
+        {
+            string mediaFilesDir = this.poisDir + "\\" + poiSubDir + "\\media_files";
 
+            if (!Directory.Exists(mediaFilesDir))
+            {
+                Directory.CreateDirectory(mediaFilesDir);
+            }
+
+            return mediaFilesDir;
+        }
+
+        public void save(Poi poi, string poiSubDir)
+        {
+            Debug.WriteLine("save: poi: " + poi, ToString());
+            string poiXmlFilePath = createPoiXmlPath(poiSubDir);
+            string poiMediaFilesPath = createPoiMediaFilesPath(poiSubDir);
             // serialize poi
             PoiXmlAdapter pxa = new PoiXmlAdapter();
             string poiXml = pxa.serialize(poi);
+            // save poi's xml
+            saveXml(poiXml, poiXmlFilePath);
+            // save poi's media
+            saveMediaFiles(poi.getAllMediaFiles(), poiMediaFilesPath);
+        }
 
-            saveXml(poiXml, pathToFile);
+        private void saveMediaFiles(List<MediaFile> mediaFiles, string poiMediaFilesPath)
+        {
+            foreach (MediaFile m in mediaFiles)
+            {
+                byte[] mediaBytes = m.getMedia();
+                string mediaFilePath = poiMediaFilesPath + "\\" + m.getFileName();
+                FileStream f = File.Create(mediaFilePath);
+                f.Write(mediaBytes, 0, mediaBytes.Length);
+                f.Flush();
+                f.Close();
+            }
         }
 
         private void saveXml(string xml, string pathToFile)

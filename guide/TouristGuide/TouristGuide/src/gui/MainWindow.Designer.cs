@@ -35,13 +35,13 @@ namespace TouristGuide.gui
             this.menuStartSymulator = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.labelPosition = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.mapPanel = new TouristGuide.gui.MapPanel();
             this.mapMessageBox = new System.Windows.Forms.Label();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.mapPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +76,11 @@ namespace TouristGuide.gui
             // menuItem5
             // 
             this.menuItem5.Text = "Exit";
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Text = "Download POIs";
+            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
             // label1
             // 
@@ -120,18 +125,13 @@ namespace TouristGuide.gui
             // 
             // mapMessageBox
             // 
-            this.mapMessageBox.BackColor = System.Drawing.Color.Khaki;
+            this.mapMessageBox.BackColor = System.Drawing.Color.Red;
             this.mapMessageBox.Font = new System.Drawing.Font("Courier New", 8F, System.Drawing.FontStyle.Regular);
             this.mapMessageBox.Location = new System.Drawing.Point(0, 0);
             this.mapMessageBox.Name = "mapMessageBox";
             this.mapMessageBox.Size = new System.Drawing.Size(234, 18);
             this.mapMessageBox.Text = "Map message box.";
             this.mapMessageBox.Visible = false;
-            // 
-            // menuItem2
-            // 
-            this.menuItem2.Text = "Download POIs";
-            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
             // MainWindow
             // 

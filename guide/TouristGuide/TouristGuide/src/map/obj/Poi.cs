@@ -137,5 +137,21 @@ namespace TouristGuide.map.obj
         {
             this.updated = updated;
         }
+
+        /**
+         * Returns all media files, also from main details.
+         */
+        public List<MediaFile> getAllMediaFiles()
+        {
+            List<MediaFile> allMediaFiles = new List<MediaFile>();
+            // poi's media files
+            allMediaFiles.AddRange(getMediaFiles());
+            // media files form details
+            foreach (MainDetail md in getMainDetails())
+            {
+                allMediaFiles.AddRange(md.getMediaFiles());
+            }
+            return allMediaFiles;
+        }
     }
 }

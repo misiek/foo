@@ -30,7 +30,7 @@ namespace TouristGuide.map.repository
             this.mapsDir = mapsDir;
             this.mapPkgMapperHdd = mapPkgMapperHdd;
             this.zoom = 0;
-            readMapsDir();
+            //readMapsDir();
         }
 
         /*
@@ -39,6 +39,7 @@ namespace TouristGuide.map.repository
          */
         public void readMapsDir()
         {
+            string msg = "Reading map pkg: ";            
             this.availableMapPkgs = new List<MapPackage>();
             string zoomMapsDir = this.mapsDir + "\\zoom_" + this.zoom;
             DirectoryInfo[] dirs;
@@ -52,8 +53,11 @@ namespace TouristGuide.map.repository
                 Debug.WriteLine("MapSourceHdd: readMapsDir: can't read zoom maps dir: " + zoomMapsDir);
                 throw new MapSourceException("error reading zoom maps dir", e);
             }
+            int i = 0;
             foreach (DirectoryInfo dir in dirs)
             {
+                if (loadingMapPkgEvent != null)
+                    loadingMapPkgEvent(msg + i + "/" + dirs.Length);
                 FileInfo[] mapFileInfo = dir.GetFiles("map.xml");
                 if (mapFileInfo.Length > 0)
                 {
@@ -72,6 +76,7 @@ namespace TouristGuide.map.repository
                         throw new MapSourceException("error adding map package", e);
                     }
                 }
+                i++;
             }
         }
 
@@ -83,6 +88,11 @@ namespace TouristGuide.map.repository
         /// <returns>MapPackage instance.</returns>
         public MapPackage findMapPkg(double latitude, double longitude, int zoom)
         {
+            if (this.availableMapPkgs == null)
+            {
+                readMapsDir();
+            }
+
             if (this.zoom != zoom)
                 changeZoom(zoom);
             foreach (MapPackage mapPkg in availableMapPkgs)
@@ -91,7 +101,7 @@ namespace TouristGuide.map.repository
                 if (mapPkg.coordinatesMatches(latitude, longitude))
                 {
                     if (loadingMapPkgEvent != null)
-                        loadingMapPkgEvent("Loading map. Please wait...");
+                        loadingMapPkgEvent("Loading map images...");
                     if (mapPkg.isPartsFree())
                         this.mapPkgMapperHdd.loadImages(mapPkg);
                     //Debug.WriteLine("MapSourceHdd: findMapPkg: found map pkg: " + mapPkg);

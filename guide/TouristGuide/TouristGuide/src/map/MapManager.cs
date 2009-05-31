@@ -84,9 +84,12 @@ namespace TouristGuide.map
 
         public void downloadPois()
         {
+            string msg = "Donwloading pois...";
+            this.mapDisplayer.displayMessage(msg);
             Hashtable areas = this.poiRepository.getAreas();
 
             this.poiRepository.downloadAreaPois((NamedArea)areas["Kraków"]);
+            this.mapDisplayer.hideMessage(msg);
         }
 
         /// <summary>

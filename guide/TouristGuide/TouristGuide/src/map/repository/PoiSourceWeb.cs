@@ -62,22 +62,13 @@ namespace TouristGuide.map.repository
 
         public void downloadPoiMedia(Poi p)
         {
-            List<MediaFile> allMediaFiles = new List<MediaFile>();
-            // poi's media files
-            allMediaFiles.AddRange(p.getMediaFiles());
-            // media files form details
-            foreach (MainDetail md in p.getMainDetails())
-            {
-                allMediaFiles.AddRange(md.getMediaFiles());
-            }
-            // poi's media files
-            foreach (MediaFile m in allMediaFiles)
+            foreach (MediaFile m in p.getAllMediaFiles())
             {
                 Debug.WriteLine("downloading media file: uri: " + m.getUrl().ToString(), ToString());
                 try
                 {
-                    byte[] data = this.portal.download(m.getUrl());
-                    m.setMedia(new Bitmap(new MemoryStream(data)));
+                    byte[] mediaData = this.portal.download(m.getUrl());
+                    m.setMedia(mediaData);
                 }
                 catch (PortalException e)
                 {

@@ -10,7 +10,7 @@ namespace TouristGuide.map.obj
         private string title;
         private string descr;
         private Uri url;
-        private Object media;
+        private byte[] mediaBytes;
 
         public MediaFile(string title, string descr, Uri url)
         {
@@ -39,18 +39,23 @@ namespace TouristGuide.map.obj
             return this.url;
         }
 
-        public void setMedia(Object media)
+        public void setMedia(byte[] mediaBytes)
         {
-            if (this.media != null)
+            if (this.mediaBytes != null)
             {
                 throw new Exception("Media conflict, replacing media not allowed.");
             }
-            this.media = media;
+            this.mediaBytes = mediaBytes;
         }
 
-        public Object getMedia()
+        public byte[] getMedia()
         {
-            return this.media;
+            return this.mediaBytes;
+        }
+
+        public string getFileName()
+        {
+            return this.url.Segments[this.url.Segments.Length - 1];
         }
     }
 }
