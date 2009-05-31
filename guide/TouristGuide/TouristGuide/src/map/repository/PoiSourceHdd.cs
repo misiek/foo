@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using TouristGuide.map.obj;
 using TouristGuide.map.repository.mapper;
+using TouristGuide.map.repository.exception;
+using System.IO;
+using System.Diagnostics;
 
 namespace TouristGuide.map.repository
 {
@@ -11,25 +14,63 @@ namespace TouristGuide.map.repository
         private List<Poi> pois;
         private PoiMapperHdd poiMapperHdd;
         private string poisDir;
+        private NamedArea currentNamedArea;
 
         public PoiSourceHdd(string poisDir, PoiMapperHdd poiMapperHdd)
         {
             this.poisDir = poisDir;
             this.poiMapperHdd = poiMapperHdd;
             this.pois = new List<Poi>();
-
         }
 
         // loads pois without media -> fast search
-        private void loadPoisFromHdd()
+        private void readPoisDir()
         {
-            //this.pois.Add(...
+            this.pois = new List<Poi>();
+            string poisAreaDir = this.poisDir + "\\" + currentNamedArea.getName();
+            // get poi dirs
+            DirectoryInfo[] dirs;
+            try
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(poisAreaDir);
+                dirs = dirInfo.GetDirectories();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("readPoisDir: can't read dir: " + poisAreaDir, ToString());
+                throw new PoiSourceException("error reading pois dir", e);
+            }
+            // read each poi
+            foreach (DirectoryInfo dir in dirs)
+            {
+                FileInfo[] poiFileInfo = dir.GetFiles("poi.xml");
+                if (poiFileInfo.Length > 0)
+                {
+                    Debug.WriteLine("readPoisDir(): found poi, dir: " + dir.Name, ToString());
+                    try
+                    {
+                        string poiSubDir = getPoiSubDir(dir.Name, this.currentNamedArea);
+                        Poi poi = this.poiMapperHdd.getEmpty(poiSubDir);
+                        this.pois.Add(poi);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("readPoisDir: couldn't add poi from dir '"
+                                + dir.Name + "' due to error: " + e.Message);
+                        throw new PoiSourceException("error adding poi", e);
+                    }
+                }
+            }
         }
 
         #region PoiSource Members
 
         public List<Poi> findPois(Area area)
         {
+            if (this.pois.Count == 0)
+            {
+                readPoisDir();
+            }
             List<Poi> areaPois =  this.pois.FindAll(
                 delegate(Poi p) { 
                     return p.getLatitude() <= area.getTopLeftLatitude() &&
@@ -42,7 +83,7 @@ namespace TouristGuide.map.repository
             {
                 if (p.isDataFree())
                 {
-                    this.poiMapperHdd.loadData(p);
+                    this.poiMapperHdd.loadData(p, getPoiSubDir(p, this.currentNamedArea));
                 }
             }
 
@@ -63,11 +104,35 @@ namespace TouristGuide.map.repository
         {
             if (!p.isDataFree())
             {
-                string poiSubDir = namedArea.getName() + "\\" + p;
-                this.poiMapperHdd.save(p, poiSubDir);
+                this.poiMapperHdd.save(p, getPoiSubDir(p, namedArea));
                 p.free();
-                this.pois.Add(p);
+                if (!this.pois.Contains(p))
+                {
+                    this.pois.Add(p);
+                }
             }
+        }
+
+        /**
+         * Returns poi sub dir by poi and named area
+         */
+        private string getPoiSubDir(Poi p, NamedArea namedArea)
+        {
+            return getPoiSubDir(p.ToString(), namedArea);
+        }
+
+        /**
+         * Returns poi sub dir by dir name and named area
+         */
+        private string getPoiSubDir(string dirName, NamedArea namedArea)
+        {
+            return namedArea.getName() + "\\" + dirName;
+        }
+
+        public void setCurrentArea(NamedArea namedArea)
+        {
+            this.currentNamedArea = namedArea;
+            readPoisDir();
         }
     }
 }

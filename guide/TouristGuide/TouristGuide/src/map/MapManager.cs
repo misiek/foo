@@ -21,6 +21,7 @@ namespace TouristGuide.map
         private int currentZoom;
         private ArrayList orderingPoints;
         private string loadingEventMsg;
+        private NamedArea currentNamedArea;
 
         // hash table with point surroundings
         private Hashtable pointSurroundings;      
@@ -107,6 +108,18 @@ namespace TouristGuide.map
             this.loadingEventMsg = "";
         }
 
+        // TODO: should find area by current gps location,
+        // but not there is only one area: Kraków
+        private void findCurrentArea()
+        {
+            if (this.currentNamedArea == null)
+            {
+                Hashtable areas = this.poiRepository.getAreas();
+                this.currentNamedArea = (NamedArea)areas["Kraków"];
+                this.poiRepository.setCurrentArea(this.currentNamedArea);
+            }
+        }
+
         public void newPosition(GpsLocation gpsLocation)
         {
             // when gps location is known (valid) try to get map for region and create map view
@@ -121,7 +134,10 @@ namespace TouristGuide.map
                         return;
                     }
                 }
+                // set current gps location
                 this.currentGpsLocation = gpsLocation;
+                // find current named area for pois by current gps location
+                findCurrentArea();
                 double latitude = this.currentGpsLocation.getLatitude();
                 double longitude = this.currentGpsLocation.getLongitude();
                 // when current map pkg doesn't match get pkg from repository

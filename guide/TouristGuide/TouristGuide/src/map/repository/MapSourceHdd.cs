@@ -88,13 +88,12 @@ namespace TouristGuide.map.repository
         /// <returns>MapPackage instance.</returns>
         public MapPackage findMapPkg(double latitude, double longitude, int zoom)
         {
+            if (this.zoom != zoom)
+                changeZoom(zoom);
             if (this.availableMapPkgs == null)
             {
                 readMapsDir();
             }
-
-            if (this.zoom != zoom)
-                changeZoom(zoom);
             foreach (MapPackage mapPkg in availableMapPkgs)
             {
                 //Debug.WriteLine("MapSourceHdd: findMapPkg: checking: " + mapPkg);

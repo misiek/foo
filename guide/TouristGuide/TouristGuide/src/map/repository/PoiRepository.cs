@@ -113,6 +113,7 @@ namespace TouristGuide.map.repository
         public void setCurrentArea(NamedArea namedArea)
         {
             this.currentNamedArea = namedArea;
+            this.poiSourceHdd.setCurrentArea(namedArea);
         }
     }
 }
