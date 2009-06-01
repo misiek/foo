@@ -251,5 +251,15 @@ namespace TouristGuide.map.obj
             return new Point(x_px, y_px);
         }
 
+        public double getLatitudePerPixel()
+        {
+            return Math.Abs(this.topLeftLatitude - this.bottomRightLatitude) / this.height;
+        }
+
+        public double getLongitudePerPixel()
+        {
+            return Math.Abs(this.bottomRightLongitude - this.topLeftLongitude) / this.width;
+        }
+
     }
 }

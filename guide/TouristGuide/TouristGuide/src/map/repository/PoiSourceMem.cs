@@ -36,7 +36,7 @@ namespace TouristGuide.map.repository
         {
             if (this.cacheArea == null)
             {
-                throw new PoiSourceException("Set cache area first.");
+                return null;
             }
             List<Poi> areaPois = null;
             if (this.cacheArea.contains(area))
@@ -44,16 +44,9 @@ namespace TouristGuide.map.repository
                 areaPois = this.cachedPois.FindAll(
                     delegate(Poi p)
                     {
-                        return p.getLatitude() <= area.getTopLeftLatitude() &&
-                               p.getLatitude() >= area.getBottomRightLatitude() &&
-                               p.getLongitude() >= area.getTopLeftLongitude() &&
-                               p.getLongitude() <= area.getBottomRightLongitude();
+                        return area.contains(p);
                     }
                 );
-            }
-            else
-            {
-                throw new PoiSourceException("Given area outisde cache area.");
             }
             return areaPois;
         }

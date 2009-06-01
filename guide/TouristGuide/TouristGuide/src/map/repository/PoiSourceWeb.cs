@@ -35,22 +35,6 @@ namespace TouristGuide.map.repository
                 // process response
                 PoisXmlAdapter poisAdapter = new PoisXmlAdapter(pois);
                 poisAdapter.parse(portalResponse);
-
-                Debug.WriteLine("findPois: after parse, pois count: " + pois.Count, ToString());
-                foreach (Poi poi in pois) {
-                    Debug.WriteLine("findPois: poi name: " + poi.getName(), ToString());
-                    Debug.WriteLine("findPois: poi media files: " + poi.getMediaFiles().Count, ToString());
-                    if (poi.getMediaFiles().Count>0)
-                        Debug.WriteLine("findPois: poi media file 0: " + poi.getMediaFiles()[0].getTitle(), ToString());
-                    Debug.WriteLine("findPois: poi main details: " + poi.getMainDetails().Count, ToString());
-                    if (poi.getMainDetails().Count>0)
-                    {
-                        Debug.WriteLine("findPois: poi main detail 0: " + poi.getMainDetails()[0].getTitle(), ToString());
-                        Debug.WriteLine("findPois: poi mein detail 0 - media files: " + poi.getMainDetails()[0].getMediaFiles().Count, ToString());
-                    }
-                    Debug.WriteLine("---------------------------------", ToString());
-                }
-                
             }
             catch (PortalException e)
             {

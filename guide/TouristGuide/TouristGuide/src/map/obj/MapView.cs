@@ -17,8 +17,10 @@ namespace TouristGuide.map.obj
         private ArrayList orderingPoints;
         // images - hashtable (Point => Bitmap)
         private Hashtable viewParts;
-        // TODO: change type to more suitable
-        private object[] pois;
+        // pois list
+        private List<Poi> pois;
+        // current view area
+        private Area area;
 
         // images - hashtable (Point => Bitmap)
         public MapView(GpsLocation gpsLocation, Point centerImgLocation, Hashtable viewParts, ArrayList orderingPoints)
@@ -52,6 +54,25 @@ namespace TouristGuide.map.obj
             return this.gpsLocation;
         }
 
+        public List<Poi> getPois()
+        {
+            return this.pois;
+        }
+
+        public void setPois(List<Poi> pois)
+        {
+            this.pois = pois;
+        }
+
+        public Area getArea()
+        {
+            return this.area;
+        }
+
+        public void setArea(Area area)
+        {
+            this.area = area;
+        }
 
     }
 }

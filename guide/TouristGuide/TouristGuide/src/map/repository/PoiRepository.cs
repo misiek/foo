@@ -51,24 +51,35 @@ namespace TouristGuide.map.repository
         public List<Poi> getPois(Area area)
         {
             List<Poi> pois = null;
+            //Debug.WriteLine("getPois: area: " + area, ToString());
             // get pois
-            pois = this.poiSourceMem.findPois(area);
-            if (pois == null)
+            try
             {
-                Area cacheArea = newCacheArea(area);
-                pois = this.poiSourceHdd.findPois(cacheArea);
-                if (pois != null)
+                pois = this.poiSourceMem.findPois(area);
+            
+                if (pois == null || pois.Count == 0)
                 {
-                    this.poiSourceMem.setCacheArea(cacheArea);
-                    this.poiSourceMem.putPois(pois);
-                }
-                else
-                {
-                    string msg = "No pois for area: " + area;
-                    Debug.WriteLine("getPois: " + msg, ToString());
-                    throw new NoPoiOnAreaException(msg);
+                    Area cacheArea = newCacheArea(area);
+                    //Debug.WriteLine("getPois: new cache area: " + cacheArea, ToString());
+                    pois = this.poiSourceHdd.findPois(cacheArea);
+                    if (pois != null && pois.Count > 0)
+                    {
+                        this.poiSourceMem.setCacheArea(cacheArea);
+                        this.poiSourceMem.putPois(pois);
+                    }
+                    else
+                    {
+                        string msg = "No pois for area: " + area;
+                        Debug.WriteLine("getPois: " + msg, ToString());
+                        throw new NoPoiOnAreaException(msg);
+                    }
+
                 }
 
+            }
+            catch (PoiSourceException e)
+            {
+                throw new NoPoiOnAreaException("Problem with poi source.", e);
             }
 
             return pois;
@@ -79,10 +90,13 @@ namespace TouristGuide.map.repository
         {
             double deltaLatitude = Math.Abs(area.getTopLeftLatitude() - area.getBottomRightLatitude());
             double deltaLongitude = Math.Abs(area.getTopLeftLongitude() - area.getBottomRightLongitude());
+
             double topLeftLatitude = area.getTopLeftLatitude() + this.cacheFactor * deltaLatitude;
             double topLeftLongitude = area.getTopLeftLongitude() - this.cacheFactor * deltaLongitude;
+            
             double bottomRightLatitude = area.getBottomRightLatitude() - this.cacheFactor * deltaLatitude;
             double bottomRightLongitude = area.getBottomRightLongitude() + this.cacheFactor * deltaLongitude;
+            
             return new Area(topLeftLatitude, topLeftLongitude, bottomRightLatitude, bottomRightLongitude);
         }
 

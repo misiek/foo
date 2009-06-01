@@ -35,7 +35,7 @@ namespace TouristGuide.map.repository.mapper
          */
         public Poi getEmpty(string poiSubDir)
         {
-            Debug.WriteLine("getEmpty: poi sub dir: " + poiSubDir, ToString());
+            //Debug.WriteLine("getEmpty: poi sub dir: " + poiSubDir, ToString());
             string name = "";
             double latitude = 0;
             double longitude = 0;
@@ -61,7 +61,7 @@ namespace TouristGuide.map.repository.mapper
          */
         public void loadData(Poi poi, string poiSubDir)
         {
-            Debug.WriteLine("loadData: poi sub dir: " + poiSubDir, ToString());
+            //Debug.WriteLine("loadData: poi sub dir: " + poiSubDir, ToString());
             string descr = "";
             string lang = "";
             string type = "";
@@ -87,7 +87,7 @@ namespace TouristGuide.map.repository.mapper
          */
         public void loadMedia(Poi poi, string poiSubDir)
         {
-            Debug.WriteLine("loadMedia: poi sub dir: " + poiSubDir, ToString());
+            //Debug.WriteLine("loadMedia: poi sub dir: " + poiSubDir, ToString());
             // load xml document
             XmlDocument poiXmlDoc = new XmlDocument();
             string poiXmlPath = getPoiXmlPath(poiSubDir);

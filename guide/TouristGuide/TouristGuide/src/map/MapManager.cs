@@ -9,6 +9,7 @@ using TouristGuide.map.repository;
 using TouristGuide.map.obj;
 using TouristGuide.map.exception;
 using Gps;
+using TouristGuide.map.repository.exception;
 
 namespace TouristGuide.map
 {
@@ -159,6 +160,21 @@ namespace TouristGuide.map
                 }
                 // create current view when map pkg was found
                 MapView mv = createCurrentView();
+                // get pois
+                try
+                {
+                    List<Poi> pois = this.poiRepository.getPois(mv.getArea());
+                    Debug.WriteLine("Found pois:", this.ToString());
+                    foreach (Poi p in pois)
+                    {
+                        Debug.WriteLine(" *** " + p, this.ToString());
+                    }
+                    mv.setPois(pois);
+                }
+                catch (NoPoiOnAreaException e)
+                {
+                    Debug.WriteLine("No pois for view, reason: " + e.Message, this.ToString());
+                }
                 if (mv != null)
                 {
                     // display map view
@@ -202,7 +218,7 @@ namespace TouristGuide.map
             // map view has only sense when there is center map part
             if (viewParts[centerViewPoint] == null)
             {
-                Debug.WriteLine("Cant get center part! viewParts[centerViewPoint] is null - skipping.", this.ToString());
+                Debug.WriteLine("Can't get center part! viewParts[centerViewPoint] is null - skipping.", this.ToString());
                 // return when center part is null
                 return null;
             }
@@ -269,8 +285,35 @@ namespace TouristGuide.map
                 mapLoaded();
             // create map view
             MapView mapView = new MapView(this.currentGpsLocation, insidePartPosition, viewParts, this.orderingPoints);
+            Area mapViewArea = countMapViewArea(mapView);
+            mapView.setArea(mapViewArea);
             Debug.WriteLine("-----------------------------\n", ToString());
             return mapView;
+        }
+
+        private Area countMapViewArea(MapView mapView)
+        {
+
+            Point centerImgLocation = mapView.getCenterImgLocation();
+            GpsLocation gpsLoc = mapView.getGpsLocation();
+
+            Image topLeftPart = mapView.getImgByPoint(new Point(0, 0));
+            int pixelsToLeftEdge = topLeftPart.Size.Width + centerImgLocation.X;
+            int pixelsToTopEdge = topLeftPart.Size.Height + centerImgLocation.Y;
+            Image bottomRightPart = mapView.getImgByPoint(new Point(2, 2));
+            Image centerPart = mapView.getImgByPoint(new Point(1, 1));
+            int pixelsToRightEdge = bottomRightPart.Width + centerPart.Width - centerImgLocation.X;
+            int pixelsToBottomEdge = bottomRightPart.Width + centerPart.Width - centerImgLocation.X;
+
+            double latitudePerPixel = this.currentMapPkg.getLatitudePerPixel();
+            double longitudePerPixel = this.currentMapPkg.getLongitudePerPixel();
+
+            double topLeftLatitude = gpsLoc.getLatitude() + pixelsToTopEdge * latitudePerPixel;
+            double topLeftLongitude = gpsLoc.getLongitude() - pixelsToLeftEdge * longitudePerPixel;
+            double bottomRightLatitude = gpsLoc.getLatitude() - pixelsToBottomEdge * latitudePerPixel;
+            double bottomRightLongitude = gpsLoc.getLongitude() + pixelsToRightEdge * longitudePerPixel;
+
+            return new Area(topLeftLatitude, topLeftLongitude, bottomRightLatitude, bottomRightLongitude);
         }
 
         private Point addPoints(Point p1, Point p2)

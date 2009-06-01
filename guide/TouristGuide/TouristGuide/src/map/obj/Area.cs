@@ -58,5 +58,12 @@ namespace TouristGuide.map.obj
         {
             return this.bottomRightLongitude;
         }
+
+        public override string ToString()
+        {
+            return "Area(" + this.topLeftLatitude + ", " + this.topLeftLongitude +
+                   "; " + this.bottomRightLatitude + ", " + this.bottomRightLongitude + ")";
+        }
+    
     }
 }

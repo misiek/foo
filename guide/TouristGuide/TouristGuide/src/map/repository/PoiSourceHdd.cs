@@ -20,7 +20,6 @@ namespace TouristGuide.map.repository
         {
             this.poisDir = poisDir;
             this.poiMapperHdd = poiMapperHdd;
-            this.pois = new List<Poi>();
         }
 
         // loads pois without media -> fast search
@@ -38,7 +37,7 @@ namespace TouristGuide.map.repository
             catch (Exception e)
             {
                 Debug.WriteLine("readPoisDir: can't read dir: " + poisAreaDir, ToString());
-                throw new PoiSourceException("error reading pois dir", e);
+                return;
             }
             // read each poi
             foreach (DirectoryInfo dir in dirs)
@@ -57,7 +56,6 @@ namespace TouristGuide.map.repository
                     {
                         Debug.WriteLine("readPoisDir: couldn't add poi from dir '"
                                 + dir.Name + "' due to error: " + e.Message);
-                        throw new PoiSourceException("error adding poi", e);
                     }
                 }
             }
@@ -67,16 +65,13 @@ namespace TouristGuide.map.repository
 
         public List<Poi> findPois(Area area)
         {
-            if (this.pois.Count == 0)
+            if (this.pois == null)
             {
                 readPoisDir();
             }
             List<Poi> areaPois =  this.pois.FindAll(
                 delegate(Poi p) { 
-                    return p.getLatitude() <= area.getTopLeftLatitude() &&
-                           p.getLatitude() >= area.getBottomRightLatitude() &&
-                           p.getLongitude() >= area.getTopLeftLongitude() &&
-                           p.getLongitude() <= area.getBottomRightLongitude();
+                    return area.contains(p);
                 }
             );
             foreach (Poi p in areaPois)
@@ -102,6 +97,10 @@ namespace TouristGuide.map.repository
 
         internal void put(Poi p, NamedArea namedArea)
         {
+            if (this.pois == null)
+            {
+                this.pois = new List<Poi>();
+            }
             if (!p.isDataFree())
             {
                 this.poiMapperHdd.save(p, getPoiSubDir(p, namedArea));
