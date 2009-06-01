@@ -17,10 +17,13 @@ namespace TouristGuide.map.obj
         private ArrayList orderingPoints;
         // images - hashtable (Point => Bitmap)
         private Hashtable viewParts;
-        // pois list
+        // pois
         private List<Poi> pois;
         // current view area
         private Area area;
+
+        private double latitudePerPixel;
+        private double longitudePerPixel;
 
         // images - hashtable (Point => Bitmap)
         public MapView(GpsLocation gpsLocation, Point centerImgLocation, Hashtable viewParts, ArrayList orderingPoints)
@@ -64,6 +67,16 @@ namespace TouristGuide.map.obj
             this.pois = pois;
         }
 
+        public Point getPoiPixelCoordinates(Poi p)
+        {
+            double deltaLongitude = Math.Abs(this.area.getTopLeftLongitude() - p.getLongitude());
+            double deltaLatitude = Math.Abs(this.area.getTopLeftLatitude() - p.getLatitude());
+
+            int x = (int) Math.Floor(deltaLongitude / this.longitudePerPixel);
+            int y = (int) Math.Floor(deltaLatitude / this.latitudePerPixel);
+            return new Point(x, y);
+        }
+
         public Area getArea()
         {
             return this.area;
@@ -72,6 +85,16 @@ namespace TouristGuide.map.obj
         public void setArea(Area area)
         {
             this.area = area;
+        }
+
+        public void setLatitudePerPixel(double latitudePerPixel)
+        {
+            this.latitudePerPixel = latitudePerPixel;
+        }
+
+        public void setLongitudePerPixel(double longitudePerPixel)
+        {
+            this.longitudePerPixel = longitudePerPixel;
         }
 
     }

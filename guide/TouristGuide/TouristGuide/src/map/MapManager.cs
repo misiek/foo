@@ -284,9 +284,12 @@ namespace TouristGuide.map
             if (this.loadingEventMsg != "")
                 mapLoaded();
             // create map view
-            MapView mapView = new MapView(this.currentGpsLocation, insidePartPosition, viewParts, this.orderingPoints);
+            MapView mapView = new MapView(this.currentGpsLocation, insidePartPosition, 
+                viewParts, this.orderingPoints);
             Area mapViewArea = countMapViewArea(mapView);
             mapView.setArea(mapViewArea);
+            mapView.setLatitudePerPixel(this.currentMapPkg.getLatitudePerPixel());
+            mapView.setLongitudePerPixel(this.currentMapPkg.getLongitudePerPixel());
             Debug.WriteLine("-----------------------------\n", ToString());
             return mapView;
         }

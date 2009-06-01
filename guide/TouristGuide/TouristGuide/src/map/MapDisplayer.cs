@@ -27,6 +27,8 @@ namespace TouristGuide.map
         private Color mapMessageBoxDefaultColor;
         private Color mapMessageBoxColor;
 
+        private Hashtable poiLabels = new Hashtable();
+
         public MapDisplayer(MapPanel mapPanel)
         {
             this.mapPanel = mapPanel;
@@ -177,7 +179,30 @@ namespace TouristGuide.map
             // just for test
             //this.mapPanel.showDirectionLine(new Point(50, 50));
             // refresh map panel
+            //this.mapPanel.Refresh();
+
+            foreach (Poi poi in mapView.getPois())
+            {
+             
+                if (!poiLabels.ContainsKey(poi.ToString()))
+                {
+                    // TODO: Add poi gui element class
+                    Label newLabel = new Label();
+                    poiLabels[poi.ToString()] = newLabel;
+                    this.mapPanel.Controls.Add(newLabel);
+                }
+                Label l = (Label)poiLabels[poi.ToString()];
+
+                Point poiMapViewPosition = mapView.getPoiPixelCoordinates(poi);
+
+                l.Location = new Point(poiMapViewPosition.X, poiMapViewPosition.Y);
+                l.Text = poi.getName();
+                
+
+            }
+
             this.mapPanel.Refresh();
         }
+
     }
 }
