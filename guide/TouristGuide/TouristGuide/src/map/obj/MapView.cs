@@ -11,8 +11,10 @@ namespace TouristGuide.map.obj
     {
         // gps location
         private GpsLocation gpsLocation;
-        // relative coordinates inside map view (pixels)
-        private Point centerImgLocation;
+        // relative coordinates inside center image map part (pixels)
+        private Point positionOnCenterImgPart;
+        // relative coordinates on map view (pixels)
+        private Point positionOnImg;
         // table with points which are keys in viewParts, determine order of displaying
         private ArrayList orderingPoints;
         // images - hashtable (Point => Bitmap)
@@ -26,15 +28,27 @@ namespace TouristGuide.map.obj
         private double longitudePerPixel;
 
         // images - hashtable (Point => Bitmap)
-        public MapView(GpsLocation gpsLocation, Point centerImgLocation, Hashtable viewParts, ArrayList orderingPoints)
+        public MapView(GpsLocation gpsLocation, Point positionOnCenterImgPart, Hashtable viewParts, ArrayList orderingPoints)
         {
-            this.gpsLocation = gpsLocation;
-            this.centerImgLocation = centerImgLocation;
-            this.orderingPoints = orderingPoints;
             // check if view parts contains center image
             if (viewParts[new Point(1, 1)] == null)
                 throw new Exception("Can't instantiate map view without center image!");
+            this.gpsLocation = gpsLocation;
             this.viewParts = viewParts;
+
+            Image topLeftPart = (Image)viewParts[new Point(0, 0)];
+            int positionOnImgX = positionOnCenterImgPart.X;
+            int positionOnImgY = positionOnCenterImgPart.Y;
+            if (topLeftPart != null)
+            {
+                positionOnImgX += topLeftPart.Width;
+                positionOnImgY += topLeftPart.Height;
+            }
+
+            this.positionOnCenterImgPart = positionOnCenterImgPart;
+            this.positionOnImg = new Point(positionOnImgX, positionOnImgY);
+
+            this.orderingPoints = orderingPoints;
         }
 
         public ArrayList getOrderingPoints()
@@ -47,9 +61,14 @@ namespace TouristGuide.map.obj
             return (Image)this.viewParts[p];
         }
 
-        public Point getCenterImgLocation()
+        public Point getPositionOnCenterImgPart()
         {
-            return this.centerImgLocation;
+            return this.positionOnCenterImgPart;
+        }
+
+        public Point getPositionOnImg()
+        {
+            return this.positionOnImg;
         }
 
         public GpsLocation getGpsLocation()

@@ -144,7 +144,7 @@ namespace TouristGuide.map
                     // Map MOVEMENT translation translates whole map view to show gps location:
                     // get location in center image to translate all images according to this location
                     // this make movement of map
-                    Point centerImgLocation = this.mapView.getCenterImgLocation();
+                    Point centerImgLocation = this.mapView.getPositionOnCenterImgPart();
                     // View PARTS translation places 9 map parts side by side in map panel:
                     // center image's coordinates (1, 1) 
                     // so translation vector is:
@@ -176,14 +176,11 @@ namespace TouristGuide.map
                     pSlot.Image = null;
                 }
             }
-            // just for test
-            //this.mapPanel.showDirectionLine(new Point(50, 50));
-            // refresh map panel
-            //this.mapPanel.Refresh();
-
+            // display pois
             foreach (Poi poi in mapView.getPois())
             {
              
+                // TODO: consider removing from labels cache
                 if (!poiLabels.ContainsKey(poi.ToString()))
                 {
                     // TODO: Add poi gui element class
@@ -194,13 +191,24 @@ namespace TouristGuide.map
                 Label l = (Label)poiLabels[poi.ToString()];
 
                 Point poiMapViewPosition = mapView.getPoiPixelCoordinates(poi);
+                Point mapViewPositionOnImg = mapView.getPositionOnImg();
 
-                l.Location = new Point(poiMapViewPosition.X, poiMapViewPosition.Y);
+                int xMapViewTr = mapViewPositionOnImg.X - centerPoint.X;
+                int yMapViewTr = mapViewPositionOnImg.Y - centerPoint.Y;
+
+                int xSixeFix = l.Size.Width / 2;
+                int ySixeFix = l.Size.Height / 2;
+
+                l.Location = new Point(poiMapViewPosition.X - xMapViewTr - xSixeFix,
+                                       poiMapViewPosition.Y - yMapViewTr - ySixeFix);
                 l.Text = poi.getName();
                 
 
             }
-
+            // just for test
+            //this.mapPanel.showDirectionLine(new Point(50, 50));
+           
+            // refresh map panel
             this.mapPanel.Refresh();
         }
 

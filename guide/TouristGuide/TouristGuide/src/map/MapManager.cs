@@ -297,7 +297,7 @@ namespace TouristGuide.map
         private Area countMapViewArea(MapView mapView)
         {
 
-            Point centerImgLocation = mapView.getCenterImgLocation();
+            Point centerImgLocation = mapView.getPositionOnCenterImgPart();
             GpsLocation gpsLoc = mapView.getGpsLocation();
 
             Image topLeftPart = mapView.getImgByPoint(new Point(0, 0));
