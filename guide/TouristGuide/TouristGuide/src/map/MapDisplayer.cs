@@ -123,6 +123,7 @@ namespace TouristGuide.map
             {
                 this.mapView = mapView;
                 // clear labels cache
+                // TODO rewrite old suitable labels
                 this.poiLabels = new Hashtable();
             }
             // invoke gui panel update in its thread
