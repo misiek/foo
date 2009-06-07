@@ -17,6 +17,7 @@ namespace TouristGuide.map
     {
         private const double MIN_DELTA_LOCATION = 0.00001;
 
+        private MapView currentMapVeiw;
         private MapPackage currentMapPkg;
         private GpsLocation currentGpsLocation;
         private int currentZoom;
@@ -84,6 +85,42 @@ namespace TouristGuide.map
             this.pointSurroundings["BOTTOM_LEFT"] = new Point(-1, -1);
         }
 
+        public void newPosition(GpsLocation gpsLocation)
+        {
+            // when gps location isn't known (invalid) skip processing
+            if (!gpsLocation.isValid())
+                return;
+            // when delta location is to small skip processing
+            if (this.currentGpsLocation != null && isDeltaLocationTooSmall(gpsLocation))
+                return;
+            // set current gps location
+            this.currentGpsLocation = gpsLocation;
+            // update current map package
+            updateCurrentMapPkg();
+            // update current map view or create new one if current doesn't match gps location
+            if (this.currentMapVeiw != null
+                && this.currentMapVeiw.isValidForGpsLocation(this.currentGpsLocation))
+            {
+                // when current map view match gps location update it
+                updateCurrentView();
+            }
+            else
+            {
+                // create new map view when current doesn't match gps location
+                createCurrentView();
+                // find current named area for pois by current gps location
+                findCurrentArea();
+                // find and set pois on newly created map view
+                loadPoisToCurrentMapView();
+            }
+
+            if (this.currentMapVeiw != null)
+            {
+                // display map view
+                this.mapDisplayer.displayView(this.currentMapVeiw);
+            }
+        }
+
         public void downloadPois()
         {
             string msg = "Donwloading pois...";
@@ -121,68 +158,54 @@ namespace TouristGuide.map
             }
         }
 
-        public void newPosition(GpsLocation gpsLocation)
+        private bool isDeltaLocationTooSmall(GpsLocation newLocation)
         {
-            // when gps location is known (valid) try to get map for region and create map view
-            if (gpsLocation.isValid())
+            double deltaLocation = getLocationsDistance(this.currentGpsLocation, newLocation);
+            // if distance is to small skip processing
+            if (deltaLocation < MIN_DELTA_LOCATION)
             {
-                if (this.currentGpsLocation != null){
-                    double deltaLocation = getLocationsDistance(this.currentGpsLocation, gpsLocation);
-                    // if distance is to small skip processing
-                    if (deltaLocation < MIN_DELTA_LOCATION)
-                    {
-                        Debug.WriteLine("delta location to small.", this.ToString());
-                        return;
-                    }
-                }
-                // set current gps location
-                this.currentGpsLocation = gpsLocation;
-                // find current named area for pois by current gps location
-                findCurrentArea();
-                double latitude = this.currentGpsLocation.getLatitude();
-                double longitude = this.currentGpsLocation.getLongitude();
-                // when current map pkg doesn't match get pkg from repository
-                if (!(this.currentMapPkg != null 
-                    && this.currentMapPkg.coordinatesMatches(latitude, longitude)
-                    && this.currentMapPkg.getZoom() == this.currentZoom))
-                {
-                    try
-                    {
-                        // get map package from repository
-                        this.currentMapPkg = this.mapPkgRepository.getMapPkg(latitude, longitude, this.currentZoom);
-                    }
-                    catch (MapNotFoundException e)
-                    {
-                        // map pkg for current location doesn't exist in repository
-                        this.mapDisplayer.displayMessage("No map for location.", 2000, Color.Red);
-                        return;
-                    }
-                }
-                // create current view when map pkg was found
-                MapView mv = createCurrentView();
-                // get pois
+                Debug.WriteLine("delta location to small.", this.ToString());
+                return true;
+            }
+            return false;
+        }
+
+        private void updateCurrentMapPkg()
+        {
+            double latitude = this.currentGpsLocation.getLatitude();
+            double longitude = this.currentGpsLocation.getLongitude();
+            // when current map pkg doesn't match, get pkg from repository
+            if (!(this.currentMapPkg != null
+                && this.currentMapPkg.coordinatesMatches(latitude, longitude)
+                && this.currentMapPkg.getZoom() == this.currentZoom))
+            {
                 try
                 {
-                    List<Poi> pois = this.poiRepository.getPois(mv.getArea());
-                    Debug.WriteLine("Found pois:", this.ToString());
-                    foreach (Poi p in pois)
-                    {
-                        Debug.WriteLine(" *** " + p, this.ToString());
-                    }
-                    mv.setPois(pois);
+                    // get map package from repository
+                    this.currentMapPkg = this.mapPkgRepository.getMapPkg(latitude, longitude, this.currentZoom);
                 }
-                catch (NoPoiOnAreaException e)
+                catch (MapNotFoundException e)
                 {
-                    Debug.WriteLine("No pois for view, reason: " + e.Message, this.ToString());
-                }
-                if (mv != null)
-                {
-                    // display map view
-                    this.mapDisplayer.displayView(mv);
+                    // map pkg for current location doesn't exist in repository
+                    this.mapDisplayer.displayMessage("No map for location.", 2000, Color.Red);
+                    return;
                 }
             }
         }
 
+        private void loadPoisToCurrentMapView()
+        {
+            // get pois
+            try
+            {
+                List<Poi> pois = this.poiRepository.getPois(this.currentMapVeiw.getArea());
+                this.currentMapVeiw.setPois(pois);
+            }
+            catch (NoPoiOnAreaException e)
+            {
+                Debug.WriteLine("No pois for view, reason: " + e.Message, this.ToString());
+            }
+        }
 
         private double getLocationsDistance(GpsLocation gl1, GpsLocation gl2)
         {
@@ -197,7 +220,19 @@ namespace TouristGuide.map
             return "(" + p.X + "; " + p.Y + ")";
         }
 
-        private MapView createCurrentView()
+        private void updateCurrentView()
+        {
+            // get current gps coordinates
+            double latitude = this.currentGpsLocation.getLatitude();
+            double longitude = this.currentGpsLocation.getLongitude();
+            // get location (pixel coordinates) inside part image
+            Point insidePartPosition = this.currentMapPkg.getInsidePartPosition(latitude, longitude);
+            Debug.WriteLine("updateCurrentView *****: " + pointStr(insidePartPosition), ToString());
+            this.currentMapVeiw.setCenterImgPosition(insidePartPosition);
+        }
+
+        // TODO: this method is too big
+        private void createCurrentView()
         {
             Debug.WriteLine("----- createCurrentView -----", ToString());
             // container to keep map parts which create current map view
@@ -220,7 +255,8 @@ namespace TouristGuide.map
             {
                 Debug.WriteLine("Can't get center part! viewParts[centerViewPoint] is null - skipping.", this.ToString());
                 // return when center part is null
-                return null;
+                this.currentMapVeiw = null;
+                return;
             }
             // add neighbours of center point
             foreach (DictionaryEntry entry in this.pointSurroundings)
@@ -286,27 +322,44 @@ namespace TouristGuide.map
             // create map view
             MapView mapView = new MapView(this.currentGpsLocation, insidePartPosition, 
                 viewParts, this.orderingPoints);
-            Area mapViewArea = countMapViewArea(mapView);
-            mapView.setArea(mapViewArea);
             mapView.setLatitudePerPixel(this.currentMapPkg.getLatitudePerPixel());
             mapView.setLongitudePerPixel(this.currentMapPkg.getLongitudePerPixel());
+            Area mapViewArea = createMapViewArea(mapView);
+            Area centerImgArea = createMapViewAreaForCenterImg(mapView);
+            mapView.setArea(mapViewArea);
+            mapView.setCenterImgArea(centerImgArea);
             Debug.WriteLine("-----------------------------\n", ToString());
-            return mapView;
+            this.currentMapVeiw = mapView;
         }
 
-        private Area countMapViewArea(MapView mapView)
+        private Area createMapViewArea(MapView mapView)
         {
-
-            Point centerImgLocation = mapView.getPositionOnCenterImgPart();
-            GpsLocation gpsLoc = mapView.getGpsLocation();
+            Area afci = createMapViewAreaForCenterImg(mapView);
 
             Image topLeftPart = mapView.getImgByPoint(new Point(0, 0));
-            int pixelsToLeftEdge = topLeftPart.Size.Width + centerImgLocation.X;
-            int pixelsToTopEdge = topLeftPart.Size.Height + centerImgLocation.Y;
+            double latitudeTopEdgeFix = topLeftPart.Size.Height * this.currentMapPkg.getLongitudePerPixel();
+            double longitudeLeftEdgeFix = topLeftPart.Size.Width * this.currentMapPkg.getLatitudePerPixel();
+
             Image bottomRightPart = mapView.getImgByPoint(new Point(2, 2));
+            double latitudeBottomEdgeFix = bottomRightPart.Height * this.currentMapPkg.getLatitudePerPixel();
+            double longitudeRghtEdgeFix = bottomRightPart.Width * this.currentMapPkg.getLatitudePerPixel();
+            
+            return new Area(afci.getTopLeftLatitude() + latitudeTopEdgeFix,
+                            afci.getTopLeftLongitude() + longitudeLeftEdgeFix,
+                            afci.getBottomRightLatitude() + latitudeBottomEdgeFix,
+                            afci.getBottomRightLongitude() + longitudeRghtEdgeFix);
+        }
+
+        private Area createMapViewAreaForCenterImg(MapView mapView)
+        {
+            Point centerImgLocation = mapView.getCenterImgPosition();
+            GpsLocation gpsLoc = mapView.getGpsLocation();
+
+            int pixelsToLeftEdge = centerImgLocation.X;
+            int pixelsToTopEdge = centerImgLocation.Y;
             Image centerPart = mapView.getImgByPoint(new Point(1, 1));
-            int pixelsToRightEdge = bottomRightPart.Width + centerPart.Width - centerImgLocation.X;
-            int pixelsToBottomEdge = bottomRightPart.Width + centerPart.Width - centerImgLocation.X;
+            int pixelsToRightEdge = centerPart.Width - centerImgLocation.X;
+            int pixelsToBottomEdge = centerPart.Width - centerImgLocation.Y;
 
             double latitudePerPixel = this.currentMapPkg.getLatitudePerPixel();
             double longitudePerPixel = this.currentMapPkg.getLongitudePerPixel();

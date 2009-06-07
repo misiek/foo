@@ -33,10 +33,15 @@ namespace TouristGuide.map.obj
         // check if given poi is inside area
         public bool contains(Poi poi)
         {
-            return this.topLeftLatitude >= poi.getLatitude() &&
-                   this.topLeftLongitude <= poi.getLongitude() &&
-                   this.bottomRightLatitude <= poi.getLatitude() &&
-                   this.bottomRightLongitude >= poi.getLongitude();
+            return contains(poi.getLatitude(), poi.getLongitude());
+        }
+
+        public bool contains(double latitude, double longitude)
+        {
+            return this.topLeftLatitude >= latitude &&
+                   this.topLeftLongitude <= longitude &&
+                   this.bottomRightLatitude <= latitude &&
+                   this.bottomRightLongitude >= longitude;
         }
 
         public double getTopLeftLatitude()

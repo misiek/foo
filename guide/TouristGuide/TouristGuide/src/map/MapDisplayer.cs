@@ -112,11 +112,19 @@ namespace TouristGuide.map
 
         public void displayView(MapView mapView)
         {
-            
+            if (mapView == null)
+            {
+                Debug.WriteLine("displayView: error: mapView null!", ToString());
+            }
             // set ordering points for display process
             this.orderingPoints = mapView.getOrderingPoints();
             // set map view to dispaly
-            this.mapView = mapView;
+            if (this.mapView != mapView)
+            {
+                this.mapView = mapView;
+                // clear labels cache
+                this.poiLabels = new Hashtable();
+            }
             // invoke gui panel update in its thread
             this.mapPanel.Invoke(updateMapPanelHandler);
             //// test
@@ -144,7 +152,7 @@ namespace TouristGuide.map
                     // Map MOVEMENT translation translates whole map view to show gps location:
                     // get location in center image to translate all images according to this location
                     // this make movement of map
-                    Point centerImgLocation = this.mapView.getPositionOnCenterImgPart();
+                    Point centerImgLocation = this.mapView.getCenterImgPosition();
                     // View PARTS translation places 9 map parts side by side in map panel:
                     // center image's coordinates (1, 1) 
                     // so translation vector is:
@@ -176,10 +184,25 @@ namespace TouristGuide.map
                     pSlot.Image = null;
                 }
             }
-            // display pois
-            foreach (Poi poi in mapView.getPois())
+            displayPois();
+
+            // just for test
+            //this.mapPanel.showDirectionLine(new Point(50, 50));
+           
+            // refresh map panel
+            this.mapPanel.Refresh();
+        }
+
+        private void displayPois()
+        {
+            if (this.mapView.getPois() == null)
             {
-             
+                return;
+            }
+            Point centerPoint = new Point(this.mapPanel.Width / 2, this.mapPanel.Height / 2);
+            foreach (Poi poi in this.mapView.getPois())
+            {
+
                 // TODO: consider removing from labels cache
                 if (!poiLabels.ContainsKey(poi.ToString()))
                 {
@@ -190,26 +213,19 @@ namespace TouristGuide.map
                 }
                 Label l = (Label)poiLabels[poi.ToString()];
 
-                Point poiMapViewPosition = mapView.getPoiPixelCoordinates(poi);
-                Point mapViewPositionOnImg = mapView.getPositionOnImg();
+                Point poiMapViewPosition = this.mapView.getPoiPixelCoordinates(poi);
+                Point mapViewPositionOnImg = this.mapView.getPositionOnImg();
 
                 int xMapViewTr = mapViewPositionOnImg.X - centerPoint.X;
                 int yMapViewTr = mapViewPositionOnImg.Y - centerPoint.Y;
 
-                int xSixeFix = l.Size.Width / 2;
-                int ySixeFix = l.Size.Height / 2;
+                int xSizeFix = l.Size.Width / 2;
+                int ySizeFix = l.Size.Height / 2;
 
-                l.Location = new Point(poiMapViewPosition.X - xMapViewTr - xSixeFix,
-                                       poiMapViewPosition.Y - yMapViewTr - ySixeFix);
+                l.Location = new Point(poiMapViewPosition.X - xMapViewTr - xSizeFix,
+                                       poiMapViewPosition.Y - yMapViewTr - ySizeFix);
                 l.Text = poi.getName();
-                
-
             }
-            // just for test
-            //this.mapPanel.showDirectionLine(new Point(50, 50));
-           
-            // refresh map panel
-            this.mapPanel.Refresh();
         }
 
     }

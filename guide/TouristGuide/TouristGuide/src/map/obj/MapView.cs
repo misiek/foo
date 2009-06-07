@@ -12,15 +12,15 @@ namespace TouristGuide.map.obj
         // gps location
         private GpsLocation gpsLocation;
         // relative coordinates inside center image map part (pixels)
-        private Point positionOnCenterImgPart;
-        // relative coordinates on map view (pixels)
-        private Point positionOnImg;
+        private Point centerImgPosition;
         // table with points which are keys in viewParts, determine order of displaying
         private ArrayList orderingPoints;
         // images - hashtable (Point => Bitmap)
         private Hashtable viewParts;
         // pois
         private List<Poi> pois;
+        // center img area
+        private Area centerImgArea;
         // current view area
         private Area area;
 
@@ -28,7 +28,7 @@ namespace TouristGuide.map.obj
         private double longitudePerPixel;
 
         // images - hashtable (Point => Bitmap)
-        public MapView(GpsLocation gpsLocation, Point positionOnCenterImgPart, Hashtable viewParts, ArrayList orderingPoints)
+        public MapView(GpsLocation gpsLocation, Point centerImgPosition, Hashtable viewParts, ArrayList orderingPoints)
         {
             // check if view parts contains center image
             if (viewParts[new Point(1, 1)] == null)
@@ -36,19 +36,14 @@ namespace TouristGuide.map.obj
             this.gpsLocation = gpsLocation;
             this.viewParts = viewParts;
 
-            Image topLeftPart = (Image)viewParts[new Point(0, 0)];
-            int positionOnImgX = positionOnCenterImgPart.X;
-            int positionOnImgY = positionOnCenterImgPart.Y;
-            if (topLeftPart != null)
-            {
-                positionOnImgX += topLeftPart.Width;
-                positionOnImgY += topLeftPart.Height;
-            }
-
-            this.positionOnCenterImgPart = positionOnCenterImgPart;
-            this.positionOnImg = new Point(positionOnImgX, positionOnImgY);
+            this.centerImgPosition = centerImgPosition;
 
             this.orderingPoints = orderingPoints;
+        }
+
+        public bool isValidForGpsLocation(GpsLocation gpsLoc)
+        {
+            return this.centerImgArea.contains(gpsLoc.getLatitude(), gpsLoc.getLongitude());
         }
 
         public ArrayList getOrderingPoints()
@@ -61,14 +56,28 @@ namespace TouristGuide.map.obj
             return (Image)this.viewParts[p];
         }
 
-        public Point getPositionOnCenterImgPart()
+        public Point getCenterImgPosition()
         {
-            return this.positionOnCenterImgPart;
+            return this.centerImgPosition;
+        }
+
+        public void setCenterImgPosition(Point centerImgPosition)
+        {
+            this.centerImgPosition = centerImgPosition;
         }
 
         public Point getPositionOnImg()
         {
-            return this.positionOnImg;
+            Image topLeftPart = (Image)viewParts[new Point(0, 0)];
+            int positionOnImgX = this.centerImgPosition.X;
+            int positionOnImgY = this.centerImgPosition.Y;
+            if (topLeftPart != null)
+            {
+                positionOnImgX += topLeftPart.Width;
+                positionOnImgY += topLeftPart.Height;
+            }
+
+            return new Point(positionOnImgX, positionOnImgY);
         }
 
         public GpsLocation getGpsLocation()
@@ -116,5 +125,10 @@ namespace TouristGuide.map.obj
             this.longitudePerPixel = longitudePerPixel;
         }
 
+
+        public void setCenterImgArea(Area centerImgArea)
+        {
+            this.centerImgArea = centerImgArea;
+        }
     }
 }
