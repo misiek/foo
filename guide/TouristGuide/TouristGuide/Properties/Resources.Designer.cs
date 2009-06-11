@@ -57,10 +57,24 @@ namespace TouristGuide.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Bank {
+            get {
+                object obj = ResourceManager.GetObject("Bank", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap positionMarkerImg {
             get {
                 object obj = ResourceManager.GetObject("positionMarkerImg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon shield_and_swords {
+            get {
+                object obj = ResourceManager.GetObject("shield_and_swords", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

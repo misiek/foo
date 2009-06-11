@@ -125,7 +125,7 @@ namespace TouristGuide.gui
             // 
             // mapMessageBox
             // 
-            this.mapMessageBox.BackColor = System.Drawing.Color.Red;
+            this.mapMessageBox.BackColor = System.Drawing.Color.Purple;
             this.mapMessageBox.Font = new System.Drawing.Font("Courier New", 8F, System.Drawing.FontStyle.Regular);
             this.mapMessageBox.Location = new System.Drawing.Point(0, 0);
             this.mapMessageBox.Name = "mapMessageBox";

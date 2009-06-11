@@ -30,6 +30,8 @@ namespace TouristGuide.map
 
         private Hashtable poiLabels = new Hashtable();
 
+        private Point currentCenterPoint;
+
         public MapDisplayer(MapPanel mapPanel)
         {
             this.mapPanel = mapPanel;
@@ -137,7 +139,7 @@ namespace TouristGuide.map
 
         private void updateMapPanel(object sender, EventArgs args)
         {
-            Point centerPoint = new Point(this.mapPanel.Width / 2, this.mapPanel.Height / 2);
+            this.currentCenterPoint = new Point(this.mapPanel.Width / 2, this.mapPanel.Height / 2);
             PictureSlot pSlotCenter = (PictureSlot)this.mapPanel.PictureSlots[new Point(1, 1)];
             foreach (Point p in this.orderingPoints)
             {
@@ -178,8 +180,8 @@ namespace TouristGuide.map
                         // NOTE: this is correct becouse only edge parts can have different sizes than others
                         tHeight = ty * pSlotCenter.Image.Height;
                     // Position of image is addition of movament and parts translation
-                    pSlot.Position = new Point(centerPoint.X + tWidth - centerImgLocation.X,
-                                              centerPoint.Y + tHeight - centerImgLocation.Y);
+                    pSlot.Position = new Point(this.currentCenterPoint.X + tWidth - centerImgLocation.X,
+                                              this.currentCenterPoint.Y + tHeight - centerImgLocation.Y);
                 }
                 // when there is no map image empty slot
                 else
@@ -205,7 +207,6 @@ namespace TouristGuide.map
             {
                 return;
             }
-            Point centerPoint = new Point(this.mapPanel.Width / 2, this.mapPanel.Height / 2);
             foreach (Poi poi in this.mapView.getPois())
             {
 
@@ -213,34 +214,39 @@ namespace TouristGuide.map
                 if (!poiLabels.ContainsKey(poi.ToString()))
                 {
                     // TODO: Add poi gui element class
-                    Label newLabel = new Label();
+                    Control newLabel = new PoiPanel(poi);
                     poiLabels[poi.ToString()] = newLabel;
                     this.mapPanel.Controls.Add(newLabel);
                     Debug.WriteLine("displayPois: added label for: @@@@@ " + poi.getName(), ToString());
                 }
-                Label l = (Label)poiLabels[poi.ToString()];
-
+                Control l = (Control)poiLabels[poi.ToString()];
                 Point poiMapViewPosition = this.mapView.getPoiPixelCoordinates(poi);
-                Point mapViewPositionOnImg = this.mapView.getPositionOnImg();
 
-                int xMapViewTr = mapViewPositionOnImg.X - centerPoint.X;
-                int yMapViewTr = mapViewPositionOnImg.Y - centerPoint.Y;
-
-                int xSizeFix = l.Size.Width / 2;
-                int ySizeFix = l.Size.Height / 2;
-
-                l.Location = new Point(poiMapViewPosition.X - xMapViewTr - xSizeFix,
-                                       poiMapViewPosition.Y - yMapViewTr - ySizeFix);
-                l.Text = poi.getName();
+                updateLabelLocation(l, poiMapViewPosition);
             }
+        }
+
+        private void updateLabelLocation(Control l, Point poiMapViewPosition)
+        {
+            
+            Point mapViewPositionOnImg = this.mapView.getPositionOnImg();
+
+            int xMapViewTr = mapViewPositionOnImg.X - this.currentCenterPoint.X;
+            int yMapViewTr = mapViewPositionOnImg.Y - this.currentCenterPoint.Y;
+
+            int xSizeFix = l.Size.Width / 2;
+            int ySizeFix = l.Size.Height / 2;
+
+            l.Location = new Point(poiMapViewPosition.X - xMapViewTr - xSizeFix,
+                                   poiMapViewPosition.Y - yMapViewTr - ySizeFix);
         }
 
         private void cleanPoiLabels()
         {
             // TODO rewrite old suitable labels
-            foreach (Label l in this.poiLabels.Values)
+            foreach (Control c in this.poiLabels.Values)
             {
-                this.mapPanel.Controls.Remove(l);
+                this.mapPanel.Controls.Remove(c);
             }
             this.poiLabels = new Hashtable();
             this.cleanPoiLabelsHandler = false;
