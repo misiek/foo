@@ -72,7 +72,7 @@ namespace TouristGuide.map.repository
         public Hashtable findAreas()
         {
             Hashtable areas = new Hashtable();
-            areas["Kraków"] = new NamedArea("Kraków", 50.1046, 19.8669, 50.0233, 20.0029);
+            areas["Kraków"] = new NamedArea("Krakow", 50.1046, 19.8669, 50.0233, 20.0029);
 
             return areas;
         }

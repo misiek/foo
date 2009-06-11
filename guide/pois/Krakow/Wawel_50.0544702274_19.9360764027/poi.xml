@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<poi>
+          <lang>pl</lang>
+          <name>Wawel</name>
+          <latitude>50.0544702274</latitude>
+          <longitude>19.9360764027</longitude>
+          <type>Monument</type>
+          <descr><![CDATA[Wawel – wzgórze o wysokości 228 m n.p.m. w Krakowie, położone na lewym brzegu Wisły.
+
+Wzgórze Wawelskie ma charakter zrębu tektonicznego powstałego w miocenie (23-5 mln lat temu) i zbudowanego z górnojurajskich wapieni wieku oksfordzkiego (161-155 mln lat temu). Wapienie te są silnie skrasowiałe i obfitują w jaskinie (np. Smocza Jama). Dlatego też wzgórze mogło pierwotnie nazywać się wądół, wąwał, wąwel. W średniowieczu słowem wąwel nazywano wąwóz, jaki dzielił niegdyś dwie części wzgórza. Według innej teorii słowo to oznacza &quot;wyniosłość wśród mokradeł&quot;, którymi otoczone było wzgórze.
+
+Na wzgórzu znajduje się kompleks obiektów zabytkowych, z których najważniejsze to:
+
+    * Zamek Królewski
+    * Katedra św. Stanisława i Wacława
+
+Częścią tego kompleksu są także fortyfikacje Wzgórza Wawelskiego. Odnalezione zostały relikty innych budowli, pochodzących z różnych epok.]]></descr>
+          
+            <media_files>
+            
+              <media_file>
+                <title>Wawel od strony wisły</title>
+                <descr><![CDATA[Widok na Wzgórze Wawelskie od strony Wisły]]></descr>
+                <url><![CDATA[http://192.168.1.6/tgportal/media_files/800px-Wawel2.jpg]]></url>
+              </media_file>
+            
+              <media_file>
+                <title>Zamek na Wawelu w Krakowi</title>
+                <descr><![CDATA[Zamek na Wawelu w Krakowie widziany z ulicy Grodzkiej.]]></descr>
+                <url><![CDATA[http://192.168.1.6/tgportal/media_files/800px-Krakow_Wawel_20070804_0930.jpg]]></url>
+              </media_file>
+            
+              <media_file>
+                <title>Wawel - plan</title>
+                <descr><![CDATA[Mapa budynków na Wawelu]]></descr>
+                <url><![CDATA[http://192.168.1.6/tgportal/media_files/705px-Wawel_Hill_-_basic_map.svg.png]]></url>
+              </media_file>
+            
+              <media_file>
+                <title>Wawel - katedra</title>
+                <descr><![CDATA[Katedra wawelska.]]></descr>
+                <url><![CDATA[http://192.168.1.6/tgportal/media_files/532px-Wawel_cathedral.PNG]]></url>
+              </media_file>
+            
+            </media_files>
+          
+          
+	          <details>
+	          
+	             <detail>
+	                <title>Zamek Królewski na Wawelu</title>
+                  <descr><![CDATA[Zamek Królewski na Wawelu – rezydencja królewska o charakterze zabytkowym, mieszcząca się na Wzgórzu Wawelskim w Krakowie o powierzchni 7040 m2 z 71 salami wystawowymi [1]. Oddział Zamku Królewskiego na Wawelu – Państwowych Zbiorów Sztuki.]]></descr>
+				          
+				            <media_files>
+				            
+				              <media_file>
+				                <title>Wawel - zamek</title>
+				                <descr><![CDATA[Dziedziniec arkadowy]]></descr>
+				                <url><![CDATA[http://192.168.1.6/tgportal/media_files/800px-Krakow-Wawel-Courtyard.jpg]]></url>
+				              </media_file>
+				            
+				            </media_files>
+				          
+	             </detail>
+	          
+	             <detail>
+	                <title>Katedra na wawelu</title>
+                  <descr><![CDATA[Bazylika archikatedralna św. Stanisława i św. Wacława w Krakowie – kościół katedralny, położony na Wzgórzu Wawelskim stanowiący własność archidiecezji krakowskiej. Miejsce koronacji królów Polski oraz spoczywania ich szczątków. Pochowani tu są św. Stanisław ze Szczepanowa i inni biskupi krakowscy aż po czasy współczesne, królowie od Władysława I Łokietka do Augusta II Mocnego (łącznie 19 królów) i członkowie rodzin królewskich oraz wielcy wodzowie i wieszcze narodowi.]]></descr>
+				          
+				            <media_files>
+				            
+				              <media_file>
+				                <title>Wawel - katedra</title>
+				                <descr><![CDATA[Katedra wawelska.]]></descr>
+				                <url><![CDATA[http://192.168.1.6/tgportal/media_files/532px-Wawel_cathedral.PNG]]></url>
+				              </media_file>
+				            
+				            </media_files>
+				          
+	             </detail>
+	          
+	          </details>
+          
+</poi>

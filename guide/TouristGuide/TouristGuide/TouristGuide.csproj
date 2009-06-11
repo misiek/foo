@@ -72,6 +72,7 @@
     <Compile Include="src\map\exception\PortalException.cs" />
     <Compile Include="src\map\obj\Area.cs" />
     <Compile Include="src\map\obj\NamedArea.cs" />
+    <Compile Include="src\map\PointUtil.cs" />
     <Compile Include="src\map\Portal.cs" />
     <Compile Include="src\map\repository\adapter\ListXmlAdapter.cs" />
     <Compile Include="src\map\repository\adapter\ObjXmlAdapter.cs" />

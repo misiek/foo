@@ -20,6 +20,7 @@ namespace TouristGuide.map
 
         private EventHandler updateMapMessageBoxHandler;
         private EventHandler hideMapMessageBoxHandler;
+        private bool cleanPoiLabelsHandler = false;
         private string message;
         private System.Threading.Timer hideMessageTimer;
         private string timerMessage;
@@ -40,6 +41,7 @@ namespace TouristGuide.map
             this.hideMapMessageBoxHandler = new EventHandler(hideMapMessageBox);
             this.message = "";
             this.timerMessage = "";
+            this.poiLabels = new Hashtable();
         }
 
         // display message for specified time
@@ -122,9 +124,9 @@ namespace TouristGuide.map
             if (this.mapView != mapView)
             {
                 this.mapView = mapView;
-                // clear labels cache
-                // TODO rewrite old suitable labels
-                this.poiLabels = new Hashtable();
+                // set flag to clean labels cache in updateMapPanelHandler thread
+                this.cleanPoiLabelsHandler = true;
+
             }
             // invoke gui panel update in its thread
             this.mapPanel.Invoke(updateMapPanelHandler);
@@ -196,6 +198,9 @@ namespace TouristGuide.map
 
         private void displayPois()
         {
+            if (this.cleanPoiLabelsHandler)
+                cleanPoiLabels();
+
             if (this.mapView.getPois() == null)
             {
                 return;
@@ -211,6 +216,7 @@ namespace TouristGuide.map
                     Label newLabel = new Label();
                     poiLabels[poi.ToString()] = newLabel;
                     this.mapPanel.Controls.Add(newLabel);
+                    Debug.WriteLine("displayPois: added label for: @@@@@ " + poi.getName(), ToString());
                 }
                 Label l = (Label)poiLabels[poi.ToString()];
 
@@ -227,6 +233,17 @@ namespace TouristGuide.map
                                        poiMapViewPosition.Y - yMapViewTr - ySizeFix);
                 l.Text = poi.getName();
             }
+        }
+
+        private void cleanPoiLabels()
+        {
+            // TODO rewrite old suitable labels
+            foreach (Label l in this.poiLabels.Values)
+            {
+                this.mapPanel.Controls.Remove(l);
+            }
+            this.poiLabels = new Hashtable();
+            this.cleanPoiLabelsHandler = false;
         }
 
     }

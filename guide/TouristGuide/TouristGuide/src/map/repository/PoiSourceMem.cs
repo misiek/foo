@@ -20,14 +20,19 @@ namespace TouristGuide.map.repository
         public void setCacheArea(Area cacheArea)
         {
             this.cacheArea = cacheArea;
-            foreach (Poi poi in this.cachedPois)
-            {
-                if (!this.cacheArea.contains(poi))
+            if (this.cachedPois != null)
+                for (int i = 0; i < this.cachedPois.Count; i++)
                 {
-                    poi.free();
-                    this.cachedPois.Remove(poi);
+                    Poi poi = this.cachedPois[i];
+                    if (!this.cacheArea.contains(poi))
+                    {
+                        poi.free();
+                        this.cachedPois.Remove(poi);
+                    }
                 }
-            }
+            else
+                Debug.WriteLine("setCacheArea: NULLLLLLLLLLLL", ToString());
+
         }
 
         #region PoiSource Members
@@ -59,14 +64,14 @@ namespace TouristGuide.map.repository
             }
             foreach (Poi poi in pois)
             {
-                if (this.cacheArea.contains(poi) && !this.cachedPois.Contains(poi))
+                if (!this.cachedPois.Contains(poi))
                 {
                     this.cachedPois.Add(poi);
                 }
                 else
                 {
                     poi.free();
-                    Debug.WriteLine("putPois: poi outside cache area: " + poi, ToString());
+                    Debug.WriteLine("putPois: poi already cached: " + poi, ToString());
                 }
             }
         }

@@ -214,12 +214,6 @@ namespace TouristGuide.map
                                 Math.Pow(gl2.getLongitude() - gl1.getLongitude(), 2));
         }
 
-        // for debugging
-        private string pointStr(Point p)
-        {
-            return "(" + p.X + "; " + p.Y + ")";
-        }
-
         private void updateCurrentView()
         {
             // get current gps coordinates
@@ -227,7 +221,7 @@ namespace TouristGuide.map
             double longitude = this.currentGpsLocation.getLongitude();
             // get location (pixel coordinates) inside part image
             Point insidePartPosition = this.currentMapPkg.getInsidePartPosition(latitude, longitude);
-            Debug.WriteLine("updateCurrentView *****: " + pointStr(insidePartPosition), ToString());
+            Debug.WriteLine("updateCurrentView *****: " + PointUtil.pointStr(insidePartPosition), ToString());
             this.currentMapVeiw.setCenterImgPosition(insidePartPosition);
         }
 
@@ -243,7 +237,7 @@ namespace TouristGuide.map
             //Debug.WriteLine("latitude: " + latitude + ", longitude: " + longitude, this.ToString());
             // get point which indicates part image for the location
             Point partPoint = this.currentMapPkg.getPartPoint(latitude, longitude);
-            Debug.WriteLine("partPoint: " + pointStr(partPoint), ToString());
+            Debug.WriteLine("partPoint: " + PointUtil.pointStr(partPoint), ToString());
             // get location (pixel coordinates) inside part image
             Point insidePartPosition = this.currentMapPkg.getInsidePartPosition(latitude, longitude);
             //Debug.WriteLine("insidePartPosition: (" + insidePartPosition.X + "; " + insidePartPosition.Y + ")", this.ToString());
@@ -262,7 +256,7 @@ namespace TouristGuide.map
             foreach (DictionaryEntry entry in this.pointSurroundings)
             {
                 Point directionPoint = (Point)entry.Value;
-                Debug.WriteLine("directionPoint: " + pointStr(directionPoint), ToString());
+                Debug.WriteLine("directionPoint: " + PointUtil.pointStr(directionPoint), ToString());
                 Point viewNeighbour = addPoints(centerViewPoint, directionPoint);
                 Point mapNeighbour = addPoints(partPoint, directionPoint);
                 try
@@ -285,7 +279,7 @@ namespace TouristGuide.map
                         Point neighbourDirection = new Point(neighbourDirectionX, neighbourDirectionY);
                         try
                         {
-                            Debug.WriteLine(" trying to get neighbour pkg for neighbour point: " + pointStr(neighbourDirection), ToString());
+                            Debug.WriteLine(" trying to get neighbour pkg for neighbour point: " + PointUtil.pointStr(neighbourDirection), ToString());
                             // get neighbour map package
                             neighbourPkg = this.mapPkgRepository.getNeighbourMapPkg(this.currentMapPkg,
                                                 neighbourDirection , this.currentZoom);
@@ -305,7 +299,7 @@ namespace TouristGuide.map
                                 mapNeighbour.Y = 0;
                             if (mapNeighbour.Y < 0)
                                 mapNeighbour.Y = neighbourPkg.getMaxY();
-                            Debug.WriteLine(" getting map part from neighbour pkg for point: " + pointStr(mapNeighbour), this.ToString());
+                            Debug.WriteLine(" getting map part from neighbour pkg for point: " + PointUtil.pointStr(mapNeighbour), this.ToString());
                             viewParts[viewNeighbour] = neighbourPkg.getPart(mapNeighbour);
                         }
                     }
@@ -337,16 +331,16 @@ namespace TouristGuide.map
             Area afci = createMapViewAreaForCenterImg(mapView);
 
             Image topLeftPart = mapView.getImgByPoint(new Point(0, 0));
-            double latitudeTopEdgeFix = topLeftPart.Size.Height * this.currentMapPkg.getLongitudePerPixel();
-            double longitudeLeftEdgeFix = topLeftPart.Size.Width * this.currentMapPkg.getLatitudePerPixel();
+            double latitudeTopEdgeFix = topLeftPart.Size.Height * this.currentMapPkg.getLatitudePerPixel();
+            double longitudeLeftEdgeFix = topLeftPart.Size.Width * this.currentMapPkg.getLongitudePerPixel();
 
             Image bottomRightPart = mapView.getImgByPoint(new Point(2, 2));
             double latitudeBottomEdgeFix = bottomRightPart.Height * this.currentMapPkg.getLatitudePerPixel();
-            double longitudeRghtEdgeFix = bottomRightPart.Width * this.currentMapPkg.getLatitudePerPixel();
+            double longitudeRghtEdgeFix = bottomRightPart.Width * this.currentMapPkg.getLongitudePerPixel();
             
             return new Area(afci.getTopLeftLatitude() + latitudeTopEdgeFix,
-                            afci.getTopLeftLongitude() + longitudeLeftEdgeFix,
-                            afci.getBottomRightLatitude() + latitudeBottomEdgeFix,
+                            afci.getTopLeftLongitude() - longitudeLeftEdgeFix,
+                            afci.getBottomRightLatitude() - latitudeBottomEdgeFix,
                             afci.getBottomRightLongitude() + longitudeRghtEdgeFix);
         }
 
@@ -359,7 +353,7 @@ namespace TouristGuide.map
             int pixelsToTopEdge = centerImgLocation.Y;
             Image centerPart = mapView.getImgByPoint(new Point(1, 1));
             int pixelsToRightEdge = centerPart.Width - centerImgLocation.X;
-            int pixelsToBottomEdge = centerPart.Width - centerImgLocation.Y;
+            int pixelsToBottomEdge = centerPart.Height - centerImgLocation.Y;
 
             double latitudePerPixel = this.currentMapPkg.getLatitudePerPixel();
             double longitudePerPixel = this.currentMapPkg.getLongitudePerPixel();
