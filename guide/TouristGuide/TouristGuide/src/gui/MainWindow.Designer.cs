@@ -36,9 +36,7 @@ namespace TouristGuide.gui
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.label1 = new System.Windows.Forms.Label();
             this.labelPosition = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.mapPanel = new TouristGuide.gui.MapPanel();
             this.mapMessageBox = new System.Windows.Forms.Label();
@@ -82,52 +80,37 @@ namespace TouristGuide.gui
             this.menuItem2.Text = "Download POIs";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 20);
-            this.label1.Text = "Position";
-            // 
             // labelPosition
             // 
             this.labelPosition.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.labelPosition.Location = new System.Drawing.Point(50, 0);
+            this.labelPosition.Location = new System.Drawing.Point(3, 0);
             this.labelPosition.Name = "labelPosition";
-            this.labelPosition.Size = new System.Drawing.Size(177, 20);
-            this.labelPosition.Text = "---";
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label2.Location = new System.Drawing.Point(3, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 20);
-            this.label2.Text = "Speed";
+            this.labelPosition.Size = new System.Drawing.Size(152, 14);
+            this.labelPosition.Text = "location";
             // 
             // labelSpeed
             // 
             this.labelSpeed.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.labelSpeed.Location = new System.Drawing.Point(50, 20);
+            this.labelSpeed.Location = new System.Drawing.Point(161, 0);
             this.labelSpeed.Name = "labelSpeed";
-            this.labelSpeed.Size = new System.Drawing.Size(76, 20);
-            this.labelSpeed.Text = "---";
+            this.labelSpeed.Size = new System.Drawing.Size(76, 14);
+            this.labelSpeed.Text = "speed";
+            this.labelSpeed.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.labelSpeed.ParentChanged += new System.EventHandler(this.labelSpeed_ParentChanged);
             // 
             // mapPanel
             // 
             this.mapPanel.BackColor = System.Drawing.Color.Khaki;
             this.mapPanel.Controls.Add(this.mapMessageBox);
-            this.mapPanel.Location = new System.Drawing.Point(3, 43);
+            this.mapPanel.Location = new System.Drawing.Point(3, 17);
             this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(234, 222);
+            this.mapPanel.Size = new System.Drawing.Size(234, 248);
             // 
             // mapMessageBox
             // 
-            this.mapMessageBox.BackColor = System.Drawing.Color.Purple;
+            this.mapMessageBox.BackColor = System.Drawing.Color.Yellow;
             this.mapMessageBox.Font = new System.Drawing.Font("Courier New", 8F, System.Drawing.FontStyle.Regular);
-            this.mapMessageBox.Location = new System.Drawing.Point(0, 0);
+            this.mapMessageBox.Location = new System.Drawing.Point(0, 230);
             this.mapMessageBox.Name = "mapMessageBox";
             this.mapMessageBox.Size = new System.Drawing.Size(234, 18);
             this.mapMessageBox.Text = "Map message box.";
@@ -142,9 +125,7 @@ namespace TouristGuide.gui
             this.ClientSize = new System.Drawing.Size(240, 268);
             this.Controls.Add(this.mapPanel);
             this.Controls.Add(this.labelSpeed);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.labelPosition);
-            this.Controls.Add(this.label1);
             this.Menu = this.mainMenu1;
             this.Name = "MainWindow";
             this.Text = "TouristGuide";
@@ -159,9 +140,7 @@ namespace TouristGuide.gui
         private System.Windows.Forms.MenuItem menuItem1;
         private System.Windows.Forms.MenuItem menuStartDevice;
         private System.Windows.Forms.MenuItem menuStartSymulator;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelPosition;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelSpeed;
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.MenuItem menuItem5;

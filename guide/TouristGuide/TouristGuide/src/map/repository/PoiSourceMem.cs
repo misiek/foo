@@ -70,7 +70,6 @@ namespace TouristGuide.map.repository
                 }
                 else
                 {
-                    poi.free();
                     Debug.WriteLine("putPois: poi already cached: " + poi, ToString());
                 }
             }

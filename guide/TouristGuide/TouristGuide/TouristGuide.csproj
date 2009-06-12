@@ -70,7 +70,7 @@
     <Compile Include="src\gui\MapPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="src\gui\PoiDialog.cs">
+    <Compile Include="src\gui\PoiBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\gui\PoiPanel.cs">

@@ -39,6 +39,10 @@ namespace TouristGuide.gui
             
             // initialize title
             this.title = new LinkLabel();
+            if (this.poi.isDataFree())
+            {
+                Debug.WriteLine("initialize: POI EMPTY !!!" + this.poi.getName(), ToString());
+            }
             this.title.Text = this.poi.getName();
             this.title.Location = new Point(img.Width + 3, 0);
             this.title.Click += new EventHandler(gotoPoiBrowser);

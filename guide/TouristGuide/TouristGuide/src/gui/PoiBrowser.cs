@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace TouristGuide.gui
 {
-    public class PoiDialog : Form
+    public class PoiBrowser : Form
     {
-        public PoiDialog()
+        public PoiBrowser()
         {
           
         }
