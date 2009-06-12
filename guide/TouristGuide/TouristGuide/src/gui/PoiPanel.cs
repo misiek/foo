@@ -39,10 +39,6 @@ namespace TouristGuide.gui
             
             // initialize title
             this.title = new LinkLabel();
-            if (this.poi.isDataFree())
-            {
-                Debug.WriteLine("initialize: POI EMPTY !!!" + this.poi.getName(), ToString());
-            }
             this.title.Text = this.poi.getName();
             this.title.Location = new Point(img.Width + 3, 0);
             this.title.Click += new EventHandler(gotoPoiBrowser);
@@ -65,6 +61,7 @@ namespace TouristGuide.gui
         private void gotoPoiBrowser(object sender, EventArgs e)
         {
             Debug.WriteLine(" *** CLICK poi browser *** " + this.poi.getName(), ToString());
+            AppContext.Instance.getPoiBrowser().preview(this.poi);
         }
 
         private void switchMode(object sender, EventArgs e)
@@ -91,17 +88,10 @@ namespace TouristGuide.gui
         {
             int x = this.Location.X;
             int y = this.Location.Y;
-
-            if (oldSize.Width < this.Width)
+            if (oldSize.Width != this.Width)
                 x = x - this.Width / 2 + oldSize.Width / 2;
-            else if (oldSize.Width < this.Width)
-                x = x + this.Width / 2 - oldSize.Width / 2;
-
-            if (oldSize.Height < this.Height)
+            if (oldSize.Height != this.Height)
                 y = y - this.Height / 2 + oldSize.Height / 2;
-            else if (oldSize.Width < this.Width)
-                y = y + this.Height / 2 - oldSize.Height / 2;
-
             this.Location = new Point(x, y);
         }
 

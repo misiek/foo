@@ -133,5 +133,10 @@ namespace TouristGuide.map.repository
             this.currentNamedArea = namedArea;
             readPoisDir();
         }
+
+        internal void loadMedia(Poi poi)
+        {
+            this.poiMapperHdd.loadMedia(poi, getPoiSubDir(poi, this.currentNamedArea));
+        }
     }
 }

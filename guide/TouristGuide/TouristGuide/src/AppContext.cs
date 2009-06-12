@@ -60,6 +60,8 @@ namespace TouristGuide
         private MapManager mapManager;
 
         private MainWindow mainWindow;
+        private PoiBrowser poiBrowser;
+
         private AppEvents appEvents;
 
         private Config config;
@@ -149,6 +151,10 @@ namespace TouristGuide
             this.mapManager.PoiRepository = this.poiRepository;
             Debug.WriteLine("AppContext(): MapManager instantiated.");
 
+            this.poiBrowser = new PoiBrowser();
+            this.poiBrowser.PoiRepository = this.poiRepository;
+            Debug.WriteLine("AppContext(): PoiBrowser instantiated.");
+
             // application events
             this.appEvents = new AppEvents(this.mainWindow, this.mapManager, this.mapPkgRepository);
         }
@@ -182,5 +188,11 @@ namespace TouristGuide
         {
             return this.mapManager;
         }
+
+        public PoiBrowser getPoiBrowser()
+        {
+            return this.poiBrowser;
+        }
+
     }
 }
