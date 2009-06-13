@@ -21,7 +21,7 @@ namespace TouristGuide.gui
         private void initialize()
         {
             // close button
-            Image closeImg = global::TouristGuide.Properties.Resources.close;
+            Image closeImg = global::TouristGuide.Properties.Resources.close_small;
             closeButton = new PictureBox();
             closeButton.Size = closeImg.Size;
             closeButton.Image = closeImg;
