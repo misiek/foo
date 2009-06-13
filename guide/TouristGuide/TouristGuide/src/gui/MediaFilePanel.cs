@@ -33,7 +33,7 @@ namespace TouristGuide.gui
             this.titleBar.Text = this.media.getTitle();
 
             // description
-            this.y += MARGIN + this.titleBar.Height;
+            this.y += MARGIN;
             this.descr = new TextBox();
             this.descr.AcceptsReturn = true;
             this.descr.AcceptsTab = true;
@@ -44,17 +44,17 @@ namespace TouristGuide.gui
             this.descr.Width = this.Width - 2 * MARGIN;
             this.descr.Height = 2 * this.titleBar.Height;
             this.descr.Text = this.media.getDescr();
-            this.Controls.Add(this.descr);
+            this.content.Controls.Add(this.descr);
 
             // picture
             this.imgPanel = new AutoScrollPicturePanel();
             this.y += this.descr.Height + MARGIN;
             this.imgPanel.Location = new Point(MARGIN, y);
             this.imgPanel.Width = this.Width - 2 * MARGIN;
-            this.imgPanel.Height = this.Height - y - MARGIN;
+            this.imgPanel.Height = this.content.Height - y - MARGIN;
             Bitmap mediaBmp = new Bitmap(new MemoryStream(this.media.getMedia()));
             this.imgPanel.Image = mediaBmp;
-            this.Controls.Add(this.imgPanel);
+            this.content.Controls.Add(this.imgPanel);
 
             this.imgPanel.PictureBox.Click += new EventHandler(fullScreen);
         }
@@ -69,7 +69,7 @@ namespace TouristGuide.gui
             base.OnResize(e);
             this.descr.Width = this.Width - 2 * MARGIN;
             this.imgPanel.Width = this.Width - 2 * MARGIN;
-            this.imgPanel.Height = this.Height - y - MARGIN;
+            this.imgPanel.Height = this.content.Height - y - MARGIN;
         }
 
     }

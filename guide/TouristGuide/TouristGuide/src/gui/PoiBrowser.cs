@@ -28,7 +28,7 @@ namespace TouristGuide.gui
         private TextBox textBoxPoiDescr;
 
         private Poi currentPoi;
-        private List<Label> currentMediaFilesLinks;
+        private MediaFilesListPanel mediaFilesPanel;
         private List<Label> currentMainDetailsLinks;
 
         
@@ -46,7 +46,6 @@ namespace TouristGuide.gui
         public PoiBrowser()
         {
             InitializeComponent();
-            this.currentMediaFilesLinks = new List<Label>();
             this.currentMainDetailsLinks = new List<Label>();
             this.Visible = false;
         }
@@ -55,12 +54,10 @@ namespace TouristGuide.gui
         {
             base.OnDeactivate(e);
             Debug.WriteLine("OnDeactivate: *********************", ToString());
-            // clean current media file links list
-            foreach (Label ll in this.currentMediaFilesLinks)
-            {
-                this.tabPreview.Controls.Remove(ll);
-            }
-            this.currentMediaFilesLinks = new List<Label>();
+            // clean media files list panel
+            if (this.mediaFilesPanel != null)
+                this.tabPreview.Controls.Remove(this.mediaFilesPanel);
+            this.mediaFilesPanel = null;
             // clean current main details links list
             foreach (Label ll in this.currentMainDetailsLinks)
             {
@@ -106,7 +103,7 @@ namespace TouristGuide.gui
                 Label ll = new Label();
                 ll.Text = "Main details:";
                 ll.Location = new Point(LEFT_MARGIN, this.freeY);
-                ll.TabIndex = 1;
+                //ll.TabIndex = 1;
                 this.currentMainDetailsLinks.Add(ll);
                 this.tabPreview.Controls.Add(ll);
                 this.freeY += ll.Height;
@@ -116,7 +113,7 @@ namespace TouristGuide.gui
                     ll.Text = md.getTitle();
                     ll.Width = this.textBoxPoiDescr.Width;
                     ll.Location = new Point(LEFT_MARGIN, this.freeY);
-                    ll.TabIndex = 1;
+                    //ll.TabIndex = 1;
                     this.currentMainDetailsLinks.Add(ll);
                     this.tabPreview.Controls.Add(ll);
                     this.freeY += ll.Height;
@@ -132,21 +129,13 @@ namespace TouristGuide.gui
                 Label ll = new Label();
                 ll.Text = "Media files:";
                 ll.Location = new Point(LEFT_MARGIN, this.freeY);
-                ll.TabIndex = 1;
-                this.currentMediaFilesLinks.Add(ll);
                 this.tabPreview.Controls.Add(ll);
                 this.freeY += ll.Height;
-                foreach (MediaFile mf in mediaFiles)
-                {
-                    ll = new MediaFileLinkLabel(mf, this);
-                    ll.Text = mf.getTitle();
-                    ll.Width = this.textBoxPoiDescr.Width;
-                    ll.Location = new Point(LEFT_MARGIN, this.freeY);
-                    ll.TabIndex = 1;
-                    this.currentMediaFilesLinks.Add(ll);
-                    this.tabPreview.Controls.Add(ll);
-                    this.freeY += ll.Height;
-                }
+                this.mediaFilesPanel = new MediaFilesListPanel(mediaFiles, this);
+                this.mediaFilesPanel.Width = this.textBoxPoiDescr.Width;
+                this.mediaFilesPanel.Location = new Point(LEFT_MARGIN, this.freeY);
+                this.tabPreview.Controls.Add(this.mediaFilesPanel);
+                this.freeY += this.mediaFilesPanel.Height;
             }
         }
 

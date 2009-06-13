@@ -12,12 +12,12 @@ namespace TouristGuide.gui
         private MediaFile media;
         private MediaFilePanel mediaPanel;
 
-        private Form poiBrowser;
+        private Control dialogParent;
 
-        public MediaFileLinkLabel(MediaFile media, Form poiBrowser)
+        public MediaFileLinkLabel(MediaFile media, Control dialogParent)
         {
             this.media = media;
-            this.poiBrowser = poiBrowser;
+            this.dialogParent = dialogParent;
             this.mediaPanel = new MediaFilePanel(media);
         }
 
@@ -25,8 +25,8 @@ namespace TouristGuide.gui
         {
             base.OnClick(e);
             this.mediaPanel.Location = new Point();
-            this.mediaPanel.Size = this.poiBrowser.Size;
-            this.poiBrowser.Controls.Add(this.mediaPanel);
+            this.mediaPanel.Size = this.dialogParent.Size;
+            this.dialogParent.Controls.Add(this.mediaPanel);
             this.mediaPanel.BringToFront();
         }
 

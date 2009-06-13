@@ -88,6 +88,9 @@
     <Compile Include="src\gui\MediaFilePanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="src\gui\MediaFilesListPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="src\gui\PoiBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
