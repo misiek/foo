@@ -26,7 +26,6 @@ namespace TouristGuide.gui
         private TabPage tabPreview;
         private Label labelPoiName;
         private TextBox textBoxPoiDescr;
-        private Microsoft.WindowsCE.Forms.Notification notification1;
 
         private Poi currentPoi;
         private List<Label> currentMediaFilesLinks;
@@ -110,17 +109,17 @@ namespace TouristGuide.gui
                 ll.TabIndex = 1;
                 this.currentMainDetailsLinks.Add(ll);
                 this.tabPreview.Controls.Add(ll);
-                this.freeY += ll.Height + 3;
+                this.freeY += ll.Height;
                 foreach (MainDetail md in mainDetails)
                 {
-                    ll = new LinkLabel();
+                    ll = new MainDetailLinkLabel(md, this);
                     ll.Text = md.getTitle();
                     ll.Width = this.textBoxPoiDescr.Width;
                     ll.Location = new Point(LEFT_MARGIN, this.freeY);
                     ll.TabIndex = 1;
                     this.currentMainDetailsLinks.Add(ll);
                     this.tabPreview.Controls.Add(ll);
-                    this.freeY += ll.Height + 3;
+                    this.freeY += ll.Height;
                 }
             }
         }
@@ -136,40 +135,39 @@ namespace TouristGuide.gui
                 ll.TabIndex = 1;
                 this.currentMediaFilesLinks.Add(ll);
                 this.tabPreview.Controls.Add(ll);
-                this.freeY += ll.Height + 3;
+                this.freeY += ll.Height;
                 foreach (MediaFile mf in mediaFiles)
                 {
-                    ll = new LinkLabel();
+                    ll = new MediaFileLinkLabel(mf, this);
                     ll.Text = mf.getTitle();
                     ll.Width = this.textBoxPoiDescr.Width;
                     ll.Location = new Point(LEFT_MARGIN, this.freeY);
                     ll.TabIndex = 1;
                     this.currentMediaFilesLinks.Add(ll);
                     this.tabPreview.Controls.Add(ll);
-                    this.freeY += ll.Height + 3;
+                    this.freeY += ll.Height;
                 }
             }
         }
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem61 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem62 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem63 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem64 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem65 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem66 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPois = new System.Windows.Forms.TabPage();
             this.listBoxPois = new System.Windows.Forms.ListBox();
             this.tabPreview = new System.Windows.Forms.TabPage();
+            this.textBoxPoiDescr = new System.Windows.Forms.TextBox();
             this.labelPoiName = new System.Windows.Forms.Label();
             this.tabTargets = new System.Windows.Forms.TabPage();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.textBoxPoiDescr = new System.Windows.Forms.TextBox();
-            this.notification1 = new Microsoft.WindowsCE.Forms.Notification();
             this.tabControl.SuspendLayout();
             this.tabPois.SuspendLayout();
             this.tabPreview.SuspendLayout();
@@ -212,11 +210,24 @@ namespace TouristGuide.gui
             this.tabPreview.Size = new System.Drawing.Size(240, 268);
             this.tabPreview.Text = "Preview";
             // 
+            // textBoxPoiDescr
+            // 
+            this.textBoxPoiDescr.AcceptsReturn = true;
+            this.textBoxPoiDescr.AcceptsTab = true;
+            this.textBoxPoiDescr.Location = new System.Drawing.Point(3, 27);
+            this.textBoxPoiDescr.Multiline = true;
+            this.textBoxPoiDescr.Name = "textBoxPoiDescr";
+            this.textBoxPoiDescr.ReadOnly = true;
+            this.textBoxPoiDescr.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxPoiDescr.Size = new System.Drawing.Size(220, 185);
+            this.textBoxPoiDescr.TabIndex = 1;
+            this.textBoxPoiDescr.Text = "description";
+            // 
             // labelPoiName
             // 
             this.labelPoiName.Location = new System.Drawing.Point(3, 4);
             this.labelPoiName.Name = "labelPoiName";
-            this.labelPoiName.Size = new System.Drawing.Size(212, 20);
+            this.labelPoiName.Size = new System.Drawing.Size(220, 20);
             this.labelPoiName.Text = "poi name";
             // 
             // tabTargets
@@ -224,7 +235,7 @@ namespace TouristGuide.gui
             this.tabTargets.Controls.Add(this.listView1);
             this.tabTargets.Location = new System.Drawing.Point(0, 0);
             this.tabTargets.Name = "tabTargets";
-            this.tabTargets.Size = new System.Drawing.Size(240, 268);
+            this.tabTargets.Size = new System.Drawing.Size(232, 265);
             this.tabTargets.Text = "Targets";
             // 
             // listView1
@@ -232,21 +243,21 @@ namespace TouristGuide.gui
             this.listView1.Columns.Add(this.columnHeader1);
             this.listView1.Columns.Add(this.columnHeader2);
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewItem61.Text = "aaaaa";
-            listViewItem62.Text = "bbbb";
-            listViewItem63.Text = "cccc";
-            listViewItem64.Text = "ffff";
-            listViewItem65.Text = "dddd";
-            listViewItem66.Text = "eeee";
-            this.listView1.Items.Add(listViewItem61);
-            this.listView1.Items.Add(listViewItem62);
-            this.listView1.Items.Add(listViewItem63);
-            this.listView1.Items.Add(listViewItem64);
-            this.listView1.Items.Add(listViewItem65);
-            this.listView1.Items.Add(listViewItem66);
+            listViewItem7.Text = "aaaaa";
+            listViewItem8.Text = "bbbb";
+            listViewItem9.Text = "cccc";
+            listViewItem10.Text = "ffff";
+            listViewItem11.Text = "dddd";
+            listViewItem12.Text = "eeee";
+            this.listView1.Items.Add(listViewItem7);
+            this.listView1.Items.Add(listViewItem8);
+            this.listView1.Items.Add(listViewItem9);
+            this.listView1.Items.Add(listViewItem10);
+            this.listView1.Items.Add(listViewItem11);
+            this.listView1.Items.Add(listViewItem12);
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(240, 268);
+            this.listView1.Size = new System.Drawing.Size(232, 265);
             this.listView1.TabIndex = 0;
             this.listView1.View = System.Windows.Forms.View.List;
             // 
@@ -259,23 +270,6 @@ namespace TouristGuide.gui
             // 
             this.columnHeader2.Text = "Type";
             this.columnHeader2.Width = 60;
-            // 
-            // textBoxPoiDescr
-            // 
-            this.textBoxPoiDescr.AcceptsReturn = true;
-            this.textBoxPoiDescr.AcceptsTab = true;
-            this.textBoxPoiDescr.Location = new System.Drawing.Point(3, 27);
-            this.textBoxPoiDescr.Multiline = true;
-            this.textBoxPoiDescr.Name = "textBoxPoiDescr";
-            this.textBoxPoiDescr.ReadOnly = true;
-            this.textBoxPoiDescr.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxPoiDescr.Size = new System.Drawing.Size(212, 185);
-            this.textBoxPoiDescr.TabIndex = 1;
-            this.textBoxPoiDescr.Text = "description";
-            // 
-            // notification1
-            // 
-            this.notification1.Text = "notification1";
             // 
             // PoiBrowser
             // 

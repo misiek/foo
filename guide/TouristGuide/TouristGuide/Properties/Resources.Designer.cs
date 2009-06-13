@@ -64,6 +64,13 @@ namespace TouristGuide.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap close {
+            get {
+                object obj = ResourceManager.GetObject("close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap positionMarkerImg {
             get {
                 object obj = ResourceManager.GetObject("positionMarkerImg", resourceCulture);
