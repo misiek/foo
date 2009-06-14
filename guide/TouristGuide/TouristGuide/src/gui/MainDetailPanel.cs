@@ -14,13 +14,15 @@ namespace TouristGuide.gui
         private static int HEIGHT_DESCR = 250;
 
         private MainDetail detail;
+        private Control poiBrowser;
         private TextBox descr;
         private MediaFilesListPanel mediaFilesPanel;
         private int y = 0;
 
-        public MainDetailPanel(MainDetail detail)
+        public MainDetailPanel(MainDetail detail, Control poiBrowser)
         {
             this.detail = detail;
+            this.poiBrowser = poiBrowser;
             initialize();
         }
 
@@ -61,7 +63,7 @@ namespace TouristGuide.gui
                 ll.Location = new Point(MARGIN, this.y);
                 this.content.Controls.Add(ll);
                 this.y += ll.Height;
-                this.mediaFilesPanel = new MediaFilesListPanel(mediaFiles, this);
+                this.mediaFilesPanel = new MediaFilesListPanel(mediaFiles, this.poiBrowser);
                 this.mediaFilesPanel.Width = this.Width - MARGIN - MARGIN_RIGHT;
                 this.mediaFilesPanel.Location = new Point(MARGIN, this.y);
                 this.content.Controls.Add(this.mediaFilesPanel);

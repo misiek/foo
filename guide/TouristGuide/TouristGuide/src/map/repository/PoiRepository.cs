@@ -130,9 +130,16 @@ namespace TouristGuide.map.repository
             this.poiSourceHdd.setCurrentArea(namedArea);
         }
 
-        public void loadMedia(Poi poi)
+        public void load(Poi poi)
         {
+            this.poiSourceHdd.loadData(poi);
             this.poiSourceHdd.loadMedia(poi);
+        }
+
+        // return list of empty pois
+        public List<Poi> allPois()
+        {
+            return this.poiSourceHdd.allPois();
         }
     }
 }

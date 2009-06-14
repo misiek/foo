@@ -29,7 +29,8 @@ namespace TouristGuide.gui
             set
             {
                 this.pictureBox.Image = value;
-                this.pictureBox.Size = value.Size;
+                if (value != null)
+                    this.pictureBox.Size = value.Size;
             }
             get
             {

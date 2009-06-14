@@ -71,8 +71,10 @@ namespace TouristGuide.map.obj
 
         public void freeMedia()
         {
-            this.mediaFiles.Clear();
-            this.mainDetails.Clear();
+            //this.mediaFiles.Clear();
+            //this.mainDetails.Clear();
+            this.mediaFiles = new List<MediaFile>();
+            this.mainDetails = new List<MainDetail>();
         }
 
         public void free()
@@ -85,7 +87,7 @@ namespace TouristGuide.map.obj
 
         public override string ToString()
         {
-            return this.name + "_" + this.latitude + "_" + this.longitude;
+            return this.name;
         }
 
         public string getName()

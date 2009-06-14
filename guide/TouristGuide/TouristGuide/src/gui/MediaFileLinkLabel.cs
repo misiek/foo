@@ -18,14 +18,20 @@ namespace TouristGuide.gui
         {
             this.media = media;
             this.dialogParent = dialogParent;
+            initializeMediaPanel();
+        }
+
+        private void initializeMediaPanel()
+        {
             this.mediaPanel = new MediaFilePanel(media);
+            this.mediaPanel.Location = new Point();
+            this.mediaPanel.Size = this.dialogParent.Size;
         }
 
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
-            this.mediaPanel.Location = new Point();
-            this.mediaPanel.Size = this.dialogParent.Size;
+            this.mediaPanel.loadImage();
             this.dialogParent.Controls.Add(this.mediaPanel);
             this.mediaPanel.BringToFront();
         }

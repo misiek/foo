@@ -52,16 +52,26 @@ namespace TouristGuide.gui
             this.imgPanel.Location = new Point(MARGIN, y);
             this.imgPanel.Width = this.Width - 2 * MARGIN;
             this.imgPanel.Height = this.content.Height - y - MARGIN;
-            Bitmap mediaBmp = new Bitmap(new MemoryStream(this.media.getMedia()));
-            this.imgPanel.Image = mediaBmp;
             this.content.Controls.Add(this.imgPanel);
 
             this.imgPanel.PictureBox.Click += new EventHandler(fullScreen);
         }
 
+        public void loadImage()
+        {
+            Bitmap mediaBmp = new Bitmap(new MemoryStream(this.media.getMedia()));
+            this.imgPanel.Image = mediaBmp;
+        }
+
         private void fullScreen(object sender, EventArgs e)
         {
             Debug.WriteLine(" *** CLICK fullScreen *** ", ToString());
+        }
+
+        protected override void closeAction(object sender, EventArgs e)
+        {
+            base.closeAction(sender, e);
+            this.imgPanel.Image = null;
         }
 
         protected override void OnResize(EventArgs e)

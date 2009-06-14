@@ -10,7 +10,22 @@ namespace TouristGuide.gui
     {
         private PictureBox closeButton;
         protected Label titleBar;
+        public Label TitleBar
+        {
+            get
+            {
+                return this.titleBar;
+            }
+        }
+
         protected Panel content;
+        public Panel Content
+        {
+            get
+            {
+                return this.content;
+            }
+        }
 
 
         public DialogPanel()
@@ -55,7 +70,7 @@ namespace TouristGuide.gui
             content.Height = this.Height - closeButton.Height;
         }
 
-        private void closeAction(object sender, EventArgs e)
+        protected virtual void closeAction(object sender, EventArgs e)
         {
             this.Parent.Controls.Remove(this);
         }

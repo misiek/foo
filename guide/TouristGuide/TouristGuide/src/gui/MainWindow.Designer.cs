@@ -40,6 +40,7 @@ namespace TouristGuide.gui
             this.labelSpeed = new System.Windows.Forms.Label();
             this.mapPanel = new TouristGuide.gui.MapPanel();
             this.mapMessageBox = new System.Windows.Forms.Label();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.mapPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +57,6 @@ namespace TouristGuide.gui
             // 
             // menuStartDevice
             // 
-            this.menuStartDevice.Checked = true;
             this.menuStartDevice.Text = "Start Device";
             this.menuStartDevice.Click += new System.EventHandler(this.menuStartDevice_Click);
             // 
@@ -69,6 +69,7 @@ namespace TouristGuide.gui
             // 
             this.menuItem4.MenuItems.Add(this.menuItem5);
             this.menuItem4.MenuItems.Add(this.menuItem2);
+            this.menuItem4.MenuItems.Add(this.menuItem3);
             this.menuItem4.Text = "Guide";
             // 
             // menuItem5
@@ -77,7 +78,7 @@ namespace TouristGuide.gui
             // 
             // menuItem2
             // 
-            this.menuItem2.Text = "Download POIs";
+            this.menuItem2.Text = "Download Pois";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
             // labelPosition
@@ -116,6 +117,11 @@ namespace TouristGuide.gui
             this.mapMessageBox.Text = "Map message box.";
             this.mapMessageBox.Visible = false;
             // 
+            // menuItem3
+            // 
+            this.menuItem3.Text = "Poi Browser";
+            this.menuItem3.Click += new System.EventHandler(this.menuItem3_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -147,6 +153,7 @@ namespace TouristGuide.gui
         private MapPanel mapPanel;
         private System.Windows.Forms.Label mapMessageBox;
         private System.Windows.Forms.MenuItem menuItem2;
+        private System.Windows.Forms.MenuItem menuItem3;
     }
 }
 

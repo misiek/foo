@@ -97,6 +97,12 @@ namespace TouristGuide.gui
             AppContext.Instance.getMapManager().downloadPois();
         }
 
+        private void menuItem3_Click(object sender, EventArgs e)
+        {
+            // show poi browser
+            AppContext.Instance.getPoiBrowser().display();
+        }
+
 
     }
 }

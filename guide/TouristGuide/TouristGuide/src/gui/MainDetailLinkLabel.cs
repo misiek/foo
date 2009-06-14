@@ -18,7 +18,7 @@ namespace TouristGuide.gui
         {
             this.detail = detail;
             this.poiBrowser = poiBrowser;
-            this.mainDetailPanel = new MainDetailPanel(detail);
+            this.mainDetailPanel = new MainDetailPanel(detail, poiBrowser);
         }
 
         protected override void OnClick(EventArgs e)

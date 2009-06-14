@@ -117,7 +117,8 @@ namespace TouristGuide.map.repository
          */
         private string getPoiSubDir(Poi p, NamedArea namedArea)
         {
-            return getPoiSubDir(p.ToString(), namedArea);
+            string dirName = p.getName() + "_" + p.getLatitude() + "_" + p.getLongitude();
+            return getPoiSubDir(dirName, namedArea);
         }
 
         /**
@@ -134,9 +135,25 @@ namespace TouristGuide.map.repository
             readPoisDir();
         }
 
+        internal void loadData(Poi poi)
+        {
+            if (poi.isDataFree())
+                this.poiMapperHdd.loadData(poi, getPoiSubDir(poi, this.currentNamedArea));
+        }
+
         internal void loadMedia(Poi poi)
         {
-            this.poiMapperHdd.loadMedia(poi, getPoiSubDir(poi, this.currentNamedArea));
+            if (poi.isMediaFree())
+                this.poiMapperHdd.loadMedia(poi, getPoiSubDir(poi, this.currentNamedArea));
+        }
+
+        internal List<Poi> allPois()
+        {
+            if (this.pois == null)
+            {
+                readPoisDir();
+            }
+            return this.pois;
         }
     }
 }
