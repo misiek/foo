@@ -125,5 +125,10 @@ namespace Gps
             return this.latitude != null && this.longitude != null &&
                    this.latitude != UNKNOWN_COORDINATE && this.longitude != UNKNOWN_COORDINATE;
         }
+
+        public double getCourse()
+        {
+            return this.course;
+        }
     }
 }

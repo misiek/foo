@@ -30,6 +30,7 @@
     <FileAlignment>512</FileAlignment>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,6 +74,7 @@
     <Compile Include="src\gui\DialogPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="src\util\ImageUtil.cs" />
     <Compile Include="src\gui\MainDetailLinkLabel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -94,6 +96,7 @@
     <Compile Include="src\gui\PoiBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="src\util\PointMath.cs" />
     <Compile Include="src\gui\PoiPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -167,6 +170,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GDIPlusWrapper\OpenNETCF.GDIPlus.csproj">
+      <Project>{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}</Project>
+      <Name>OpenNETCF.GDIPlus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gps\Gps.csproj">
       <Project>{508F292A-A186-49A5-8F6B-04C5AEC37EC6}</Project>
       <Name>Gps</Name>

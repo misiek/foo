@@ -3,10 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouristGuide", "TouristGuide\TouristGuide.csproj", "{F6A13129-8561-4F52-B146-E8B5B362331E}"
 	ProjectSection(ProjectDependencies) = postProject
+		{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7} = {90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6} = {508F292A-A186-49A5-8F6B-04C5AEC37EC6}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gps", "Gps\Gps.csproj", "{508F292A-A186-49A5-8F6B-04C5AEC37EC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNETCF.GDIPlus", "GDIPlusWrapper\OpenNETCF.GDIPlus.csproj", "{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +34,12 @@ Global
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.wewer|Any CPU.ActiveCfg = wewer|Any CPU
 		{508F292A-A186-49A5-8F6B-04C5AEC37EC6}.wewer|Any CPU.Build.0 = wewer|Any CPU
+		{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}.wewer|Any CPU.ActiveCfg = Release|Any CPU
+		{90C9ADE0-EF58-449F-B13F-256BEA8F5FD7}.wewer|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

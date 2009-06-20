@@ -87,6 +87,11 @@ namespace TouristGuide.map.obj
             return this.gpsLocation;
         }
 
+        public void setGpsLocation(GpsLocation gpsLocation)
+        {
+            this.gpsLocation = gpsLocation;
+        }
+
         public List<Poi> getPois()
         {
             return this.pois;

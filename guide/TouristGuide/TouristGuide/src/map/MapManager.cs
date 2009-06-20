@@ -242,6 +242,7 @@ namespace TouristGuide.map
             Point insidePartPosition = this.currentMapPkg.getInsidePartPosition(latitude, longitude);
             Debug.WriteLine("updateCurrentView *****: " + PointUtil.pointStr(insidePartPosition), ToString());
             this.currentMapVeiw.setCenterImgPosition(insidePartPosition);
+            this.currentMapVeiw.setGpsLocation(this.currentGpsLocation);
         }
 
         // TODO: this method is too big

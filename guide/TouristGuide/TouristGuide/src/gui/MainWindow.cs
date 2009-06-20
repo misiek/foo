@@ -7,6 +7,9 @@ using System.Text;
 using System.Windows.Forms;
 using Gps;
 
+using OpenNETCF.GDIPlus;
+//using OpenNETCF.Runtime.InteropServices.ComTypes;
+
 namespace TouristGuide.gui
 {
     public partial class MainWindow : Form
@@ -16,6 +19,11 @@ namespace TouristGuide.gui
         private EventHandler updateSatHandler;
         // current location
         private GpsLocation currentGpsLocation;
+
+        // needed by gdiplus
+        GdiplusStartupInput input = new GdiplusStartupInput();
+        GdiplusStartupOutput output;
+        IntPtr token;
 
         public MapPanel MapPanel
         {
@@ -34,7 +42,8 @@ namespace TouristGuide.gui
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            // initialize gdiplus
+            GpStatusPlus stat = NativeMethods.GdiplusStartup(out token, input, out output);
         }
 
         public void locationChanged(GpsLocation gpsLoc)

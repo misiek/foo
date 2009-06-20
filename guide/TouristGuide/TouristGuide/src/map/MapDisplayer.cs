@@ -5,6 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 using TouristGuide.map.obj;
 using TouristGuide.gui;
@@ -194,8 +195,18 @@ namespace TouristGuide.map
             displayPois();
             // dispaly line to current target, and message when target changed
             updateCurrentTarget();
+            // set rotation to course
+            rotateToCourse();
             // refresh map panel
             this.mapPanel.Refresh();
+        }
+
+        private void rotateToCourse()
+        {
+            double course = this.mapView.getGpsLocation().getCourse();
+            Debug.WriteLine("rotateToCourse: COURSE: " + course, this.ToString());
+            this.mapPanel.setRotation(course);
+
         }
 
         private void updateCurrentTarget()

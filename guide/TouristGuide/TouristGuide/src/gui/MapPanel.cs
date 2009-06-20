@@ -4,6 +4,10 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Diagnostics;
+
+using OpenNETCF.GDIPlus;
+using OpenNETCF.Runtime.InteropServices.ComTypes;
 
 namespace TouristGuide.gui
 {
@@ -40,6 +44,10 @@ namespace TouristGuide.gui
         private Hashtable pictureSlots;
         public Hashtable PictureSlots { get { return this.pictureSlots;  } }
 
+        // rotation angle
+        private double rotationAngle;
+
+
         public MapPanel()
         {
             // Gets the image from the global resources
@@ -48,12 +56,18 @@ namespace TouristGuide.gui
             this.pictureSlots = new Hashtable();
             createPictureSlots();
             this.directionLineVisible = false;
+            this.rotationAngle = 0;
         }
 
         public void showDirectionLine(Point targetPoint)
         {
             this.targetPoint = targetPoint;
             this.directionLineVisible = true;
+        }
+
+        public void setRotation(double rotationAngle)
+        {
+            this.rotationAngle = rotationAngle;
         }
 
         public void hideDirectionLine()
@@ -95,11 +109,40 @@ namespace TouristGuide.gui
             Graphics g = Graphics.FromImage(this.off_screen);
             g.Clear(this.BackColor);
             drawMap(g);
-            if (this.directionLineVisible)
-                drawDirectionLine(g);
+           
+            // GDI Plus
+            IntPtr hdc = g.GetHdc();
+            using (GraphicsPlus graphics = new GraphicsPlus(hdc))
+            {
+                if (this.directionLineVisible)
+                    drawDirectionLinePlus(graphics);
+                if (this.rotationAngle != 0)
+                    rotate(graphics);
+            }
+            g.ReleaseHdc(hdc);
+            
             drawPositionMarkerImg(g);
 
             e.Graphics.DrawImage(this.off_screen, 0, 0);
+        }
+
+        private void rotate(GraphicsPlus graphics)
+        {
+            //Debug.WriteLine("rotate ################### " + this.rotationAngle, this.ToString());
+        
+            //Matrix X = new Matrix();
+            //X.Rotate((float)this.rotationAngle, MatrixOrder.MatrixOrderAppend);
+            //graphics.Transform(X);
+
+            
+
+            //move rotation point to center of image
+            //g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
+            //rotate
+            //g.RotateTransform(angle);
+            ////move image back
+            //g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
+
         }
 
         private void drawMap(Graphics g)
@@ -113,11 +156,23 @@ namespace TouristGuide.gui
             }
         }
 
+        private void drawDirectionLinePlus(GraphicsPlus graphics)
+        {            
+            graphics.SetSmoothingMode(SmoothingMode.SmoothingModeAntiAlias);
+
+            PenPlus pen = new PenPlus(Color.FromArgb(0x7fff0000), 3);
+            pen.SetEndCap(LineCap.LineCapRound);
+            pen.SetStartCap(LineCap.LineCapRound);
+
+            graphics.DrawLine(pen, this.Width / 2, this.Height / 2, targetPoint.X, targetPoint.Y);
+            pen.Dispose();
+        }
+
         private void drawDirectionLine(Graphics g)
         {
             using (Pen p = new Pen(Color.Red))
             {
-                p.DashStyle = DashStyle.Solid;
+                p.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
                 g.DrawLine(p, this.Width / 2, this.Height / 2, targetPoint.X, targetPoint.Y);
             }
         }
