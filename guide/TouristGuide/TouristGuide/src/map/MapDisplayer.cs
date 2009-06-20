@@ -32,6 +32,8 @@ namespace TouristGuide.map
 
         private Point currentCenterPoint;
 
+        private Poi currentTarget;
+
         public MapDisplayer(MapPanel mapPanel)
         {
             this.mapPanel = mapPanel;
@@ -190,12 +192,26 @@ namespace TouristGuide.map
                 }
             }
             displayPois();
-
-            // just for test
-            //this.mapPanel.showDirectionLine(new Point(50, 50));
-           
+            // dispaly line to current target, and message when target changed
+            updateCurrentTarget();
             // refresh map panel
             this.mapPanel.Refresh();
+        }
+
+        private void updateCurrentTarget()
+        {
+            if (this.mapView.getTarget() == null)
+                return;
+            if (this.currentTarget != this.mapView.getTarget()) {
+                displayMessage("Next target: " + this.mapView.getTarget(), 5000);
+                this.currentTarget = this.mapView.getTarget();
+            }
+            Point targetPoint = this.mapView.getTargetPixelCoordinates();
+            Point panelTargetPoint = getMapPanelCoordinates(targetPoint);
+            Debug.WriteLine("updateMapPanel: PANEL TARGET POINT: "
+                + PointUtil.pointStr(panelTargetPoint), ToString());
+            // show line to current target
+            this.mapPanel.showDirectionLine(panelTargetPoint);
         }
 
         private void displayPois()
@@ -226,19 +242,23 @@ namespace TouristGuide.map
             }
         }
 
-        private void updateLabelLocation(Control l, Point poiMapViewPosition)
+        private Point getMapPanelCoordinates(Point p)
         {
-            
             Point mapViewPositionOnImg = this.mapView.getPositionOnImg();
-
             int xMapViewTr = mapViewPositionOnImg.X - this.currentCenterPoint.X;
             int yMapViewTr = mapViewPositionOnImg.Y - this.currentCenterPoint.Y;
+            return new Point(p.X - xMapViewTr, p.Y - yMapViewTr);
+        }
+
+        private void updateLabelLocation(Control l, Point poiMapViewPosition)
+        {
+            Point mapPanelCoordinates = getMapPanelCoordinates(poiMapViewPosition);
 
             int xSizeFix = l.Size.Width / 2;
             int ySizeFix = l.Size.Height / 2;
 
-            l.Location = new Point(poiMapViewPosition.X - xMapViewTr - xSizeFix,
-                                   poiMapViewPosition.Y - yMapViewTr - ySizeFix);
+            l.Location = new Point(mapPanelCoordinates.X - xSizeFix,
+                                   mapPanelCoordinates.Y - ySizeFix);
         }
 
         private void cleanPoiLabels()

@@ -144,6 +144,7 @@
     <Compile Include="src\map\repository\PoiSourceHdd.cs" />
     <Compile Include="src\map\repository\PoiSourceMem.cs" />
     <Compile Include="src\map\repository\PoiSourceWeb.cs" />
+    <Compile Include="src\map\Targets.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="src\gui\MainWindow.resx">

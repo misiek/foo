@@ -56,6 +56,15 @@ namespace TouristGuide.map
             }
         }
 
+        private Targets targets;
+        public Targets Targets
+        {
+            set
+            {
+                this.targets = value;
+            }
+        }
+
         public MapManager()
         {
             this.loadingEventMsg = "";
@@ -113,12 +122,22 @@ namespace TouristGuide.map
                 // find and set pois on newly created map view
                 loadPoisToCurrentMapView();
             }
-
+            // update current map target
+            updateCurrentTarget();
             if (this.currentMapVeiw != null)
             {
                 // display map view
                 this.mapDisplayer.displayView(this.currentMapVeiw);
             }
+        }
+
+        private void updateCurrentTarget()
+        {
+            double latitude = this.currentGpsLocation.getLatitude();
+            double longitude = this.currentGpsLocation.getLongitude();
+            Poi currentTarget = this.targets.getCurrent(latitude, longitude);
+            Debug.WriteLine("updateCurrentTarget: " + currentTarget, this.ToString());
+            this.currentMapVeiw.setTarget(currentTarget);
         }
 
         public void downloadPois()

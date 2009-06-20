@@ -24,6 +24,8 @@ namespace TouristGuide.map.obj
         // current view area
         private Area area;
 
+        private Poi target;
+
         private double latitudePerPixel;
         private double longitudePerPixel;
 
@@ -97,8 +99,8 @@ namespace TouristGuide.map.obj
 
         public Point getPoiPixelCoordinates(Poi p)
         {
-            double deltaLongitude = Math.Abs(this.area.getTopLeftLongitude() - p.getLongitude());
-            double deltaLatitude = Math.Abs(this.area.getTopLeftLatitude() - p.getLatitude());
+            double deltaLongitude = p.getLongitude() - this.area.getTopLeftLongitude();
+            double deltaLatitude = this.area.getTopLeftLatitude() - p.getLatitude();
 
             int x = (int) Math.Floor(deltaLongitude / this.longitudePerPixel);
             int y = (int) Math.Floor(deltaLatitude / this.latitudePerPixel);
@@ -129,6 +131,21 @@ namespace TouristGuide.map.obj
         public void setCenterImgArea(Area centerImgArea)
         {
             this.centerImgArea = centerImgArea;
+        }
+
+        internal void setTarget(Poi currentTarget)
+        {
+            this.target = currentTarget;
+        }
+
+        public Poi getTarget()
+        {
+            return this.target;
+        }
+
+        public Point getTargetPixelCoordinates()
+        {
+            return getPoiPixelCoordinates(this.target);
         }
     }
 }

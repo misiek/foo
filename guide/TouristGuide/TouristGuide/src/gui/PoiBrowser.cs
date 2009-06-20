@@ -9,6 +9,7 @@ using System.Diagnostics;
 using TouristGuide.map.obj;
 using TouristGuide.map.repository;
 using System.Collections;
+using TouristGuide.map;
 
 namespace TouristGuide.gui
 {
@@ -28,6 +29,7 @@ namespace TouristGuide.gui
         private Poi currentPoi;
         private Poi selectedPoi;
         private Poi selectedTargetPoi;
+        private Poi targetToRemove;
         private List<Poi> allPois;
         private NamedArea currentNamedArea;
         private MediaFilesListPanel mediaFilesPanel;
@@ -50,6 +52,16 @@ namespace TouristGuide.gui
                 this.poiRepository = value;
             }
         }
+
+        private Targets targets;
+        public Targets Targets
+        {
+            set
+            {
+                this.targets = value;
+                this.targets.targetDone += new Targets.TargetDone(targetDone);
+            }
+        }
     
         public PoiBrowser()
         {
@@ -63,6 +75,21 @@ namespace TouristGuide.gui
             base.OnDeactivate(e);
             Debug.WriteLine("OnDeactivate: *********************", ToString());
             cleanPreview();
+        }
+
+        private void targetDone(Poi target)
+        {
+            this.targetToRemove = target;
+            this.listBoxTargets.Invoke(new EventHandler(removeTarget));
+        }
+
+        private void removeTarget(Object sender, EventArgs args)
+        {
+            if (this.targetToRemove != null)
+            {
+                this.listBoxTargets.Items.Remove(this.targetToRemove);
+                this.targetToRemove = null;
+            }
         }
 
         private void cleanPreview() {
@@ -361,6 +388,9 @@ namespace TouristGuide.gui
 
         private void buttonAddTarget_Click(object sender, EventArgs e)
         {
+            // add target to map manager
+            this.targets.add(this.selectedPoi);
+            // also add it to targets list
             this.buttonAddTarget.Enabled = false;
             this.listBoxTargets.Items.Add(this.selectedPoi);
         }
@@ -402,6 +432,9 @@ namespace TouristGuide.gui
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
+            // remove target from map manager
+            this.targets.remove(this.selectedTargetPoi);
+            // also remove it from list
             this.listBoxTargets.Items.Remove(this.selectedTargetPoi);
             this.buttonPreview2.Enabled = false;
             this.buttonRemove.Enabled = false;
@@ -418,6 +451,8 @@ namespace TouristGuide.gui
             this.listBoxTargets.SelectedIndex = index - 1;
             if (index - 1 == 0)
                 this.buttonUp.Enabled = false;
+            // move target in map manager, 1 place to the beginning of the list
+            this.targets.move(this.selectedTargetPoi, -1);
         }
 
         private void buttonDown_Click(object sender, EventArgs e)
@@ -429,6 +464,8 @@ namespace TouristGuide.gui
             this.listBoxTargets.SelectedIndex = index + 1;
             if (index + 1 == this.listBoxTargets.Items.Count - 1)
                 this.buttonDown.Enabled = false;
+            // move target in map manager, 1 place to the end of the list
+            this.targets.move(this.selectedTargetPoi, 1);
         }
 
     }

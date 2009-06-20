@@ -57,6 +57,7 @@ namespace TouristGuide
         private PoiMapperHdd poiMapperHdd;
 
         private MapDisplayer mapDisplayer;
+        private Targets targets;
         private MapManager mapManager;
 
         private MainWindow mainWindow;
@@ -144,15 +145,21 @@ namespace TouristGuide
             this.poiRepository.PoiSourceWeb = this.poiSourceWeb;
             Debug.WriteLine("AppContext(): PoiRepository instantiated.");
 
+            // map targets
+            this.targets = new Targets();
+            Debug.WriteLine("AppContext(): Targets instantiated.");
+
             // map manager
             this.mapManager = new MapManager();
             this.mapManager.MapDisplayer = this.mapDisplayer;
             this.mapManager.MapPkgRepository = this.mapPkgRepository;
             this.mapManager.PoiRepository = this.poiRepository;
+            this.mapManager.Targets = this.targets;
             Debug.WriteLine("AppContext(): MapManager instantiated.");
 
             this.poiBrowser = new PoiBrowser();
             this.poiBrowser.PoiRepository = this.poiRepository;
+            this.poiBrowser.Targets = this.targets;
             Debug.WriteLine("AppContext(): PoiBrowser instantiated.");
 
             // application events
