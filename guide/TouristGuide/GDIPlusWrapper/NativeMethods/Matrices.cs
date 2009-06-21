@@ -39,7 +39,8 @@ GdipSetMatrixElements(GpMatrix matrix, float m11, float m12, float m21, float m2
         public static extern GpStatus
 GdipGetMatrixElements(GpMatrix matrix, float[] matrixOut);
 
-        [DllImport("gdiplus")]
-        public static extern GpStatus GdipRotateMatrix(GpMatrix matrix, float angle, MatrixOrder order);
+        // seems to be not implemented
+        //[DllImport("gdiplus")]
+        //public static extern GpStatus GdipRotateMatrix(GpMatrix matrix, float angle, MatrixOrder order);
     }
 }

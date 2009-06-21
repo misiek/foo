@@ -120,10 +120,15 @@ GdipResetWorldTransform(GpGraphics graphics);
 GdipMultiplyWorldTransform(GpGraphics graphics, GpMatrix matrix,
             MatrixOrder order);
 
+        //GpStatus WINGDIPAPI GdipTranslateWorldTransform(GpGraphics *graphics, REAL dx, REAL dy, GpMatrixOrder order)
         [DllImport("gdiplus")]
-        extern static public GpStatus
-GdipTranslateWorldTransform(GpGraphics graphics, float dx, float dy,
+        extern static public GpStatus GdipTranslateWorldTransform(GpGraphics graphics, float dx, float dy,
              MatrixOrder order);
+
+        // seems to be not implemented
+        //GpStatus WINGDIPAPI GdipRotateWorldTransform(GpGraphics *graphics, REAL angle, GpMatrixOrder order)
+        //[DllImport("gdiplus")]
+        //extern static public GpStatus GdipRotateWorldTransform(GpGraphics graphics, float angle, MatrixOrder order);
 
         [DllImport("gdiplus")]
         extern static public GpStatus

@@ -8,6 +8,8 @@ using System.Diagnostics;
 
 using OpenNETCF.GDIPlus;
 using OpenNETCF.Runtime.InteropServices.ComTypes;
+using System.IO;
+using TouristGuide.util;
 
 namespace TouristGuide.gui
 {
@@ -37,10 +39,17 @@ namespace TouristGuide.gui
 
     public class MapPanel : Panel
     {
+        private static int ARROW_WIDTH = 30;
+        private static int ARROW_HEIGHT = 6;
+        private static Color ARROW_COLOR = Color.FromArgb(0x7fff0303);
+
+        private static Color TARGET_LINE_COLOR = Color.FromArgb(0x7f0000ff);
+
         private Bitmap positionMarkerImg;
         private Bitmap off_screen;
         private Point targetPoint;
         private bool directionLineVisible;
+        public bool DirectionLineVisible { set { this.directionLineVisible = value; } }
         private Hashtable pictureSlots;
         public Hashtable PictureSlots { get { return this.pictureSlots;  } }
 
@@ -117,32 +126,56 @@ namespace TouristGuide.gui
                 if (this.directionLineVisible)
                     drawDirectionLinePlus(graphics);
                 if (this.rotationAngle != 0)
-                    rotate(graphics);
+                    drawRotatedArrow(graphics);
             }
             g.ReleaseHdc(hdc);
             
             drawPositionMarkerImg(g);
 
+            //Bitmap rotated = rotate();
+            //g.DrawImage(rotated, this.Width / 2, this.Height / 2);
+
+
             e.Graphics.DrawImage(this.off_screen, 0, 0);
         }
 
-        private void rotate(GraphicsPlus graphics)
+        private void drawRotatedArrow(GraphicsPlus graphics)
         {
-            //Debug.WriteLine("rotate ################### " + this.rotationAngle, this.ToString());
-        
-            //Matrix X = new Matrix();
-            //X.Rotate((float)this.rotationAngle, MatrixOrder.MatrixOrderAppend);
-            //graphics.Transform(X);
+            Debug.WriteLine("drawRotatedArrow: " + this.rotationAngle, this.ToString());
 
+            Point origin = new Point(this.Width / 2, this.Height / 2);
+
+            int arWidthHalf = ARROW_WIDTH / 2;
+            int arHeightHalf = ARROW_HEIGHT / 2;
+
+            Point[] arrowPoints = {
+                new Point(origin.X, origin.Y - arWidthHalf),
+                new Point(origin.X - arHeightHalf, origin.Y - arWidthHalf + 2 * arHeightHalf),
+                new Point(origin.X + arHeightHalf, origin.Y - arWidthHalf + 2 * arHeightHalf),
+                new Point(origin.X, origin.Y + arWidthHalf)
+            };
+            Debug.WriteLine("drawRotatedArrow: points "
+                + PointUtil.pointsStr(arrowPoints), this.ToString());
             
+            PointMath.RotatePoints(arrowPoints, origin, this.rotationAngle);
+            Debug.WriteLine("drawRotatedArrow: points "
+                + PointUtil.pointsStr(arrowPoints), this.ToString());
 
-            //move rotation point to center of image
-            //g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
-            //rotate
-            //g.RotateTransform(angle);
-            ////move image back
-            //g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
+            graphics.SetSmoothingMode(SmoothingMode.SmoothingModeAntiAlias);
 
+            PenPlus pen = new PenPlus(Color.FromArgb(0x7fff0303), 3);
+            pen.SetEndCap(LineCap.LineCapRound);
+            pen.SetStartCap(LineCap.LineCapRound);
+
+
+            graphics.DrawLine(pen, new GpPoint(arrowPoints[0].X, arrowPoints[0].Y),
+                                   new GpPoint(arrowPoints[3].X, arrowPoints[3].Y));
+            graphics.DrawLine(pen, new GpPoint(arrowPoints[0].X, arrowPoints[0].Y),
+                                   new GpPoint(arrowPoints[1].X, arrowPoints[1].Y));
+            graphics.DrawLine(pen, new GpPoint(arrowPoints[0].X, arrowPoints[0].Y),
+                                   new GpPoint(arrowPoints[2].X, arrowPoints[2].Y));
+            pen.Dispose();
+           
         }
 
         private void drawMap(Graphics g)
@@ -160,7 +193,7 @@ namespace TouristGuide.gui
         {            
             graphics.SetSmoothingMode(SmoothingMode.SmoothingModeAntiAlias);
 
-            PenPlus pen = new PenPlus(Color.FromArgb(0x7fff0000), 3);
+            PenPlus pen = new PenPlus(TARGET_LINE_COLOR, 3);
             pen.SetEndCap(LineCap.LineCapRound);
             pen.SetStartCap(LineCap.LineCapRound);
 

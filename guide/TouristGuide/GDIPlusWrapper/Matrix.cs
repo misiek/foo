@@ -87,7 +87,7 @@ namespace OpenNETCF.GDIPlus
            return 0.0f;
     }
 
-    GpStatus Reset()
+    public GpStatus Reset()
     {
         // set identity matrix elements 
         return SetStatus(NativeMethods.GdipSetMatrixElements(nativeMatrix,
@@ -117,14 +117,14 @@ namespace OpenNETCF.GDIPlus
         return SetStatus(NativeMethods.GdipScaleMatrix(nativeMatrix, scaleX, 
                                                      scaleY, order));
     }
-*/
+
 
     public GpStatus Rotate(float angle, MatrixOrder order)
     {
         return SetStatus(NativeMethods.GdipRotateMatrix(nativeMatrix, angle, order));
     }
 
-/*
+
 GpStatus RotateAt(float angle, Point center, MatrixOrder order )
 {
     if(order == MatrixOrderPrepend)
@@ -265,7 +265,7 @@ BOOL IsIdentity()
     }
 
 
-    internal GpMatrix nativeMatrix;
+        internal GpMatrix nativeMatrix;
         protected GpStatus lastResult;
     }
 }

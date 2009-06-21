@@ -9,6 +9,7 @@ using System.Drawing.Drawing2D;
 
 using TouristGuide.map.obj;
 using TouristGuide.gui;
+using TouristGuide.util;
 
 namespace TouristGuide.map
 {
@@ -212,7 +213,10 @@ namespace TouristGuide.map
         private void updateCurrentTarget()
         {
             if (this.mapView.getTarget() == null)
+            {
+                this.mapPanel.DirectionLineVisible = false;
                 return;
+            }
             if (this.currentTarget != this.mapView.getTarget()) {
                 displayMessage("Next target: " + this.mapView.getTarget(), 5000);
                 this.currentTarget = this.mapView.getTarget();

@@ -129,12 +129,30 @@ namespace OpenNETCF.GDIPlus
             );
         }
 
-        public GpStatus Transform(Matrix matrix)
+        public GpStatus SetTransform(Matrix matrix)
         {
             if (matrix != null)
-                return NativeMethods.GdipSetWorldTransform(nativeGraphics, matrix.nativeMatrix);
+                return SetStatus(
+                    NativeMethods.GdipSetWorldTransform(nativeGraphics, matrix.nativeMatrix)
+                );
             else
                 return GpStatus.Ok;
+        }
+        /*
+        public GpStatus SetRotation(float angle)
+        {
+            return SetStatus(
+                NativeMethods.GdipRotateWorldTransform(nativeGraphics, angle,
+                    MatrixOrder.MatrixOrderAppend)
+            );
+        }*/
+
+        public GpStatus SetTranslation(float dx, float dy)
+        {
+            return SetStatus( 
+                NativeMethods.GdipTranslateWorldTransform(nativeGraphics,
+                    dx, dy, MatrixOrder.MatrixOrderAppend)
+            );
         }
 
         //public GpStatus SetCompositingMode(CompositingMode compositingMode)

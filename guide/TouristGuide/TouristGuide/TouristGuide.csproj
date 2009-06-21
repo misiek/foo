@@ -74,7 +74,6 @@
     <Compile Include="src\gui\DialogPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="src\util\ImageUtil.cs" />
     <Compile Include="src\gui\MainDetailLinkLabel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -103,7 +102,7 @@
     <Compile Include="src\map\exception\PortalException.cs" />
     <Compile Include="src\map\obj\Area.cs" />
     <Compile Include="src\map\obj\NamedArea.cs" />
-    <Compile Include="src\map\PointUtil.cs" />
+    <Compile Include="src\util\PointUtil.cs" />
     <Compile Include="src\map\Portal.cs" />
     <Compile Include="src\map\repository\adapter\ListXmlAdapter.cs" />
     <Compile Include="src\map\repository\adapter\ObjXmlAdapter.cs" />

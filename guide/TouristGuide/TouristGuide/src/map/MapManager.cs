@@ -10,6 +10,7 @@ using TouristGuide.map.obj;
 using TouristGuide.map.exception;
 using Gps;
 using TouristGuide.map.repository.exception;
+using TouristGuide.util;
 
 namespace TouristGuide.map
 {
