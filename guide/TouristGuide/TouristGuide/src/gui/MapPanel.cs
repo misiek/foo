@@ -48,7 +48,8 @@ namespace TouristGuide.gui
         private Bitmap positionMarkerImg;
         private Bitmap off_screen;
         private Point targetPoint;
-        private bool directionLineVisible;
+        private bool directionLineVisible = false;
+        private bool courseArrowVisible = false;
         public bool DirectionLineVisible { set { this.directionLineVisible = value; } }
         private Hashtable pictureSlots;
         public Hashtable PictureSlots { get { return this.pictureSlots;  } }
@@ -64,8 +65,6 @@ namespace TouristGuide.gui
             // initialize picture slots hash table
             this.pictureSlots = new Hashtable();
             createPictureSlots();
-            this.directionLineVisible = false;
-            this.rotationAngle = 0;
         }
 
         public void showDirectionLine(Point targetPoint)
@@ -77,6 +76,12 @@ namespace TouristGuide.gui
         public void setRotation(double rotationAngle)
         {
             this.rotationAngle = rotationAngle;
+            this.courseArrowVisible = true;
+        }
+
+        public void hideRotationArrow()
+        {
+            this.courseArrowVisible = false;
         }
 
         public void hideDirectionLine()
@@ -125,7 +130,7 @@ namespace TouristGuide.gui
             {
                 if (this.directionLineVisible)
                     drawDirectionLinePlus(graphics);
-                if (this.rotationAngle != 0)
+                if (this.courseArrowVisible)
                     drawRotatedArrow(graphics);
             }
             g.ReleaseHdc(hdc);

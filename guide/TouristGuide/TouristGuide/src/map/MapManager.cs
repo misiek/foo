@@ -16,7 +16,7 @@ namespace TouristGuide.map
 {
     public class MapManager
     {
-        private const double MIN_DELTA_LOCATION = 0.00001;
+        private const double MIN_DELTA_LOCATION = 0.00002;
 
         private MapView currentMapVeiw;
         private MapPackage currentMapPkg;
@@ -66,6 +66,15 @@ namespace TouristGuide.map
             }
         }
 
+        private GpsDataAnalyzer gpsDataAnalyzer;
+        public GpsDataAnalyzer GpsDataAnalyzer
+        {
+            set
+            {
+                this.gpsDataAnalyzer = value;
+            }
+        }
+
         public MapManager()
         {
             this.loadingEventMsg = "";
@@ -103,6 +112,8 @@ namespace TouristGuide.map
             // when delta location is to small skip processing
             if (this.currentGpsLocation != null && isDeltaLocationTooSmall(gpsLocation))
                 return;
+            // add location to gps data analyzer
+            this.gpsDataAnalyzer.addGpsLocation(gpsLocation);
             // set current gps location
             this.currentGpsLocation = gpsLocation;
             // update current map package
@@ -123,6 +134,10 @@ namespace TouristGuide.map
                 // find and set pois on newly created map view
                 loadPoisToCurrentMapView();
             }
+            // get estimated course
+            double estimatedCourse = this.gpsDataAnalyzer.estimateCourse();
+            this.currentMapVeiw.setEstimatedCourse(estimatedCourse);
+
             // update current map target
             updateCurrentTarget();
             if (this.currentMapVeiw != null)

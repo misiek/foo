@@ -204,7 +204,8 @@ namespace TouristGuide.map
 
         private void rotateToCourse()
         {
-            double course = this.mapView.getGpsLocation().getCourse();
+            //double course = this.mapView.getGpsLocation().getCourse();
+            double course = this.mapView.getEstimatedCourse();
             Debug.WriteLine("rotateToCourse: COURSE: " + course, this.ToString());
             this.mapPanel.setRotation(course);
 

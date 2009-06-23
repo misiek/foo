@@ -29,6 +29,8 @@ namespace TouristGuide.map.obj
         private double latitudePerPixel;
         private double longitudePerPixel;
 
+        private double estimatedCourse;
+
         // images - hashtable (Point => Bitmap)
         public MapView(GpsLocation gpsLocation, Point centerImgPosition, Hashtable viewParts, ArrayList orderingPoints)
         {
@@ -151,6 +153,16 @@ namespace TouristGuide.map.obj
         public Point getTargetPixelCoordinates()
         {
             return getPoiPixelCoordinates(this.target);
+        }
+
+        public void setEstimatedCourse(double estimatedCourse)
+        {
+            this.estimatedCourse = estimatedCourse;
+        }
+
+        public double getEstimatedCourse()
+        {
+            return this.estimatedCourse;
         }
     }
 }
