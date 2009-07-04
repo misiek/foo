@@ -7,14 +7,14 @@ using System.Threading;
 
 namespace Gps
 {
-    public class GpsSymulator : GpsDevice
+    public class GpsSymulator : GpsDeviceCSharp
     {
         private string gpsLogDirPath;
 
         public GpsSymulator(string dirPath)
         {
             this.gpsLogDirPath = dirPath + "\\gpslog";
-            this.nmea = new NmeaParser();
+            this.nmeaParser = new NmeaParser();
         }
 
         override public void start()

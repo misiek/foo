@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="Gps.GpsDeviceCSharp">
+    <Position X="3" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <FileName>GpsDeviceCSharp.cs</FileName>
+      <HashCode>AAAAAAgAQAAABAAoABAAAEAAAAIgAICAQAAAAQAAAAE=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gps.GpsSymulator">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>GpsSymulator.cs</FileName>
+      <HashCode>AAAQAAAAQAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gps.GpsLocation">
+    <Position X="7.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <FileName>GpsLocation.cs</FileName>
+      <HashCode>ABAASAAAAQAAyAAAAAAABA4ACAAACQEBhAAAAABgAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gps.NmeaParser" Collapsed="true">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NmeaParser.cs</FileName>
+      <HashCode>SJAhAAAAkgAEAAAAAAAAgAgCAAAAKAEAQBQBCCAGAQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Gps.GpsDevice">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>GpsDevice.cs</FileName>
+      <HashCode>AAAAAAAAAAAABAAgABAAAEAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+  </Interface>
+  <Delegate Name="Gps.LocationChangedDelegate">
+    <Position X="0.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <FileName>LocationChangedDelegate.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Gps.SatellitesChangedDelegate">
+    <Position X="0.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>SatellitesChangedDelegate.cs</FileName>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Delegate>
+</ClassDiagram>

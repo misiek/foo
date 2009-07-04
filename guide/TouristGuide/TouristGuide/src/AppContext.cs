@@ -39,7 +39,7 @@ namespace TouristGuide
         private String mapsPath;
         private string poisPath;
 
-        private GpsDevice gpsDevice;
+        private GpsDeviceCSharp gpsDevice;
         private GpsSymulator gpsSymulator;
 
         private Portal portal;
@@ -88,7 +88,7 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): MainWindow instantiated.");
 
             // gps device
-            this.gpsDevice = new GpsDevice();
+            this.gpsDevice = new GpsDeviceCSharp();
             Debug.WriteLine("AppContext(): GpsDevice instantiated.");
 
             // gps symulator
@@ -171,7 +171,7 @@ namespace TouristGuide
             this.appEvents = new AppEvents(this.mainWindow, this.mapManager, this.mapPkgRepository);
         }
 
-        public GpsDevice getGpsDevice()
+        public GpsDeviceCSharp getGpsDevice()
         {
             return this.gpsDevice;
         }

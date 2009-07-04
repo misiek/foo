@@ -11,20 +11,20 @@ namespace TouristGuide
     public class AppEvents
     {
         // gps evants delegates for MainWindow
-        private GpsDevice.LocationChangedEventHandler locationChangedMainWindow;
-        private GpsDevice.SatellitesChangedEventHandler satellitesChangedMainWindow;
+        private LocationChangedDelegate locationChangedMainWindow;
+        private SatellitesChangedDelegate satellitesChangedMainWindow;
         // gps evants delegates for MapManager
-        private GpsDevice.LocationChangedEventHandler locationChangedMapManager;
+        private LocationChangedDelegate locationChangedMapManager;
         // map pkg repository events for MapManager
         private MapPkgRepository.LoadingMap loadingMapToMapManager;
 
         public AppEvents(MainWindow mainWindow, MapManager mapManager, MapPkgRepository mapPkgRepo)
         {
             // initialize gps events delegates for MainWindow
-            this.locationChangedMainWindow = new GpsDevice.LocationChangedEventHandler(mainWindow.locationChanged);
-            this.satellitesChangedMainWindow = new GpsDevice.SatellitesChangedEventHandler(mainWindow.satellitesChanged);
+            this.locationChangedMainWindow = new LocationChangedDelegate(mainWindow.locationChanged);
+            this.satellitesChangedMainWindow = new SatellitesChangedDelegate(mainWindow.satellitesChanged);
             // initialize gps events delegates for MapManager
-            this.locationChangedMapManager = new GpsDevice.LocationChangedEventHandler(mapManager.newPosition);
+            this.locationChangedMapManager = new LocationChangedDelegate(mapManager.newPosition);
             // initialize map pkg repository event delegate for MapManager
             this.loadingMapToMapManager = new MapPkgRepository.LoadingMap(mapManager.loadingMap);
             // subscribe to map pkg repository loading event

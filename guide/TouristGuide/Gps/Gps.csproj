@@ -82,8 +82,14 @@
   -->
   <ItemGroup>
     <Compile Include="GpsDevice.cs" />
+    <Compile Include="GpsDeviceCSharp.cs" />
     <Compile Include="GpsSymulator.cs" />
     <Compile Include="GpsLocation.cs" />
+    <Compile Include="LocationChangedDelegate.cs" />
     <Compile Include="NmeaParser.cs" />
+    <Compile Include="SatellitesChangedDelegate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="uml\ClassDiagram1.cd" />
   </ItemGroup>
 </Project>
