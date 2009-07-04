@@ -37,11 +37,6 @@ namespace Gps
             this.nmeaParser = new NmeaParser();
         }
 
-        public GpsLocation getLocationData()
-        {
-            return nmeaParser.getLocationData();
-        }
-
         public virtual bool isStarted()
         {
             return this.listening;
