@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="Gps.GpsDeviceCSharp" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>GpsDeviceCSharp.cs</FileName>
+      <HashCode>AAAAAAgAQAAABAAoABAAAEAAAAIgAICAAAAAAQAAAAE=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gps.GpsSymulator" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>GpsSymulator.cs</FileName>
+      <HashCode>AAAQAAAAQAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gps.GpsLocation">
+    <Position X="4.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>GpsLocation.cs</FileName>
+      <HashCode>ABAASAAAAQAAyAAAAAAABA4ACAAACQEBhAAAAABgAAA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="course" Hidden="true" />
+      <Method Name="GpsLocation" Hidden="true" />
+      <Field Name="KMHPerKnot" Hidden="true" />
+      <Field Name="latitude" Hidden="true" />
+      <Field Name="latitudeString" Hidden="true" />
+      <Field Name="longitude" Hidden="true" />
+      <Field Name="longitudeString" Hidden="true" />
+      <Field Name="MPHPerKnot" Hidden="true" />
+      <Method Name="parseCoordinate" Hidden="true" />
+      <Method Name="parseCoordinateStr" Hidden="true" />
+      <Field Name="satelliteTime" Hidden="true" />
+      <Field Name="speed" Hidden="true" />
+    </Members>
+  </Class>
+  <Class Name="Gps.GpsSatelites" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>GpsSatelites.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Gps.GpsDevice">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>GpsDevice.cs</FileName>
+      <HashCode>AAAAAAAAAAAABAAgABAAAEAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="Gps.LocationChangedDelegate">
+    <Position X="0.5" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <FileName>LocationChangedDelegate.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Gps.SatellitesChangedDelegate">
+    <Position X="0.5" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <FileName>SatellitesChangedDelegate.cs</FileName>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Delegate>
+</ClassDiagram>

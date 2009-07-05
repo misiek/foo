@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="Gps.NmeaParser">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>NmeaParser.cs</FileName>
+      <HashCode>SJAhAAAAkgAEAAAAAAAAgAgCAAAAKAEAQBQBCCAGAQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Gps.RecivedGpsData">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NmeaParser.cs</FileName>
+      <HashCode>AAAAAAAEAAEMIABABMBAAAABEAAAEAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Gps.Satellite">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NmeaParser.cs</FileName>
+      <HashCode>AAAAAAAgIAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAACAA=</HashCode>
+    </TypeIdentifier>
+  </Struct>
+</ClassDiagram>

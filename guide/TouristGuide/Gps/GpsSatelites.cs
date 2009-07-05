@@ -4,5 +4,7 @@ using System.Text;
 
 namespace Gps
 {
-    public delegate void SatellitesChangedDelegate(GpsSatelites gpsSatelites);
+    public class GpsSatelites
+    {
+    }
 }

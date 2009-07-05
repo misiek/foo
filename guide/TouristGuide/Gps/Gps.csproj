@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="GpsDevice.cs" />
     <Compile Include="GpsDeviceCSharp.cs" />
+    <Compile Include="GpsSatelites.cs" />
     <Compile Include="GpsSymulator.cs" />
     <Compile Include="GpsLocation.cs" />
     <Compile Include="LocationChangedDelegate.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="SatellitesChangedDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="uml\ClassDiagram1.cd" />
+    <None Include="uml\GpsApiClassDiagram.cd" />
+    <None Include="uml\GpsClassDiagram.cd" />
+    <None Include="uml\NmeaParser.cd" />
   </ItemGroup>
 </Project>

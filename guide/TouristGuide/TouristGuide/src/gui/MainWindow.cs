@@ -59,9 +59,9 @@ namespace TouristGuide.gui
             labelSpeed.Text = this.currentGpsLocation.getSpeedKMH().ToString() + " km/h";
         }
 
-        public void satellitesChanged()
+        public void satellitesChanged(GpsSatelites gpsSatelites)
         {
-            Invoke(this.updateSatHandler);
+            //Invoke(this.updateSatHandler);
         }
 
         private void updateSatellite(object sender, EventArgs args)

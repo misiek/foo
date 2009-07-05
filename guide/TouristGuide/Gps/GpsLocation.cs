@@ -28,7 +28,7 @@ namespace Gps
         private double course;
         //private string status;
 
-        public GpsLocation(DateTime satelliteTime,
+        internal GpsLocation(DateTime satelliteTime,
                             string latitudeString,
                             string longitudeString,
                             double speed,

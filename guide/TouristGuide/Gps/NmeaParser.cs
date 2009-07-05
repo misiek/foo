@@ -49,7 +49,7 @@ namespace Gps
         }
     }
 
-    public class NmeaParser
+    class NmeaParser
     {
         public const short UNRECOGNIZED = 0;
         public const short LOCATION = 1;

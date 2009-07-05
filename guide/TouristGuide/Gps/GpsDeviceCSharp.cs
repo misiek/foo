@@ -26,7 +26,7 @@ namespace Gps
 
 
         protected Thread gpsListenerThread;
-        protected NmeaParser nmeaParser;
+        internal NmeaParser nmeaParser;
         protected bool listening = false;
 
         private SerialPort gpsPort;
@@ -123,7 +123,7 @@ namespace Gps
                 case NmeaParser.SATELLITE:
                     if (satellitesChanged != null)
                     {
-                        satellitesChanged();
+                        //satellitesChanged(gpsSatelites);
                     }
                     break;
                 case NmeaParser.UNRECOGNIZED:
