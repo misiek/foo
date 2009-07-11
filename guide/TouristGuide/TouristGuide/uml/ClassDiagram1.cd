@@ -87,7 +87,7 @@
     </NestedTypes>
     <AssociationLine Name="MapSourceMem" Type="TouristGuide.map.repository.MapSourceMem">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="-0.588" Y="0.567" Height="0.16" Width="1.139" />
+        <Position X="0.567" Y="-0.588" Height="0.16" Width="1.139" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="MapSourceHdd" Type="TouristGuide.map.repository.MapSourceHdd">
@@ -97,7 +97,7 @@
     </AssociationLine>
     <AssociationLine Name="MapSourceWeb" Type="TouristGuide.map.repository.MapSourceWeb">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.57" Y="0.536" />
+        <Position X="0.536" Y="-0.57" />
       </MemberNameLabel>
     </AssociationLine>
   </Class>
@@ -145,6 +145,7 @@
     </TypeIdentifier>
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
   </Class>
   <Class Name="TouristGuide.map.obj.Poi">

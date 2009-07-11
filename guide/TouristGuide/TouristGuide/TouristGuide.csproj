@@ -194,6 +194,7 @@
     <None Include="Resources\shield and swords.ico" />
     <None Include="Resources\location_dot.png" />
     <None Include="uml\ClassDiagramPoi.cd" />
+    <None Include="uml\MapPacakgeClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="maps\" />
