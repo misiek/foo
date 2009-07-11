@@ -13,6 +13,16 @@ namespace TouristGuide.map.repository
      */
     public class MapSourceMem : MapSource
     {
+
+        private static int CACHE_SIZE = 6;
+
+        private List<MapPackage> recentlyUsedMapPkgs;
+
+        public MapSourceMem()
+        {
+            this.recentlyUsedMapPkgs = new List<MapPackage>();
+        }
+
         #region MapSource Members
 
         /// <summary>
@@ -21,8 +31,11 @@ namespace TouristGuide.map.repository
         /// <returns>MapPackage instance.</returns>
         public MapPackage findMapPkg(double latitude, double longitude, int zoom)
         {
-            foreach (MapPackage mapPkg in this.recentlyUsedMapPkgs)
+            //foreach (MapPackage mapPkg in this.recentlyUsedMapPkgs)
+            // iterate in reverse to start from the newest
+            for(int i = this.recentlyUsedMapPkgs.Count - 1; i >= 0; i--)
             {
+                MapPackage mapPkg = this.recentlyUsedMapPkgs[i];
                 if (mapPkg.getZoom()==zoom && mapPkg.coordinatesMatches(latitude, longitude))
                 {
                     //Debug.WriteLine("MapSourceMem: findMapPkg: found map pkg: " + mapPkg);
@@ -39,18 +52,15 @@ namespace TouristGuide.map.repository
         /// </summary>
         public void putMapPkg(MapPackage mapPkg)
         {
-            this.recentlyUsedMapPkgs.Push(mapPkg);
+            if (this.recentlyUsedMapPkgs.Count >= CACHE_SIZE)
+            {
+                this.recentlyUsedMapPkgs[0].freeParts();
+                this.recentlyUsedMapPkgs.RemoveAt(0);
+            }
+            this.recentlyUsedMapPkgs.Add(mapPkg);
         }
 
         #endregion
-
-        private Stack<MapPackage> recentlyUsedMapPkgs;
-
-        public MapSourceMem()
-        {
-            this.recentlyUsedMapPkgs = new Stack<MapPackage>(5);
-        }
-
 
     }
 }

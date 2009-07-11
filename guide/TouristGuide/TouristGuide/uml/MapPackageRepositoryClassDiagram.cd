@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="TouristGuide.map.repository.MapSourceHdd">
+    <Position X="2.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\MapSourceHdd.cs</FileName>
+      <HashCode>AAAACAAAQAEAAAAABgEAABAAgAQAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="availableMapPkgs" Hidden="true" />
+      <Method Name="changeZoom" Hidden="true" />
+      <Field Name="mapPkgMapperHdd" Hidden="true" />
+      <Field Name="mapsDir" Hidden="true" />
+      <Field Name="zoom" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="TouristGuide.map.repository.MapSourceHdd.LoadingMapPkg" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\map\repository\MapSourceHdd.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TouristGuide.map.repository.MapSourceMem">
+    <Position X="0.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\MapSourceMem.cs</FileName>
+      <HashCode>AQAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="recentlyUsedMapPkgs" Hidden="true" />
+    </Members>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TouristGuide.map.repository.MapPkgRepository">
+    <Position X="2.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\MapPkgRepository.cs</FileName>
+      <HashCode>CQAAAAAACAAAAAAAIAAAgCAAAoAAAQAAAAAAAAgAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MapSourceMem" />
+      <Property Name="MapSourceHdd" />
+      <Property Name="MapSourceWeb" />
+    </ShowAsAssociation>
+    <Members>
+      <Method Name="loadingMap" Hidden="true" />
+      <Field Name="mapSourceHdd" Hidden="true" />
+      <Field Name="mapSourceMem" Hidden="true" />
+      <Field Name="mapSourceWeb" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="TouristGuide.map.repository.MapPkgRepository.LoadingMap" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\map\repository\MapPkgRepository.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <AssociationLine Name="MapSourceMem" Type="TouristGuide.map.repository.MapSourceMem" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="2.422" />
+        <Point X="1.375" Y="2.422" />
+        <Point X="1.375" Y="3.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.735" Y="1.381" Height="0.16" Width="1.139" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="MapSourceHdd" Type="TouristGuide.map.repository.MapSourceHdd">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.046" Y="0.372" Height="0.16" Width="1.045" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="MapSourceWeb" Type="TouristGuide.map.repository.MapSourceWeb">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.162" Y="1.378" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="TouristGuide.map.repository.MapSourceWeb">
+    <Position X="6.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\MapSourceWeb.cs</FileName>
+      <HashCode>AAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TouristGuide.map.repository.mapper.MapPkgMapperHdd">
+    <Position X="4.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\mapper\MapPkgMapperHdd.cs</FileName>
+      <HashCode>IAAAAAAAAACAAAAAAAAAIAAAgAAACAAAAAAAAAAgAAA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="mapsDir" Hidden="true" />
+      <Method Name="parseCoordinate" Hidden="true" />
+      <Method Name="parseMapXml" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+  </Class>
+  <Interface Name="TouristGuide.map.repository.MapSource">
+    <Position X="5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\MapSource.cs</FileName>
+      <HashCode>AAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+</ClassDiagram>

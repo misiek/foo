@@ -195,6 +195,7 @@
     <None Include="Resources\location_dot.png" />
     <None Include="uml\ClassDiagramPoi.cd" />
     <None Include="uml\MapPacakgeClassDiagram.cd" />
+    <None Include="uml\MapPackageRepositoryClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="maps\" />
