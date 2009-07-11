@@ -89,6 +89,12 @@ class MapDownloader():
 
 if __name__ == '__main__':
     mapd = MapDownloader()
+    # left top corner of area to download
+    mapd.x1 = 19.8669
+    mapd.y1 = 50.1046
+    # right bottom corner of area to download
+    mapd.x2 = 20.0029
+    mapd.y2 = 50.0233
     mapd.osmarender_format = 'jpeg'
     mapd.osmarender_zoom = '16'
     mapd.download()
