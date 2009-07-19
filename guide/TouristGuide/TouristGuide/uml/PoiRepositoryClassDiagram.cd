@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="9.75" />
+  <Class Name="TouristGuide.map.repository.PoiRepository">
+    <Position X="3.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\PoiRepository.cs</FileName>
+      <HashCode>AACBAgABAIFAQAABQECAAAAAAACBAAAEIAAAAAAQAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PoiSourceMem" />
+      <Property Name="PoiSourceHdd" />
+      <Property Name="PoiSourceWeb" />
+    </ShowAsAssociation>
+    <Members>
+      <Field Name="cacheFactor" Hidden="true" />
+      <Field Name="currentNamedArea" Hidden="true" />
+      <Method Name="newCacheArea" Hidden="true" />
+      <Field Name="poiSourceHdd" Hidden="true" />
+      <Field Name="poiSourceMem" Hidden="true" />
+      <Field Name="poiSourceWeb" Hidden="true" />
+      <Field Name="runtimeDownload" Hidden="true" />
+    </Members>
+    <AssociationLine Name="PoiSourceMem" Type="TouristGuide.map.repository.PoiSourceMem">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.1" Y="0.102" Height="0.16" Width="1.358" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="PoiSourceHdd" Type="TouristGuide.map.repository.PoiSourceHdd">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.421" Y="0.509" Height="0.16" Width="1.329" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="PoiSourceWeb" Type="TouristGuide.map.repository.PoiSourceWeb" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="2.305" />
+        <Point X="7.25" Y="2.312" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.516" Y="0.05" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="TouristGuide.map.repository.PoiSourceHdd">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\PoiSourceHdd.cs</FileName>
+      <HashCode>AEAACBAAAAAAAQAAEACABAAAAAIAAAAFIAAAAACAAgA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="currentNamedArea" Hidden="true" />
+      <Method Name="getPoiSubDir" Hidden="true" />
+      <Field Name="poiMapperHdd" Hidden="true" />
+      <Field Name="pois" Hidden="true" />
+      <Field Name="poisDir" Hidden="true" />
+    </Members>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TouristGuide.map.repository.PoiSourceMem">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\PoiSourceMem.cs</FileName>
+      <HashCode>AAABAAAAAAAAAAAAAAAQAAAAAAIAAAAAAAAAAACACAA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="cacheArea" Hidden="true" />
+      <Field Name="cachedPois" Hidden="true" />
+    </Members>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TouristGuide.map.repository.PoiSourceWeb">
+    <Position X="7.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\PoiSourceWeb.cs</FileName>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAIAAAAAAAEBAACBAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Portal" />
+    </ShowAsAssociation>
+    <Members>
+      <Field Name="portal" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Portal" Type="TouristGuide.map.Portal">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.679" Y="0.277" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TouristGuide.map.repository.mapper.PoiMapperHdd">
+    <Position X="4.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\mapper\PoiMapperHdd.cs</FileName>
+      <HashCode>AAAEABACAACAIAAAAAAARAACAIAAAiAAAAAAAAABQgA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Method Name="createPoiMediaFilesPath" Hidden="true" />
+      <Method Name="createPoiXmlPath" Hidden="true" />
+      <Method Name="getPoiMediaFilesPath" Hidden="true" />
+      <Method Name="getPoiXmlPath" Hidden="true" />
+      <Method Name="loadMediaFiles" Hidden="true" />
+      <Field Name="poisDir" Hidden="true" />
+      <Method Name="saveMediaFiles" Hidden="true" />
+      <Method Name="saveXml" Hidden="true" />
+      <Field Name="xmlEnvelope" Hidden="true" />
+    </Members>
+  </Class>
+  <Class Name="TouristGuide.map.Portal">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\Portal.cs</FileName>
+      <HashCode>AAACAAAAAgAEAAAAAAAAAAAAAACAAAAAAAAAAAARAAA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="config" Hidden="true" />
+      <Method Name="GET" Hidden="true" />
+    </Members>
+  </Class>
+  <Interface Name="TouristGuide.map.repository.PoiSource">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\PoiSource.cs</FileName>
+      <NewMemberFileName>src\map\repository\MapSource.cs</NewMemberFileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+</ClassDiagram>
