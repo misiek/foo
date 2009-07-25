@@ -82,6 +82,12 @@ namespace TouristGuide.util
                                  (float)Math.Abs(right - left),
                                  (float)Math.Abs(bottom - top));
         }
+
+        public static Point addPoints(Point p1, Point p2)
+        {
+            return new Point(p1.X + p2.X, p1.Y + p2.Y);
+        }
+
     }
 
 }

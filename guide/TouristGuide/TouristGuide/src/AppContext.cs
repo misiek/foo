@@ -59,6 +59,7 @@ namespace TouristGuide
         private MapDisplayer mapDisplayer;
         private Targets targets;
         private GpsDataAnalyzer gpsDataAnalyzer;
+        private MapViewBuilder mapViewBuilder;
         private MapManager mapManager;
 
         private MainWindow mainWindow;
@@ -153,13 +154,21 @@ namespace TouristGuide
             // gps data analyzer
             this.gpsDataAnalyzer = new GpsDataAnalyzer();
 
+            // map view builder
+            this.mapViewBuilder = new MapViewBuilder();
+            this.mapViewBuilder.MapPkgRepository = this.mapPkgRepository;
+            this.mapViewBuilder.PoiRepository = this.poiRepository;
+            this.mapViewBuilder.Targets = this.targets;
+            this.mapViewBuilder.GpsDataAnalyzer = this.gpsDataAnalyzer;
+            Debug.WriteLine("AppContext(): MapViewBuilder instantiated.");
+
             // map manager
             this.mapManager = new MapManager();
             this.mapManager.MapDisplayer = this.mapDisplayer;
             this.mapManager.MapPkgRepository = this.mapPkgRepository;
             this.mapManager.PoiRepository = this.poiRepository;
-            this.mapManager.Targets = this.targets;
             this.mapManager.GpsDataAnalyzer = this.gpsDataAnalyzer;
+            this.mapManager.MapViewBuilder = this.mapViewBuilder;
             Debug.WriteLine("AppContext(): MapManager instantiated.");
 
             this.poiBrowser = new PoiBrowser();

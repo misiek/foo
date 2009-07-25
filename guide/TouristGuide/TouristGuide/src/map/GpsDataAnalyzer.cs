@@ -12,6 +12,8 @@ namespace TouristGuide.map
      */
     public class GpsDataAnalyzer
     {
+        private const double MIN_DELTA_LOCATION = 0.00002;
+
         // max number of gps location packages that can be stored
         private int capacity = 4;
         private List<GpsLocation> gpsLocationsCache = new List<GpsLocation>();
@@ -75,5 +77,30 @@ namespace TouristGuide.map
 
             return course;
         }
+
+        public bool isLocationSignificant(GpsLocation newLocation)
+        {
+            if (gpsLocationsCache.Count == 0)
+            {
+                // when there is no cache location new location must be significant
+                return true;
+            }
+            double deltaLocation = getLocationsDistance(gpsLocationsCache[0], newLocation);
+            // if distance is to small skip processing
+            if (deltaLocation < MIN_DELTA_LOCATION)
+            {
+                Debug.WriteLine("delta location to small.", this.ToString());
+                return false;
+            }
+            return true;
+        }
+
+        private double getLocationsDistance(GpsLocation gl1, GpsLocation gl2)
+        {
+            // distance between two points
+            return Math.Sqrt(Math.Pow(gl2.getLatitude() - gl1.getLatitude(), 2) +
+                                Math.Pow(gl2.getLongitude() - gl1.getLongitude(), 2));
+        }
+
     }
 }

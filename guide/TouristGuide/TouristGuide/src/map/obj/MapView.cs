@@ -14,7 +14,7 @@ namespace TouristGuide.map.obj
         // relative coordinates inside center image map part (pixels)
         private Point centerImgPosition;
         // table with points which are keys in viewParts, determine order of displaying
-        private ArrayList orderingPoints;
+        private Point[] orderingPoints;
         // images - hashtable (Point => Bitmap)
         private Hashtable viewParts;
         // pois
@@ -32,7 +32,7 @@ namespace TouristGuide.map.obj
         private double estimatedCourse;
 
         // images - hashtable (Point => Bitmap)
-        public MapView(GpsLocation gpsLocation, Point centerImgPosition, Hashtable viewParts, ArrayList orderingPoints)
+        public MapView(GpsLocation gpsLocation, Point centerImgPosition, Hashtable viewParts, Point[] orderingPoints)
         {
             // check if view parts contains center image
             if (viewParts[new Point(1, 1)] == null)
@@ -50,7 +50,7 @@ namespace TouristGuide.map.obj
             return this.centerImgArea.contains(gpsLoc.getLatitude(), gpsLoc.getLongitude());
         }
 
-        public ArrayList getOrderingPoints()
+        public Point[] getOrderingPoints()
         {
             return this.orderingPoints;
         }

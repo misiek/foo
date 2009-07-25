@@ -16,7 +16,7 @@ namespace TouristGuide.map
     public class MapDisplayer
     {
         private EventHandler updateMapPanelHandler;
-        private ArrayList orderingPoints;
+        private Point[] orderingPoints;
         private MapView mapView;
         private MapPanel mapPanel;
 
