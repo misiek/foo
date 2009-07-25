@@ -195,6 +195,7 @@
     <None Include="Resources\Bank.png" />
     <None Include="Resources\shield and swords.ico" />
     <None Include="Resources\location_dot.png" />
+    <None Include="uml\MapView.cd" />
     <None Include="uml\NamedArea.cd" />
     <None Include="uml\PoiRepositoryClassDiagram.cd" />
     <None Include="uml\ClassDiagramPoi.cd" />

@@ -140,7 +140,7 @@ namespace TouristGuide.map.obj
             this.centerImgArea = centerImgArea;
         }
 
-        internal void setTarget(Poi currentTarget)
+        public void setTarget(Poi currentTarget)
         {
             this.target = currentTarget;
         }
