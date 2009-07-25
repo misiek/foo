@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="9.75" />
+  <Class Name="TouristGuide.map.obj.MapView">
+    <Position X="0.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <FileName>src\map\obj\MapView.cs</FileName>
+      <HashCode>AVABIiQAQAACAICAJAAAAJxAQAABAACBDEAAAAAQgBE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>
