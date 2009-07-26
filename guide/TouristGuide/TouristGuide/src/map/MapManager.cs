@@ -83,7 +83,7 @@ namespace TouristGuide.map
             // set current gps location
             this.currentGpsLocation = gpsLocation;
             // update current map package
-            updateCurrentMapPkg();
+            retrieveCurrentMapPkg();
             // when there is no map for location stop processing
             if (this.currentMapPkg == null)
                 return;
@@ -156,7 +156,7 @@ namespace TouristGuide.map
             }
         }
 
-        private void updateCurrentMapPkg()
+        private void retrieveCurrentMapPkg()
         {
             double latitude = this.currentGpsLocation.getLatitude();
             double longitude = this.currentGpsLocation.getLongitude();
@@ -179,6 +179,6 @@ namespace TouristGuide.map
                 }
             }
         }
-       
+   
     }
 }
