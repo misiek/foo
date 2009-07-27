@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="9.75" />
+  <Class Name="TouristGuide.gui.PoiBrowser">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\gui\PoiBrowser.cs</FileName>
+      <HashCode>YABBCAAAkAASgAAgBgCIECAihgsEFksAJIDREAICABI=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PoiRepository" />
+      <Property Name="Targets" />
+    </ShowAsAssociation>
+    <Members>
+      <Field Name="allPois" Hidden="true" />
+      <Field Name="buttonAddTarget" Hidden="true" />
+      <Method Name="buttonAddTarget_Click" Hidden="true" />
+      <Field Name="buttonDown" Hidden="true" />
+      <Method Name="buttonDown_Click" Hidden="true" />
+      <Field Name="buttonPreview" Hidden="true" />
+      <Method Name="buttonPreview_Click" Hidden="true" />
+      <Field Name="buttonPreview2" Hidden="true" />
+      <Method Name="buttonPreview2_Click" Hidden="true" />
+      <Field Name="buttonRemove" Hidden="true" />
+      <Method Name="buttonRemove_Click" Hidden="true" />
+      <Field Name="buttonUp" Hidden="true" />
+      <Method Name="buttonUp_Click" Hidden="true" />
+      <Method Name="cleanPreview" Hidden="true" />
+      <Field Name="currentMainDetailsLinks" Hidden="true" />
+      <Field Name="currentNamedArea" Hidden="true" />
+      <Field Name="currentPoi" Hidden="true" />
+      <Method Name="displayMainDetails" Hidden="true" />
+      <Method Name="displayMediaFiles" Hidden="true" />
+      <Field Name="FREE_Y_DEFAULT" Hidden="true" />
+      <Field Name="freeY" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="labelPoiName" Hidden="true" />
+      <Field Name="LEFT_MARGIN" Hidden="true" />
+      <Field Name="listBoxPois" Hidden="true" />
+      <Method Name="listBoxPois_SelectedIndexChanged" Hidden="true" />
+      <Field Name="listBoxTargets" Hidden="true" />
+      <Method Name="listBoxTargets_SelectedIndexChanged" Hidden="true" />
+      <Field Name="mediaFilesPanel" Hidden="true" />
+      <Method Name="OnDeactivate" Hidden="true" />
+      <Field Name="poiRepository" Hidden="true" />
+      <Method Name="removeTarget" Hidden="true" />
+      <Field Name="selectedPoi" Hidden="true" />
+      <Field Name="selectedTargetPoi" Hidden="true" />
+      <Field Name="tabControl" Hidden="true" />
+      <Field Name="tabPois" Hidden="true" />
+      <Field Name="tabPreview" Hidden="true" />
+      <Field Name="tabTargets" Hidden="true" />
+      <Method Name="targetDone" Hidden="true" />
+      <Field Name="targets" Hidden="true" />
+      <Field Name="targetToRemove" Hidden="true" />
+      <Field Name="textBoxPoiDescr" Hidden="true" />
+      <Method Name="updatePoisList" Hidden="true" />
+      <Method Name="updatePreview" Hidden="true" />
+    </Members>
+    <AssociationLine Name="PoiRepository" Type="TouristGuide.map.repository.PoiRepository">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.128" Y="0.35" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="TouristGuide.map.repository.PoiRepository" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\map\repository\PoiRepository.cs</FileName>
+      <HashCode>AACBAgABAIFAQAABQECAAAAAAACBAAAEIAAAAAAQAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.map.Targets">
+    <Position X="3" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\map\Targets.cs</FileName>
+      <HashCode>AAAAKAAAAAAAAACkAAAAAAAAAgAAAAAAAABAAAACgCA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Method Name="createTargetArea" Hidden="true" />
+      <Field Name="maxLatitudeToTarget" Hidden="true" />
+      <Field Name="maxLongitudeToTarget" Hidden="true" />
+      <Field Name="targets" Hidden="true" />
+      <Field Name="targetsAreas" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="TouristGuide.map.Targets.TargetDone" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\map\Targets.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+  </Class>
+  <Class Name="TouristGuide.gui.MediaFilePanel" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\gui\MediaFilePanel.cs</FileName>
+      <HashCode>AAAEAAAAAAAAAAAAQAEDAIAAAAABAAAQAAAgBAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.gui.MainDetailPanel" Collapsed="true">
+    <Position X="2.75" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\gui\MainDetailPanel.cs</FileName>
+      <HashCode>AAAACAAAAAAABAAAQAEJAAAAgAAAAAAQAIAoAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>

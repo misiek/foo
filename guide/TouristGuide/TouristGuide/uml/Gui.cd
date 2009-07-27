@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="9.75" />
+  <Class Name="TouristGuide.gui.MainWindow">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\gui\MainWindow.cs</FileName>
+      <HashCode>AAEAAAggACAAREAAABDwgAADCAAAHhBAAAwARAAAEAI=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MapPanel" />
+    </ShowAsAssociation>
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Field Name="currentGpsLocation" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="Form1_Load" Hidden="true" />
+      <Field Name="gps" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="input" Hidden="true" />
+      <Field Name="labelPosition" Hidden="true" />
+      <Field Name="labelSpeed" Hidden="true" />
+      <Method Name="labelSpeed_ParentChanged" Hidden="true" />
+      <Field Name="mainMenu1" Hidden="true" />
+      <Field Name="mapMessageBox" Hidden="true" />
+      <Field Name="mapPanel" Hidden="true" />
+      <Field Name="menuItem1" Hidden="true" />
+      <Field Name="menuItem2" Hidden="true" />
+      <Method Name="menuItem2_Click" Hidden="true" />
+      <Field Name="menuItem3" Hidden="true" />
+      <Method Name="menuItem3_Click" Hidden="true" />
+      <Field Name="menuItem4" Hidden="true" />
+      <Field Name="menuItem5" Hidden="true" />
+      <Field Name="menuStartDevice" Hidden="true" />
+      <Method Name="menuStartDevice_Click" Hidden="true" />
+      <Field Name="menuStartSymulator" Hidden="true" />
+      <Method Name="menuStartSymulator_Click" Hidden="true" />
+      <Field Name="output" Hidden="true" />
+      <Method Name="restartGps" Hidden="true" />
+      <Field Name="token" Hidden="true" />
+      <Method Name="updateLocation" Hidden="true" />
+      <Field Name="updatePosHandler" Hidden="true" />
+      <Method Name="updateSatellite" Hidden="true" />
+      <Field Name="updateSatHandler" Hidden="true" />
+    </Members>
+    <AssociationLine Name="MapPanel" Type="TouristGuide.gui.MapPanel">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.95" Y="0.381" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="TouristGuide.gui.AutoScrollPicturePanel" Collapsed="true">
+    <Position X="3.75" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>src\gui\AutoScrollPicturePanel.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAACAAABAgAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.gui.DialogPanel" Collapsed="true">
+    <Position X="5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>src\gui\DialogPanel.cs</FileName>
+      <HashCode>AAACAAAAAiAAAAAAQAEAAIAAAAAIAAAACAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.gui.MainDetailLinkLabel" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>src\gui\MainDetailLinkLabel.cs</FileName>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAIAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.gui.MainDetailPanel" Collapsed="true">
+    <Position X="6.25" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>src\gui\MainDetailPanel.cs</FileName>
+      <HashCode>AAAACAAAAAAABAAAQAEJAAAAgAAAAAAQAIAoAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <InheritanceLine Type="TouristGuide.gui.DialogPanel" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="1.695" />
+        <Point X="5.75" Y="2.229" />
+        <Point X="7.25" Y="2.229" />
+        <Point X="7.25" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+  </Class>
+  <Class Name="TouristGuide.gui.MapPanel">
+    <Position X="0.5" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\gui\MapPanel.cs</FileName>
+      <HashCode>EwCACCIAADBAgCABAJwIAAEgCAQAAAAAAAEAAAQABIA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="ARROW_COLOR" Hidden="true" />
+      <Field Name="ARROW_HEIGHT" Hidden="true" />
+      <Field Name="ARROW_WIDTH" Hidden="true" />
+      <Field Name="courseArrowVisible" Hidden="true" />
+      <Method Name="createPictureSlots" Hidden="true" />
+      <Field Name="directionLineVisible" Hidden="true" />
+      <Property Name="DirectionLineVisible" Hidden="true" />
+      <Method Name="drawDirectionLine" Hidden="true" />
+      <Method Name="drawDirectionLinePlus" Hidden="true" />
+      <Method Name="drawMap" Hidden="true" />
+      <Method Name="drawPositionMarkerEllipse" Hidden="true" />
+      <Method Name="drawPositionMarkerImg" Hidden="true" />
+      <Method Name="drawRotatedArrow" Hidden="true" />
+      <Method Name="MapPanel" Hidden="true" />
+      <Field Name="off_screen" Hidden="true" />
+      <Method Name="OnPaint" Hidden="true" />
+      <Method Name="OnPaintBackground" Hidden="true" />
+      <Field Name="pictureSlots" Hidden="true" />
+      <Property Name="PictureSlots" Hidden="true" />
+      <Field Name="positionMarkerImg" Hidden="true" />
+      <Field Name="rotationAngle" Hidden="true" />
+      <Property Name="Size" Hidden="true" />
+      <Field Name="TARGET_LINE_COLOR" Hidden="true" />
+      <Field Name="targetPoint" Hidden="true" />
+    </Members>
+  </Class>
+  <Class Name="TouristGuide.gui.MediaFileLinkLabel" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>src\gui\MediaFileLinkLabel.cs</FileName>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAASAAAAAEAAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.gui.MediaFilePanel" Collapsed="true">
+    <Position X="3.75" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>src\gui\MediaFilePanel.cs</FileName>
+      <HashCode>AAAEAAAAAAAAAAAAQAEDAIAAAAABAAAQAAAgBAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <InheritanceLine Type="TouristGuide.gui.DialogPanel" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="1.695" />
+        <Point X="5.75" Y="2.229" />
+        <Point X="4.75" Y="2.229" />
+        <Point X="4.75" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+  </Class>
+  <Class Name="TouristGuide.gui.MediaFilesListPanel" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>src\gui\MediaFilesListPanel.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAQAEBAAAQAAAAAAAAAAAAQBAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TouristGuide.gui.PoiBrowser">
+    <Position X="2.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\gui\PoiBrowser.cs</FileName>
+      <HashCode>YABBCAAAkAASgAAgBgCIECAihgsEFksAJIDREAICABI=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Field Name="allPois" Hidden="true" />
+      <Field Name="buttonAddTarget" Hidden="true" />
+      <Method Name="buttonAddTarget_Click" Hidden="true" />
+      <Field Name="buttonDown" Hidden="true" />
+      <Method Name="buttonDown_Click" Hidden="true" />
+      <Field Name="buttonPreview" Hidden="true" />
+      <Method Name="buttonPreview_Click" Hidden="true" />
+      <Field Name="buttonPreview2" Hidden="true" />
+      <Method Name="buttonPreview2_Click" Hidden="true" />
+      <Field Name="buttonRemove" Hidden="true" />
+      <Method Name="buttonRemove_Click" Hidden="true" />
+      <Field Name="buttonUp" Hidden="true" />
+      <Method Name="buttonUp_Click" Hidden="true" />
+      <Method Name="cleanPreview" Hidden="true" />
+      <Field Name="currentMainDetailsLinks" Hidden="true" />
+      <Field Name="currentNamedArea" Hidden="true" />
+      <Field Name="currentPoi" Hidden="true" />
+      <Method Name="displayMainDetails" Hidden="true" />
+      <Method Name="displayMediaFiles" Hidden="true" />
+      <Field Name="FREE_Y_DEFAULT" Hidden="true" />
+      <Field Name="freeY" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="labelPoiName" Hidden="true" />
+      <Field Name="LEFT_MARGIN" Hidden="true" />
+      <Field Name="listBoxPois" Hidden="true" />
+      <Method Name="listBoxPois_SelectedIndexChanged" Hidden="true" />
+      <Field Name="listBoxTargets" Hidden="true" />
+      <Method Name="listBoxTargets_SelectedIndexChanged" Hidden="true" />
+      <Field Name="mediaFilesPanel" Hidden="true" />
+      <Method Name="OnDeactivate" Hidden="true" />
+      <Method Name="PoiBrowser" Hidden="true" />
+      <Field Name="poiRepository" Hidden="true" />
+      <Property Name="PoiRepository" Hidden="true" />
+      <Method Name="removeTarget" Hidden="true" />
+      <Field Name="selectedPoi" Hidden="true" />
+      <Field Name="selectedTargetPoi" Hidden="true" />
+      <Field Name="tabControl" Hidden="true" />
+      <Field Name="tabPois" Hidden="true" />
+      <Field Name="tabPreview" Hidden="true" />
+      <Field Name="tabTargets" Hidden="true" />
+      <Method Name="targetDone" Hidden="true" />
+      <Field Name="targets" Hidden="true" />
+      <Property Name="Targets" Hidden="true" />
+      <Field Name="targetToRemove" Hidden="true" />
+      <Field Name="textBoxPoiDescr" Hidden="true" />
+      <Method Name="updatePoisList" Hidden="true" />
+      <Method Name="updatePreview" Hidden="true" />
+    </Members>
+  </Class>
+  <Class Name="TouristGuide.gui.PoiPanel" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>src\gui\PoiPanel.cs</FileName>
+      <HashCode>AAAAAAAAQAABAAAAAAEAAIAAAAADQBAQAQAAAAAAAAg=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>
