@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="9.75" />
+  <Class Name="TouristGuide.AppContext">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>src\AppContext.cs</FileName>
+      <HashCode>QEBCAAAQAAsAQEAIRQEABCAAhIBAQIBAQEFQGAgBAAA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Method Name="AppContext" Hidden="true" />
+      <Field Name="appEvents" Hidden="true" />
+      <Field Name="config" Hidden="true" />
+      <Field Name="dirPath" Hidden="true" />
+      <Field Name="gpsDataAnalyzer" Hidden="true" />
+      <Field Name="gpsDevice" Hidden="true" />
+      <Field Name="gpsSymulator" Hidden="true" />
+      <Field Name="instance" Hidden="true" />
+      <Field Name="mainWindow" Hidden="true" />
+      <Field Name="mapDisplayer" Hidden="true" />
+      <Field Name="mapManager" Hidden="true" />
+      <Field Name="mapPkgMapperHdd" Hidden="true" />
+      <Field Name="mapPkgRepository" Hidden="true" />
+      <Field Name="mapSourceHdd" Hidden="true" />
+      <Field Name="mapSourceMem" Hidden="true" />
+      <Field Name="mapSourceWeb" Hidden="true" />
+      <Field Name="mapsPath" Hidden="true" />
+      <Field Name="mapViewBuilder" Hidden="true" />
+      <Field Name="poiBrowser" Hidden="true" />
+      <Field Name="poiMapperHdd" Hidden="true" />
+      <Field Name="poiRepository" Hidden="true" />
+      <Field Name="poiSourceHdd" Hidden="true" />
+      <Field Name="poiSourceMem" Hidden="true" />
+      <Field Name="poiSourceWeb" Hidden="true" />
+      <Field Name="poisPath" Hidden="true" />
+      <Field Name="portal" Hidden="true" />
+      <Field Name="targets" Hidden="true" />
+    </Members>
+  </Class>
+</ClassDiagram>
