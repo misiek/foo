@@ -22,7 +22,7 @@ namespace RotateImage
         private void menuItem2_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("time1: " + DateTime.Now, ToString());
-            Rotate rotateFilter = new Rotate(-15, AForge.Imaging.InterpolationMethod.NearestNeighbor, true);
+            Rotate rotateFilter = new Rotate(-15, AForge.Imaging.InterpolationMethod.Bicubic, true);
             //rotateFilter.KeepSize = true;
             Debug.WriteLine("time2: " + DateTime.Now, ToString());
             pictureBox1.Image = rotateFilter.Apply(new Bitmap(pictureBox1.Image));
