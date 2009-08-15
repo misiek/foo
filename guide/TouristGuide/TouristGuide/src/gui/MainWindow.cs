@@ -33,6 +33,14 @@ namespace TouristGuide.gui
             }
         }
 
+        public Label MapMessageBox
+        {
+            get
+            {
+                return this.mapMessageBox;
+            }
+        }
+
         public MainWindow()
         {
             this.updatePosHandler = new EventHandler(updateLocation);
@@ -55,8 +63,11 @@ namespace TouristGuide.gui
         private void updateLocation(object sender, EventArgs args)
         {
             //GpsLocation gpsLoc = this.gps.getLocationData();
-            labelPosition.Text = this.currentGpsLocation.getLatitudeString() + " " + this.currentGpsLocation.getLongitudeString();
-            labelSpeed.Text = this.currentGpsLocation.getSpeedKMH().ToString() + " km/h";
+            if (this.panelCoordinates.Visible)
+            {
+                labelPosition.Text = this.currentGpsLocation.getLatitudeString() + " " + this.currentGpsLocation.getLongitudeString();
+                labelSpeed.Text = this.currentGpsLocation.getSpeedKMH().ToString() + " km/h";
+            }
         }
 
         public void satellitesChanged(GpsSatelites gpsSatelites)
@@ -71,6 +82,9 @@ namespace TouristGuide.gui
 
         private void menuStartDevice_Click(object sender, EventArgs e)
         {
+            this.menuStartSymulator.Checked = false;
+            this.menuStartDevice.Checked = true;
+
             if (this.gps != null)
                 this.gps.stop();
             this.gps = AppContext.Instance.getGpsDevice();
@@ -79,6 +93,9 @@ namespace TouristGuide.gui
 
         private void menuStartSymulator_Click(object sender, EventArgs e)
         {
+            this.menuStartDevice.Checked = false;
+            this.menuStartSymulator.Checked = true;
+
             if (this.gps != null)
                 this.gps.stop();
             this.gps = AppContext.Instance.getGpsSymulator();
@@ -95,11 +112,6 @@ namespace TouristGuide.gui
             this.gps.start();
         }
 
-        private void labelSpeed_ParentChanged(object sender, EventArgs e)
-        {
-
-        }
-
         // download POIs
         private void menuItem2_Click(object sender, EventArgs e)
         {
@@ -110,6 +122,12 @@ namespace TouristGuide.gui
         {
             // show poi browser
             AppContext.Instance.getPoiBrowser().display();
+        }
+
+        private void menuItem7_Click(object sender, EventArgs e)
+        {
+            this.menuItem7.Checked = !this.menuItem7.Checked;
+            this.panelCoordinates.Visible = !this.panelCoordinates.Visible;
         }
 
 

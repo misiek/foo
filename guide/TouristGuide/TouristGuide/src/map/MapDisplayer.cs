@@ -36,10 +36,10 @@ namespace TouristGuide.map
 
         private Poi currentTarget;
 
-        public MapDisplayer(MapPanel mapPanel)
+        public MapDisplayer(MapPanel mapPanel, Label mapMessageBox)
         {
             this.mapPanel = mapPanel;
-            this.mapMessageBox = (Label)this.mapPanel.Controls[0];
+            this.mapMessageBox = mapMessageBox;
             this.mapMessageBoxDefaultColor = this.mapMessageBox.BackColor;
             this.mapMessageBoxColor = this.mapMessageBoxDefaultColor;
             this.updateMapPanelHandler = new EventHandler(updateMapPanel);
@@ -193,20 +193,25 @@ namespace TouristGuide.map
                     pSlot.Image = null;
                 }
             }
-            displayPois();
+            
             // dispaly line to current target, and message when target changed
             updateCurrentTarget();
             // set rotation to course
             rotateToCourse();
+            
+            mapPanel.update();
+
+            displayPois();
+
             // refresh map panel
-            this.mapPanel.Refresh();
+            mapPanel.Refresh();
         }
 
         private void rotateToCourse()
         {
             //double course = this.mapView.getGpsLocation().getCourse();
             double course = this.mapView.getEstimatedCourse();
-            Debug.WriteLine("rotateToCourse: COURSE: " + course, this.ToString());
+            //Debug.WriteLine("rotateToCourse: COURSE: " + course, this.ToString());
             this.mapPanel.setRotation(course);
 
         }
@@ -241,20 +246,22 @@ namespace TouristGuide.map
             }
             foreach (Poi poi in this.mapView.getPois())
             {
-
+                Control pLabel;
                 // TODO: consider removing from labels cache
                 if (!poiLabels.ContainsKey(poi.ToString()))
                 {
                     // TODO: Add poi gui element class
-                    Control newLabel = new PoiPanel(poi);
-                    poiLabels[poi.ToString()] = newLabel;
-                    this.mapPanel.Controls.Add(newLabel);
-                    Debug.WriteLine("displayPois: added label for: @@@@@ " + poi.getName(), ToString());
+                    pLabel = new PoiPanel(poi, mapPanel);
+                    poiLabels[poi.ToString()] = pLabel;
+                    this.mapPanel.Controls.Add(pLabel);
+                    //Debug.WriteLine("displayPois: added label for: @@@@@ " + poi.getName(), ToString());
                 }
-                Control l = (Control)poiLabels[poi.ToString()];
+                else
+                {
+                    pLabel = (Control)poiLabels[poi.ToString()];
+                }
                 Point poiMapViewPosition = this.mapView.getPoiPixelCoordinates(poi);
-
-                updateLabelLocation(l, poiMapViewPosition);
+                updateLabelLocation(pLabel, poiMapViewPosition);
             }
         }
 
@@ -275,6 +282,9 @@ namespace TouristGuide.map
 
             l.Location = new Point(mapPanelCoordinates.X - xSizeFix,
                                    mapPanelCoordinates.Y - ySizeFix);
+
+            //l.Location = new Point(mapPanelCoordinates.X,
+            //                       mapPanelCoordinates.Y);
         }
 
         private void cleanPoiLabels()

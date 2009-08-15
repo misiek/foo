@@ -7,7 +7,7 @@ namespace OpenNETCF.GDIPlus
 {
     public class ImageAttributesPlus
     {
-        ImageAttributesPlus()
+        public ImageAttributesPlus()
         {
             nativeImageAttr = new GpImageAttributes();
             lastResult = NativeMethods.GdipCreateImageAttributes(out nativeImageAttr);
@@ -174,7 +174,7 @@ namespace OpenNETCF.GDIPlus
                                                 false));
         }
 
-        GpStatus SetColorKey(
+        public GpStatus SetColorKey(
              Color colorLow,
              Color colorHigh,
             ColorAdjustType type

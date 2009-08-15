@@ -190,6 +190,7 @@
     <Content Include="gpslog\Rynek-2009-04-15.09.55.gps">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\NeedleLeftYellow2.png" />
     <None Include="Resources\close_small.png" />
     <None Include="Resources\close.png" />
     <None Include="Resources\Bank.png" />

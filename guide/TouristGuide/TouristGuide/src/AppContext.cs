@@ -113,7 +113,7 @@ namespace TouristGuide
             Debug.WriteLine("AppContext(): MapSourceWeb instantiated.");
 
             // map displayer
-            this.mapDisplayer = new MapDisplayer(this.mainWindow.MapPanel);
+            this.mapDisplayer = new MapDisplayer(this.mainWindow.MapPanel, this.mainWindow.MapMessageBox);
             Debug.WriteLine("AppContext(): MapDisplayer instantiated.");
 
             // map pkg repository
