@@ -95,6 +95,12 @@
     <Compile Include="src\gui\PoiBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="src\gui\PoiDialogPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="src\gui\TransparentPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="src\map\GpsDataAnalyzer.cs" />
     <Compile Include="src\map\MapViewBuilder.cs" />
     <Compile Include="src\map\PointSurroundings.cs" />

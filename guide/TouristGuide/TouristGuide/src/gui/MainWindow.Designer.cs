@@ -35,6 +35,8 @@ namespace TouristGuide.gui
             this.menuStartSymulator = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.menuItem6 = new System.Windows.Forms.MenuItem();
+            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.mapPanel = new TouristGuide.gui.MapPanel();
@@ -42,8 +44,6 @@ namespace TouristGuide.gui
             this.labelPosition = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.mapMessageBox = new System.Windows.Forms.Label();
-            this.menuItem6 = new System.Windows.Forms.MenuItem();
-            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.mapPanel.SuspendLayout();
             this.panelCoordinates.SuspendLayout();
             this.SuspendLayout();
@@ -81,6 +81,16 @@ namespace TouristGuide.gui
             // 
             this.menuItem5.Text = "Exit";
             // 
+            // menuItem6
+            // 
+            this.menuItem6.MenuItems.Add(this.menuItem7);
+            this.menuItem6.Text = "Options";
+            // 
+            // menuItem7
+            // 
+            this.menuItem7.Text = "Coordinates";
+            this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
+            // 
             // menuItem2
             // 
             this.menuItem2.Text = "Download Pois";
@@ -93,7 +103,7 @@ namespace TouristGuide.gui
             // 
             // mapPanel
             // 
-            this.mapPanel.BackColor = System.Drawing.Color.Black;
+            this.mapPanel.BackColor = System.Drawing.Color.White;
             this.mapPanel.Controls.Add(this.panelCoordinates);
             this.mapPanel.Controls.Add(this.mapMessageBox);
             this.mapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -142,16 +152,6 @@ namespace TouristGuide.gui
             this.mapMessageBox.Size = new System.Drawing.Size(240, 16);
             this.mapMessageBox.Text = "Map message box.";
             this.mapMessageBox.Visible = false;
-            // 
-            // menuItem6
-            // 
-            this.menuItem6.MenuItems.Add(this.menuItem7);
-            this.menuItem6.Text = "Options";
-            // 
-            // menuItem7
-            // 
-            this.menuItem7.Text = "Coordinates";
-            this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
             // 
             // MainWindow
             // 

@@ -25,6 +25,8 @@ namespace TouristGuide.gui
         private Bitmap icon = global::TouristGuide.Properties.Resources.Bank;
         private Bitmap off_screen;
 
+        private PoiDialogPanel poiDialog;
+
         public PoiPanel(Poi poi, MapPanel mapPanel)
         {
             this.poi = poi;
@@ -70,13 +72,21 @@ namespace TouristGuide.gui
         {
             base.OnClick(e);
             Debug.WriteLine(" *** CLICK *** " + this.poi.getName(), ToString());
-        }
 
-        //private void gotoPoiBrowser(object sender, EventArgs e)
-        //{
-        //    Debug.WriteLine(" *** CLICK poi browser *** " + this.poi.getName(), ToString());
-        //    AppContext.Instance.getPoiBrowser().preview(this.poi);
-        //}
+            if (poiDialog == null)
+                poiDialog = new PoiDialogPanel(poi);
+
+            int width = (int) Math.Floor(mapPanel.Width * 0.8);
+            int height = (int) Math.Floor(mapPanel.Height * 0.4);
+            poiDialog.Size = new Size(width, height);
+
+            int x = mapPanel.Width / 2 - poiDialog.Width / 2;
+            int y = mapPanel.Height / 2 - poiDialog.Height / 2;
+            poiDialog.Location = new Point(x, y);
+
+            mapPanel.Controls.Add(poiDialog);
+            poiDialog.BringToFront();
+        }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {

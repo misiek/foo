@@ -8,7 +8,7 @@ namespace TouristGuide.gui
 {
     class DialogPanel : Panel
     {
-        private PictureBox closeButton;
+        protected PictureBox closeButton;
         protected Label titleBar;
         public Label TitleBar
         {
@@ -37,9 +37,10 @@ namespace TouristGuide.gui
         {
             // close button
             Image closeImg = global::TouristGuide.Properties.Resources.close_small;
-            closeButton = new PictureBox();
+            closeButton = new TransparentPictureBox();
             closeButton.Size = closeImg.Size;
             closeButton.Image = closeImg;
+            closeButton.BackColor = Color.YellowGreen;
             closeButton.Location = new Point(this.Width - closeButton.Width, 0);
             closeButton.Click += new EventHandler(closeAction);
             Controls.Add(closeButton);
