@@ -158,7 +158,7 @@ namespace TouristGuide.gui
             {
                 if (this.directionLineVisible)
                     drawDirectionLinePlus(graphics);
-                //drawDirectionLine(g);
+                    //drawDirectionLine(g);
                 if (this.courseArrowVisible)
                     drawRotatedArrow(graphics);
             }
