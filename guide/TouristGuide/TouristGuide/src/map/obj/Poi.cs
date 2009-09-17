@@ -155,5 +155,25 @@ namespace TouristGuide.map.obj
             }
             return allMediaFiles;
         }
+
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj == null)
+        //        return false;
+        //    if (!(obj is Poi))
+        //        return false;
+        //    Poi other = (Poi)obj;
+
+
+        //    return this.name.Equals(other.name)
+        //        && this.latitude.Equals(other.latitude)
+        //        && this.longitude.Equals(other.longitude);
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    return this.name.GetHashCode();
+        //}
+        
     }
 }

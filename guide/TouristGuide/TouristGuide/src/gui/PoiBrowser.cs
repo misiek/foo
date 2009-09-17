@@ -117,19 +117,20 @@ namespace TouristGuide.gui
 
         private void updatePoisList()
         {
-            if (this.allPois == null)
-            {
+            //if (this.allPois == null)
+            //{
                 // TODO user should be able to choose area, but now it is only for krakow
                 Hashtable areas = this.poiRepository.getAreas();
                 this.currentNamedArea = (NamedArea)areas["Kraków"];
                 this.poiRepository.setCurrentArea(this.currentNamedArea);
                 // get all pois list
                 this.allPois = this.poiRepository.allPois();
+                this.listBoxPois.Items.Clear();
                 foreach (Poi p in this.allPois)
                 {
                     this.listBoxPois.Items.Add(p);
                 }
-            }
+            //}
         }
 
         public void preview(Poi poi)

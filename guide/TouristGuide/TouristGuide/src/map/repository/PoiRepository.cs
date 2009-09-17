@@ -110,6 +110,8 @@ namespace TouristGuide.map.repository
         {
             // download pois from the web server
             List<Poi> pois = this.poiSourceWeb.findPois(namedArea);
+            this.poiSourceHdd.removePois(namedArea);
+            this.poiSourceMem.clear();
             // save downloaded pois
             foreach (Poi p in pois)
             {

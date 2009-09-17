@@ -35,6 +35,12 @@ namespace TouristGuide.map.repository
 
         }
 
+        public void clear()
+        {
+            this.cachedPois.Clear();
+            this.cacheArea = null;
+        }
+
         #region PoiSource Members
 
         public List<Poi> findPois(Area area)

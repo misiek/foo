@@ -69,7 +69,7 @@ namespace TouristGuide.map.repository
             {
                 readPoisDir();
             }
-            List<Poi> areaPois =  this.pois.FindAll(
+            List<Poi> areaPois = this.pois.FindAll(
                 delegate(Poi p) { 
                     return area.contains(p);
                 }
@@ -93,6 +93,25 @@ namespace TouristGuide.map.repository
             }
         }
 
+        public void removePois(NamedArea namedArea)
+        {
+            if (currentNamedArea.getName().Equals(namedArea.getName()))
+                this.pois = new List<Poi>();
+            string poisAreaDir = this.poisDir + "\\" + currentNamedArea.getName();
+            // get poi dirs
+            DirectoryInfo[] dirs;
+            try
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(poisAreaDir);
+                dirInfo.Delete(true);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("removePois: can't delete dir: " + poisAreaDir, ToString());
+                return;
+            }
+        }
+
         #endregion
 
         internal void put(Poi p, NamedArea namedArea)
@@ -105,10 +124,10 @@ namespace TouristGuide.map.repository
             {
                 this.poiMapperHdd.save(p, getPoiSubDir(p, namedArea));
                 p.free();
-                if (!this.pois.Contains(p))
-                {
+                //if (!this.pois.Contains(p))
+                //{
                     this.pois.Add(p);
-                }
+                //}
             }
         }
 

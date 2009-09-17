@@ -126,6 +126,10 @@ namespace TouristGuide.map
             Hashtable areas = this.poiRepository.getAreas();
 
             this.poiRepository.downloadAreaPois((NamedArea)areas["Kraków"]);
+
+            // make builder to load downloaded pois to map view
+            mapViewBuilder.loadPois();
+
             this.mapDisplayer.hideMessage(msg);
         }
 
