@@ -1,6 +1,6 @@
-Tourist Guide consists of two parts:
-1. Application for mobile devices implemented in C# for Windows Mobile 6
-2. Simple Django server for POI points management.
+Tourist Guide was created as a master projec. No I want to sher with research and implementation to help build something better in the future.
 
-Hope this project can help to build something better.
+Tourist Guide consists of two parts:
+1. Application for mobile devices implemented in C# for Windows Mobile 6 (foo/guide/TouristGuide/).
+2. Simple Django server for POI points management (foo/guide/TouristGuidePortal/).
 
