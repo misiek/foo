@@ -1,24 +1,6 @@
-Global setup:
+Tourist Guide consists of two parts:
+1. Application for mobile devices implemented in C# for Windows Mobile 6
+2. Simple Django server for POI points management.
 
-  git config --global user.email misieks@gmail.com
-      
-
-Next steps:
-
-  mkdir foo
-  cd foo
-  git init
-  touch README
-  git add README
-  git commit -m 'first commit'
-  git remote add origin git@github.com:misiek/foo.git
-  git push origin master
-      
-
-Existing Git Repo?
-
-  cd existing_git_repo
-  git remote add origin git@github.com:misiek/foo.git
-  git push origin master
-      
+Hope this project can help to build something better.
 
